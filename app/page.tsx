@@ -423,7 +423,7 @@ export default function Home() {
           be added soon
           <Link
             className="pl-1 text-black font-bold"
-            href="https://github.com/AtheerAPeter/epic-cv"
+            href="https://github.com/AtheerAPeter/simple-cv"
             target="_blank"
           >
             GitHub
