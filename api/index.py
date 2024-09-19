@@ -1,49 +1,36 @@
-import nltk
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-from sklearn.feature_extraction.text import TfidfVectorizer
+import spacy
 from flask import Flask, request, jsonify
-import string
+from collections import Counter
+import os
 
 app = Flask(__name__)
 
-# Download necessary NLTK data
-nltk.download('punkt', quiet=True)
-nltk.download('stopwords', quiet=True)
+# Load the spaCy model from a local directory
+model_path = os.path.join(os.path.dirname(__file__), 'en_core_web_sm')
+nlp = spacy.load(model_path)
 
 
-def preprocess_text(text):
-    # Tokenize and lowercase the text
-    tokens = word_tokenize(text.lower())
-    # Remove punctuation and stopwords
-    stop_words = set(stopwords.words('english'))
-    tokens = [
-        token for token in tokens if token not in string.punctuation and token not in stop_words]
-    return ' '.join(tokens)
-
-
-def extract_keywords(job_description, max_keywords=20):
+def extract_keywords(job_description, min_frequency=2, max_keywords=20):
     """
-    Extracts important keywords from a job description using TF-IDF.
+    Extracts important keywords from a job description.
     """
-    # Preprocess the job description
-    processed_description = preprocess_text(job_description)
+    doc = nlp(job_description)
 
-    # Create a TF-IDF vectorizer
-    vectorizer = TfidfVectorizer(max_features=max_keywords)
+    potential_keywords = [
+        token.lemma_.lower() for token in doc
+        if (token.pos_ in ['NOUN', 'PROPN'] or token.ent_type_)
+        and len(token.text) > 2
+        and not token.is_stop
+    ]
 
-    # Fit and transform the job description
-    tfidf_matrix = vectorizer.fit_transform([processed_description])
+    keyword_freq = Counter(potential_keywords)
 
-    # Get feature names (words) and their TF-IDF scores
-    feature_names = vectorizer.get_feature_names_out()
-    tfidf_scores = tfidf_matrix.toarray()[0]
+    important_keywords = [
+        keyword for keyword, freq in keyword_freq.most_common(max_keywords)
+        if freq >= min_frequency
+    ]
 
-    # Sort words by TF-IDF score and get the top 'max_keywords'
-    keywords = sorted(zip(feature_names, tfidf_scores),
-                      key=lambda x: x[1], reverse=True)[:max_keywords]
-
-    return [word for word, score in keywords]
+    return important_keywords
 
 
 def update_cv(cv_data, job_keywords):
