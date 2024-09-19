@@ -1,32 +1,49 @@
-import spacy
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+from sklearn.feature_extraction.text import TfidfVectorizer
 from flask import Flask, request, jsonify
-from collections import Counter
+import string
 
 app = Flask(__name__)
-nlp = spacy.load('en_core_web_sm')
+
+# Download necessary NLTK data
+nltk.download('punkt', quiet=True)
+nltk.download('stopwords', quiet=True)
 
 
-def extract_keywords(job_description, min_frequency=2, max_keywords=20):
+def preprocess_text(text):
+    # Tokenize and lowercase the text
+    tokens = word_tokenize(text.lower())
+    # Remove punctuation and stopwords
+    stop_words = set(stopwords.words('english'))
+    tokens = [
+        token for token in tokens if token not in string.punctuation and token not in stop_words]
+    return ' '.join(tokens)
+
+
+def extract_keywords(job_description, max_keywords=20):
     """
-    Extracts important keywords from a job description.
+    Extracts important keywords from a job description using TF-IDF.
     """
-    doc = nlp(job_description)
+    # Preprocess the job description
+    processed_description = preprocess_text(job_description)
 
-    potential_keywords = [
-        token.lemma_.lower() for token in doc
-        if (token.pos_ in ['NOUN', 'PROPN'] or token.ent_type_)
-        and len(token.text) > 2
-        and not token.is_stop
-    ]
+    # Create a TF-IDF vectorizer
+    vectorizer = TfidfVectorizer(max_features=max_keywords)
 
-    keyword_freq = Counter(potential_keywords)
+    # Fit and transform the job description
+    tfidf_matrix = vectorizer.fit_transform([processed_description])
 
-    important_keywords = [
-        keyword for keyword, freq in keyword_freq.most_common(max_keywords)
-        if freq >= min_frequency
-    ]
+    # Get feature names (words) and their TF-IDF scores
+    feature_names = vectorizer.get_feature_names_out()
+    tfidf_scores = tfidf_matrix.toarray()[0]
 
-    return important_keywords
+    # Sort words by TF-IDF score and get the top 'max_keywords'
+    keywords = sorted(zip(feature_names, tfidf_scores),
+                      key=lambda x: x[1], reverse=True)[:max_keywords]
+
+    return [word for word, score in keywords]
 
 
 def update_cv(cv_data, job_keywords):
@@ -56,3 +73,7 @@ def process_cv_update():
     modified_cv_json = update_cv(cv_data, job_keywords)
 
     return jsonify({"updated": modified_cv_json})
+
+
+# Vercel requires a module named 'app' to be present
+app = app
