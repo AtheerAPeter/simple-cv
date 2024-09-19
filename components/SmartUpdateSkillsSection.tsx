@@ -45,7 +45,7 @@ export const SmartUpdateSkillsSection = (props: Props) => {
       </div>
       <Button
         onClick={onSubmit}
-        isLoading={smartUpdateSkillsMutation.isPending}
+        // isLoading={smartUpdateSkillsMutation.isPending}
         // disabled={
         //   jobDesction.trim().length < 20 || smartUpdateSkillsMutation.isPending
         // }
