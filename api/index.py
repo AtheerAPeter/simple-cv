@@ -1,30 +1,42 @@
-import spacy
 from flask import Flask, request, jsonify
 from collections import Counter
-import os
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk import pos_tag
+from string import punctuation
+
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('averaged_perceptron_tagger')
 
 app = Flask(__name__)
-
-# Load the spaCy model from a local directory
-model_path = os.path.join(os.path.dirname(__file__), 'en_core_web_sm')
-nlp = spacy.load(model_path)
 
 
 def extract_keywords(job_description, min_frequency=2, max_keywords=20):
     """
-    Extracts important keywords from a job description.
+    Extracts important keywords from a job description using nltk.
     """
-    doc = nlp(job_description)
+    tokens = word_tokenize(job_description.lower())
 
-    potential_keywords = [
-        token.lemma_.lower() for token in doc
-        if (token.pos_ in ['NOUN', 'PROPN'] or token.ent_type_)
-        and len(token.text) > 2
-        and not token.is_stop
+    # Filter out stopwords and punctuation
+    stop_words = set(stopwords.words('english'))
+    keywords = [
+        word for word in tokens
+        if word not in stop_words and word not in punctuation and len(word) > 2
     ]
 
+    # Tag tokens with part of speech
+    pos_tags = pos_tag(keywords)
+
+    # Select nouns and proper nouns
+    potential_keywords = [word for word,
+                          pos in pos_tags if pos in ['NN', 'NNP']]
+
+    # Count keyword frequency
     keyword_freq = Counter(potential_keywords)
 
+    # Select the most common keywords
     important_keywords = [
         keyword for keyword, freq in keyword_freq.most_common(max_keywords)
         if freq >= min_frequency
