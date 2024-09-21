@@ -10,6 +10,8 @@ export async function POST(request: Request) {
       throw new Error("Invalid request object");
     }
     const apiKey = process.env.GEMINI_API_KEY;
+    console.log("apiKey=========>", apiKey);
+
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({
       model: "gemini-1.5-flash",
