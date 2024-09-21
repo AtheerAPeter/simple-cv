@@ -14,7 +14,7 @@ import PersonalDetails from "@/components/PersonalDetailsSection";
 import SkillsSection from "@/components/SkillsSection/SkillsList";
 import PDFPreview from "@/components/PDFPreview";
 import LanguagesSection from "@/components/LanguagesSection";
-import HobbiesSection from "@/components/HobbiesSection"; // Import the new HobbiesSection component
+import HobbiesSection from "@/components/HobbiesSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import {
   Select,
@@ -23,8 +23,8 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import { template } from "lodash";
 import useTemplateStore from "@/stores/templateStore";
+import { SmartUpdateSkillsSection } from "@/components/SmartUpdateSkillsSection";
 
 export default function Home() {
   const { toast } = useToast();
@@ -388,6 +388,18 @@ export default function Home() {
           <section>
             <h2 className="text-xl font-semibold mb-4">Skills</h2>
             <SkillsSection skills={skills} setSkills={setSkills} />
+          </section>
+          <section>
+            <div className="flex items-start gap-2 mb-4">
+              <h2 className="text-xl font-semibold">Job Description</h2>
+              <p className="text-gray-400 text-xs">Beta</p>
+            </div>
+            <SmartUpdateSkillsSection
+              cvData={data}
+              skills={skills}
+              setSkills={setSkills}
+              setExperiences={setExperiences}
+            />
           </section>
           <section>
             <h2 className="text-xl font-semibold mb-4">Projects</h2>
