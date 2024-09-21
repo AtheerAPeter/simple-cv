@@ -4,8 +4,8 @@ import { TextareaHTMLAttributes, useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { ICvPdf } from "@/interfaces/ICvPdf";
 import _ from "lodash";
-import { useGemini } from "@/hooks/useGemini";
 import { useToast } from "@/hooks/use-toast";
+import { useSmartUpdateSkills } from "@/hooks/useSmartUpdateSkills";
 
 interface Props {
   skills: SkillCategory[];
@@ -16,7 +16,7 @@ interface Props {
 export const SmartUpdateSkillsSection = (props: Props) => {
   const [jobDesction, setJobDescription] = useState("");
   const [usageCount, setUsageCount] = useState<number>(0);
-  const { geminiMutation } = useGemini();
+  const { smartUpdateSkillsMutation } = useSmartUpdateSkills();
   const { toast } = useToast();
   const useageCountLimit = 10;
   useEffect(() => {
@@ -61,17 +61,23 @@ export const SmartUpdateSkillsSection = (props: Props) => {
       });
       return;
     }
+
     try {
-      const response = await geminiMutation.mutateAsync(
-        `based on this job description: ${jobDesction} modify my skills and rearrange and slightly modify my experinces points to fit the job description better and give me back the same json structure with the same html description format. my cv json: ${JSON.stringify(
-          _.pick(props.cvData, ["skills", "experiences"])
-        )}`
-          .replace(/(\r\n|\n|\r)/gm, " ")
-          .trim()
-      );
+      const response = await smartUpdateSkillsMutation.mutateAsync({
+        message:
+          `based on this job description: ${jobDesction} modify my skills and rearrange and slightly modify my experinces points to fit the job description better and give me back the same json structure with the same html description format. my cv json: ${JSON.stringify(
+            _.pick(props.cvData, ["skills", "experiences"])
+          )}`
+            .replace(/(\r\n|\n|\r)/gm, " ")
+            .trim(),
+      });
       const result = JSON.parse(response);
-      props.setExperiences(result.experiences);
-      props.setSkills(result.skills);
+      if (result.experiences) {
+        props.setExperiences(result.experiences);
+      }
+      if (result.skills) {
+        props.setSkills(result.skills);
+      }
       increaseUsageCount();
     } catch (error) {
       console.error(error);
@@ -91,8 +97,11 @@ export const SmartUpdateSkillsSection = (props: Props) => {
       <div className="mt-6 flex items-center">
         <Button
           onClick={onSubmit}
-          isLoading={geminiMutation.isPending}
-          disabled={jobDesction.trim().length < 20 || geminiMutation.isPending}
+          isLoading={smartUpdateSkillsMutation.isPending}
+          disabled={
+            jobDesction.trim().length < 20 ||
+            smartUpdateSkillsMutation.isPending
+          }
           className="mr-2"
         >
           Update Skills
