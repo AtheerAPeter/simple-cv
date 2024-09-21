@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/select";
 import useTemplateStore from "@/stores/templateStore";
 import { SmartUpdateSkillsSection } from "@/components/SmartUpdateSkillsSection";
+import { Project } from "@/interfaces/IFormTypes";
 
 export default function Home() {
   const { toast } = useToast();
@@ -138,101 +139,141 @@ export default function Home() {
 
   const handleExperienceChange = useCallback(
     (index: number, field: string, value: string) => {
-      setExperiences((prevExperiences) =>
-        prevExperiences.map((exp, i) => {
-          if (i === index) return { ...exp, [field]: value };
-          return exp;
-        })
-      );
+      if (Array.isArray(experiences)) {
+        setExperiences((prevExperiences) =>
+          prevExperiences.map((exp, i) => {
+            if (i === index) return { ...exp, [field]: value };
+            return exp;
+          })
+        );
+      }
     },
-    []
+    [experiences]
   );
 
   const addExperience = useCallback(() => {
-    setExperiences((prevExperiences) => [
-      ...prevExperiences,
-      { title: "", employer: "", startDate: "", endDate: "", description: "" },
+    const prev = experiences || [];
+    setExperiences([
+      ...prev,
+      {
+        title: "",
+        employer: "",
+        startDate: "",
+        endDate: "",
+        description: "",
+      },
     ]);
-  }, []);
+  }, [experiences]);
 
-  const removeExperience = useCallback((index: number) => {
-    setExperiences((prevExperiences) =>
-      prevExperiences.filter((_, i) => i !== index)
-    );
-  }, []);
+  const removeExperience = useCallback(
+    (index: number) => {
+      if (Array.isArray(experiences)) {
+        setExperiences((prevExperiences) =>
+          prevExperiences.filter((_, i) => i !== index)
+        );
+      }
+    },
+    [experiences]
+  );
 
   const handleProjectChange = useCallback(
     (index: number, field: string, value: string) => {
-      setProjects((prevProject) =>
-        prevProject.map((exp, i) => {
-          if (i === index) return { ...exp, [field]: value };
-          return exp;
-        })
-      );
+      if (Array.isArray(projects)) {
+        setProjects((prevProject) =>
+          prevProject.map((exp, i) => {
+            if (i === index) return { ...exp, [field]: value };
+            return exp;
+          })
+        );
+      }
     },
-    []
+    [projects]
   );
-
-  const addProject = useCallback(() => {
-    setProjects((prevProjects) => [
-      ...prevProjects,
-      { title: "", employer: "", startDate: "", endDate: "", description: "" },
+  const addProject = () => {
+    const prev = projects || [];
+    setProjects([
+      ...prev,
+      {
+        title: "",
+        description: "",
+      },
     ]);
-  }, []);
+  };
 
-  const removeProject = useCallback((index: number) => {
-    setProjects((prevProjects) => prevProjects.filter((_, i) => i !== index));
-  }, []);
+  const removeProject = useCallback(
+    (index: number) => {
+      if (Array.isArray(projects)) {
+        setProjects((prevProjects) =>
+          prevProjects.filter((_, i) => i !== index)
+        );
+      }
+    },
+    [projects]
+  );
 
   const handleEducationChange = useCallback(
     (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
-      setEducations((prevEducations) =>
-        prevEducations.map((edu, i) => {
-          if (i === index) return { ...edu, [e.target.name]: e.target.value };
-          return edu;
-        })
-      );
+      if (Array.isArray(educations)) {
+        setEducations((prevEducations) =>
+          prevEducations.map((edu, i) => {
+            if (i === index) return { ...edu, [e.target.name]: e.target.value };
+            return edu;
+          })
+        );
+      }
     },
-    []
+    [educations]
   );
 
   const addEducation = useCallback(() => {
-    setEducations((prevEducations) => [
-      ...prevEducations,
+    const prev = educations || [];
+    setEducations([
+      ...prev,
       { degree: "", university: "", startDate: "", endDate: "" },
     ]);
-  }, []);
+  }, [educations]);
 
-  const removeEducation = useCallback((index: number) => {
-    setEducations((prevEducations) =>
-      prevEducations.filter((_, i) => i !== index)
-    );
-  }, []);
+  const removeEducation = useCallback(
+    (index: number) => {
+      if (Array.isArray(educations)) {
+        setEducations((prevEducations) =>
+          prevEducations.filter((_, i) => i !== index)
+        );
+      }
+    },
+    [educations]
+  );
 
   const handleLanguageChange = useCallback(
     (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
-      setLanguages((prevLanguages) =>
-        prevLanguages.map((lang, i) => {
-          if (i === index) return { ...lang, [e.target.name]: e.target.value };
-          return lang;
-        })
-      );
+      if (Array.isArray(languages)) {
+        setLanguages((prevLanguages) =>
+          prevLanguages.map((lang, i) => {
+            if (i === index)
+              return { ...lang, [e.target.name]: e.target.value };
+            return lang;
+          })
+        );
+      }
     },
-    []
+    [languages]
   );
 
   const addLanguage = useCallback(() => {
-    setLanguages((prevLanguages) => [
-      ...prevLanguages,
-      { language: "", proficiency: "" },
-    ]);
-  }, []);
+    const prev = languages || [];
+    setLanguages([...prev, { language: "", proficiency: "" }]);
+  }, [languages]);
 
-  const removeLanguage = useCallback((index: number) => {
-    setLanguages((prevLanguages) =>
-      prevLanguages.filter((_, i) => i !== index)
-    );
-  }, []);
+  const removeLanguage = useCallback(
+    (index: number) => {
+      if (Array.isArray(languages)) {
+        setLanguages((prevLanguages) =>
+          prevLanguages.filter((_, i) => i !== index)
+        );
+      }
+    },
+    [languages]
+  );
 
   const addHobby = useCallback(() => {
     if (currentHobby.trim() !== "") {
@@ -241,9 +282,14 @@ export default function Home() {
     }
   }, [currentHobby]);
 
-  const removeHobby = useCallback((index: number) => {
-    setHobbies((prevHobbies) => prevHobbies.filter((_, i) => i !== index));
-  }, []);
+  const removeHobby = useCallback(
+    (index: number) => {
+      if (Array.isArray(hobbies)) {
+        setHobbies((prevHobbies) => prevHobbies.filter((_, i) => i !== index));
+      }
+    },
+    [hobbies]
+  );
 
   const data = {
     personalDetails: { name, title, email, phone, address, github, image },
