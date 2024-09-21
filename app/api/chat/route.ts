@@ -1,24 +1,27 @@
-import { createOllama } from "ollama-ai-provider";
-import { generateObject, generateText } from "ai";
-import { string, z } from "zod";
+import { model } from "@/lib/gemini";
 
-const ollama = createOllama();
-
-export async function POST(req: Request) {
-  const { message } = await req.json();
-
-  const result = await generateObject({
-    model: ollama("dolphin-phi"),
-    schema: z
-      .object({
-        skills: z
-          .array(z.string())
-          .describe("programming skills array")
-          .optional(),
-      })
-      .optional(),
-    prompt: message,
-  });
-
-  return new Response(JSON.stringify(result?.object?.skills));
+export async function POST(request: Request) {
+  try {
+    const { prompt } = await request.json();
+    const generationConfig = {
+      temperature: 1,
+      topP: 0.95,
+      topK: 64,
+      maxOutputTokens: 8192,
+      responseMimeType: "text/plain",
+    };
+    const chatSession = model.startChat({
+      generationConfig,
+      history: [],
+    });
+    const result = await chatSession.sendMessage(prompt);
+    console.log(result);
+    return new Response(JSON.stringify(result));
+  } catch (error) {
+    console.error("Error generating content:", error);
+    return new Response(
+      JSON.stringify({ error: "Failed to generate content" }),
+      { status: 500 }
+    );
+  }
 }

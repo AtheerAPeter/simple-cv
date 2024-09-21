@@ -398,6 +398,7 @@ export default function Home() {
               cvData={data}
               skills={skills}
               setSkills={setSkills}
+              setExperiences={setExperiences}
             />
           </section>
           <section>
