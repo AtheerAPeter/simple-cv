@@ -3,7 +3,7 @@ import { Textarea } from "./ui/textarea";
 import { TextareaHTMLAttributes, useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { ICvPdf } from "@/interfaces/ICvPdf";
-import _ from "lodash";
+import _, { set } from "lodash";
 import { useToast } from "@/hooks/use-toast";
 import { useSmartUpdateSkills } from "@/hooks/useSmartUpdateSkills";
 
@@ -79,6 +79,14 @@ export const SmartUpdateSkillsSection = (props: Props) => {
         props.setSkills(result.skills);
       }
       increaseUsageCount();
+      setJobDescription("");
+      toast({
+        title: "Skills Updated",
+        description:
+          "Your skills and experiences have been updated successfully",
+        duration: 5000,
+        className: "bg-green-500 text-white",
+      });
     } catch (error) {
       console.error(error);
     }
