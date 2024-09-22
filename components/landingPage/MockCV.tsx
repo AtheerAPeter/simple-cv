@@ -5,7 +5,14 @@ interface Props {
 }
 const MockCV = (props?: Props) => {
   return (
-    <div className="bg-white p-4 border-2 border-gray-200 rounded-lg w-[200px]">
+    <div
+      className={cn(
+        "bg-white p-4 border-2 border-gray-200 rounded-lg w-[200px]",
+        {
+          "w-[184px]": props?.updated,
+        }
+      )}
+    >
       <div>
         {/* header */}
         <div className="flex itmes-center justify-between">

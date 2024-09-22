@@ -3,7 +3,7 @@ import React from "react";
 const ArrowDownSvgrepoCom = () => {
   return (
     <svg
-      className="w-20 h-20 absolute -bottom-16 -z-10"
+      className="w-20 h-20 absolute -bottom-20 "
       viewBox="0 0 207 899"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
