@@ -339,11 +339,6 @@ export default function Page() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
       <div className="w-full lg:w-1/2 h-screen bg-white shadow-md hidden lg:flex flex-col">
@@ -398,7 +393,7 @@ export default function Page() {
             </div>
           </div>
         </div>
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <div className="space-y-6">
           <section>
             <h2 className="text-xl font-semibold mb-4">Personal Details</h2>
             <PersonalDetails
@@ -474,7 +469,7 @@ export default function Page() {
               removeHobby={removeHobby}
             />
           </section>
-        </form>
+        </div>
         <p className="text-gray-500 text-xs mt-4">
           This project is a work in progress. More templates and features will
           be added soon

@@ -1,19 +1,18 @@
 "use client";
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+import Head from "next/head";
+import { Inter, Nunito } from "next/font/google";
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+
+const nunito = Nunito({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+  variable: "--font-nunito",
 });
 
 export default function RootLayout({
@@ -21,23 +20,22 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-      },
-    },
-  });
-
   return (
-    <html lang="en">
+    <html lang="en" className={inter.className}>
+      <Head>
+        <title>Simple AI CV Builder</title>
+        <meta
+          name="description"
+          content="  Our AI-powered CV maker helps you build a professional CV that
+              stands out and matches job descriptions. Get started for free!"
+        />{" "}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${nunito.className} antialiased`} // Use the Nunito font
       >
-        <QueryClientProvider client={queryClient}>
-          <Toaster />
-          {children}
-        </QueryClientProvider>
+        {children}
       </body>
     </html>
   );

@@ -1,19 +1,12 @@
 "use client";
-
-import { ICvPdf } from "@/interfaces/ICvPdf";
-import Template1 from "@/templates/Template1";
 import dynamic from "next/dynamic";
-import { Button } from "./ui/button";
 import { useState, useEffect, useCallback } from "react";
 import { debounce } from "lodash";
+import { Button } from "./ui/button";
+import { LoadingSpinner } from "./ui/LoadingSpinner";
+import { ICvPdf } from "@/interfaces/ICvPdf";
+import Template1 from "@/templates/Template1";
 import Template2 from "@/templates/Template2";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import useTemplateStore from "@/stores/templateStore";
 
 const templates = {
@@ -25,7 +18,11 @@ const PDFViewer = dynamic(
   () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
   {
     ssr: false,
-    loading: () => <p>Loading PDF viewer...</p>,
+    loading: () => (
+      <div className="w-full h-full flex justify-center items-center">
+        <LoadingSpinner />
+      </div>
+    ),
   }
 );
 
@@ -60,7 +57,7 @@ export default function PDFPreview({ data }: Props) {
   const debouncedSetData = useCallback(
     debounce((newData: ICvPdf) => {
       setDebouncedData(newData);
-    }, 300),
+    }, 1000),
     []
   );
 
