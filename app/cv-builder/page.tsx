@@ -330,6 +330,7 @@ export default function Page() {
       languages,
       hobbies,
       image,
+      projects,
     };
     localStorage.setItem("cvData", JSON.stringify(dataToSave));
     toast({
