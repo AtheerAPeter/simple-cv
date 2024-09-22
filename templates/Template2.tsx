@@ -38,7 +38,6 @@ export default function Template2({ data }: Props) {
     },
     section: {
       marginBottom: 15,
-      border: "1px solid #ccc",
       borderRadius: 5,
       padding: 10,
     },
@@ -201,9 +200,9 @@ export default function Template2({ data }: Props) {
         </View>
 
         {data.experiences.length > 0 && (
-          <View wrap={false}>
+          <View>
             <Text style={styles.sectionTitle}>Experience</Text>
-            <View style={styles.section} wrap={false}>
+            <View style={styles.section}>
               {data.experiences.map((exp, index) => (
                 <View key={index} style={styles.experienceItem} wrap={false}>
                   <View style={styles.jobTitleContainer} wrap={false}>
