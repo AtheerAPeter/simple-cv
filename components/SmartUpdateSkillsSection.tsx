@@ -1,11 +1,11 @@
 import { Experience, SkillCategory } from "@/interfaces/IFormTypes";
-import { Textarea } from "./ui/textarea";
 import { TextareaHTMLAttributes, useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { ICvPdf } from "@/interfaces/ICvPdf";
-import _, { set } from "lodash";
+import _ from "lodash";
 import { useToast } from "@/hooks/use-toast";
 import { useSmartUpdateSkills } from "@/hooks/useSmartUpdateSkills";
+import { MagicalTextarea } from "./magical-textarea";
 
 interface Props {
   skills: SkillCategory[];
@@ -94,14 +94,11 @@ export const SmartUpdateSkillsSection = (props: Props) => {
 
   return (
     <div className="mb-4 p-4 bg-white">
-      <div className="animate-border bg-gradient-to-r from-red-400 via-purple-400 to-blue-400 bg-[length:400%_400%] p-1 rounded-md">
-        <Textarea
-          value={jobDesction}
-          onChange={onChangeJobDescriptionInput}
-          placeholder="Enter the job description to automatically adjust your skills for a better match"
-          className="bg-white rounded-md"
-        />
-      </div>
+      <MagicalTextarea
+        value={jobDesction}
+        onChange={onChangeJobDescriptionInput}
+        placeholder="Enter the job description to automatically adjust your skills for a better match"
+      />
       <div className="mt-6 flex items-center">
         <Button
           onClick={onSubmit}
