@@ -27,6 +27,7 @@ import useTemplateStore from "@/stores/templateStore";
 import { SmartUpdateSkillsSection } from "@/components/SmartUpdateSkillsSection";
 import { EditorHeader } from "@/components/EditorHeader";
 import { useRouter } from "next/navigation";
+import { JsonDiffComponentComponent } from "@/components/json-diff-component";
 
 export default function Page() {
   const router = useRouter();
