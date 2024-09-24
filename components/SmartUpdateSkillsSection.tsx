@@ -65,9 +65,9 @@ export const SmartUpdateSkillsSection = (props: Props) => {
     try {
       const response = await smartUpdateSkillsMutation.mutateAsync({
         message:
-          `based on this job description: ${jobDesction} modify my skills and rearrange and slightly modify my experinces points to fit the job description better and give me back the same json structure with the same html description format. my cv json: ${JSON.stringify(
+          `based on this job description: ${jobDesction} modify my skills and rearrange and slightly modify my experinces points but do not introduce significant change to experience to fit the job description better and give me back the same json structure with the same html description format. my cv json: ${JSON.stringify(
             _.pick(props.cvData, ["skills", "experiences"])
-          )}`
+          )} try to make it as human as possible`
             .replace(/(\r\n|\n|\r)/gm, " ")
             .trim(),
       });
