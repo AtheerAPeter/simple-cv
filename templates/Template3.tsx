@@ -211,7 +211,9 @@ const Template3: React.FC<Props> = ({ data, accentColor }) => {
                       <Text style={styles.jobDetails}>{project.link}</Text>
                     </Link>
                   )}
-                  {renderHtmlContent(project.description)}
+                  <View style={{ fontSize: 10, marginLeft: 10 }}>
+                    {renderHtmlContent(project.description)}
+                  </View>
                 </View>
               ))}
             </View>
