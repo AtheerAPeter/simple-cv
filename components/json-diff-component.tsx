@@ -168,8 +168,8 @@ export function JsonDiffComponentComponent({
   const groupedDifferences = groupDifferencesByCategory();
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-6 space-y-6">
-      <h2 className="text-2xl font-bold mb-4">JSON Differences</h2>
+    <div className="w-full mx-auto lg:p-6 pt-6 space-y-6">
+      <p>Please select the changes you want to apply to your CV below</p>
       <div className="flex justify-between mb-4">
         <Button onClick={handleDeselectAll} variant="outline">
           Deselect All

@@ -79,8 +79,7 @@ export const SmartUpdateSkillsSection = (props: Props) => {
       setJobDescription("");
       toast({
         title: "Skills Updated",
-        description:
-          "Your skills and experiences have been updated successfully",
+        description: "Update successful",
         duration: 5000,
         className: "bg-green-500 text-white",
       });
