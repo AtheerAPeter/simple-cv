@@ -167,6 +167,10 @@ export function JsonDiffComponentComponent({
 
   const groupedDifferences = groupDifferencesByCategory();
 
+  if (differences.length === 0) {
+    return null;
+  }
+
   return (
     <div className="w-full mx-auto lg:p-6 pt-6 space-y-6">
       <p>Please select the changes you want to apply to your CV below</p>
