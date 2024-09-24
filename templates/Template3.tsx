@@ -83,7 +83,7 @@ const Template3: React.FC<Props> = ({ data, accentColor }) => {
       marginBottom: 15,
     },
     jobTitle: {
-      fontSize: 14,
+      fontSize: 12,
       fontWeight: "bold",
     },
     jobDetails: {
@@ -134,10 +134,7 @@ const Template3: React.FC<Props> = ({ data, accentColor }) => {
               {data.personalDetails.address}
             </Text>
             {data.personalDetails.github && (
-              <Link
-                src={`https://github.com/${data.personalDetails.github}`}
-                style={styles.link}
-              >
+              <Link src={data.personalDetails.github} style={styles.link}>
                 <Text style={styles.contactInfo}>
                   GitHub: {data.personalDetails.github}
                 </Text>
@@ -184,7 +181,9 @@ const Template3: React.FC<Props> = ({ data, accentColor }) => {
                 <Text style={styles.jobDetails}>
                   {exp.employer} | {exp.startDate} - {exp.endDate}
                 </Text>
-                {renderHtmlContent(exp.description)}
+                <View style={{ fontSize: 10, marginLeft: 10 }}>
+                  {renderHtmlContent(exp.description)}
+                </View>
               </View>
             ))}
           </View>

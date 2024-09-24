@@ -14,6 +14,7 @@ import {
   SaveIcon,
   TrashIcon,
 } from "lucide-react";
+import Image from "next/image";
 
 interface Props {
   onClearAll: () => void;
@@ -25,14 +26,14 @@ export const templates = {
   simple: (data: ICvPdf, accentColor: string) => (
     <Template1 data={data} accentColor={accentColor} />
   ),
-  "simple 2": (data: ICvPdf, accentColor: string) => (
-    <Template4 data={data} accentColor={accentColor} />
-  ),
   header: (data: ICvPdf, accentColor: string) => (
     <Template2 data={data} accentColor={accentColor} />
   ),
   modern: (data: ICvPdf, accentColor: string) => (
     <Template3 data={data} accentColor={accentColor} />
+  ),
+  "simple 2": (data: ICvPdf, accentColor: string) => (
+    <Template4 data={data} accentColor={accentColor} />
   ),
 };
 
@@ -63,6 +64,26 @@ const colors = [
     tailwindValue: "bg-black",
     hex: "#000000",
   },
+  {
+    tailwindValue: "bg-pink-500",
+    hex: "#ec4899",
+  },
+  {
+    tailwindValue: "bg-indigo-500",
+    hex: "#6366f1",
+  },
+  {
+    tailwindValue: "bg-teal-500",
+    hex: "#14b8a6",
+  },
+  {
+    tailwindValue: "bg-orange-500",
+    hex: "#f97316",
+  },
+  {
+    tailwindValue: "bg-gray-500",
+    hex: "#6b7280",
+  },
 ];
 
 export function EditorHeader(props: Props) {
@@ -89,13 +110,19 @@ export function EditorHeader(props: Props) {
           {Object.keys(templates).map((t, index) => (
             <Card
               key={index}
-              className={`cursor-pointer ${
-                t === template ? "bg-blue-500" : ""
+              className={`cursor-pointer transition-all shadow-none rounded-none border-none ${
+                t === template ? "ring-2 ring-black" : ""
               }`}
               onClick={() => setTemplate(t as Templates)}
             >
-              <CardContent className="p-4">
-                <p className="text-center font-medium">{t}</p>
+              <CardContent className="p-2">
+                <Image
+                  alt={t}
+                  src={`/templates/${index + 1}.png`}
+                  width={150}
+                  height={212}
+                  className="w-full h-auto"
+                />
               </CardContent>
             </Card>
           ))}
