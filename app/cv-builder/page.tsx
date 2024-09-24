@@ -345,6 +345,12 @@ export default function Page() {
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
+      <Button
+        onClick={() => setOpen(true)}
+        className="fixed bottom-4 right-4 lg:hidden z-10"
+      >
+        Preview CV
+      </Button>
       <div className="w-full lg:w-1/2 h-screen bg-white shadow-md hidden lg:flex flex-col">
         <PDFPreview data={data} />
       </div>
