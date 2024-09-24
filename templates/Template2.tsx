@@ -13,6 +13,7 @@ import {
 
 interface Props {
   data: ICvPdf;
+  accentColor?: string;
 }
 Font.register({
   family: "Roboto",
@@ -28,8 +29,8 @@ Font.register({
   ],
 });
 
-export default function Template2({ data }: Props) {
-  const mainColor = "#6ba5e3";
+export default function Template2({ data, accentColor }: Props) {
+  const mainColor = accentColor || "#6ba5e3";
   const styles = StyleSheet.create({
     page: {
       flexDirection: "column",
