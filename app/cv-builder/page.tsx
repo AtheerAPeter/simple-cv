@@ -25,8 +25,11 @@ import {
 } from "@/components/ui/select";
 import useTemplateStore from "@/stores/templateStore";
 import { SmartUpdateSkillsSection } from "@/components/SmartUpdateSkillsSection";
+import { EditorHeader } from "@/components/EditorHeader";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter();
   const { toast } = useToast();
   const {
     name,
@@ -59,7 +62,7 @@ export default function Page() {
     setProjects,
   } = useCvForm();
 
-  const { template, setTemplate } = useTemplateStore();
+  const { template, setTemplate, color, setColor } = useTemplateStore();
 
   const [open, setOpen] = useState(false);
 
@@ -343,12 +346,15 @@ export default function Page() {
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
       <div className="w-full lg:w-1/2 h-screen bg-white shadow-md hidden lg:flex flex-col">
-        <div className="h-full">
-          <PDFPreview data={data} />
-        </div>
+        <PDFPreview data={data} />
       </div>
       <div className="w-full lg:w-1/2 h-screen overflow-y-auto p-2 lg:p-8 bg-gray-100 text-gray-900">
-        <div className="bg-gray-100 pb-4">
+        <EditorHeader
+          onClearAll={clearAll}
+          onSave={saveToLocalStorage}
+          onBack={() => router.replace("/")}
+        />
+        {/* <div className="bg-gray-100 pb-4">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6">
             <h1 className="text-3xl font-bold mb-4 lg:mb-0">CV Creator</h1>
             <div className="grid lg:flex grid-cols-2 gap-2 items-center justify-between w-full lg:w-auto">
@@ -387,13 +393,16 @@ export default function Page() {
                   <SelectValue placeholder="Template" />
                 </SelectTrigger>
                 <SelectContent className="w-full">
-                  <SelectItem value="simple">Simple</SelectItem>
-                  <SelectItem value="sky">Sky</SelectItem>
+                  {Object.keys(templates).map((template) => (
+                    <SelectItem key={template} value={template}>
+                      {template}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="space-y-6">
           <section>
             <h2 className="text-xl font-semibold mb-4">Personal Details</h2>

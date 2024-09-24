@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Font,
   Image,
-  Link, // Add this import
+  Link,
 } from "@react-pdf/renderer";
 
 interface Props {
@@ -29,29 +29,24 @@ Font.register({
   ],
 });
 
-export default function Template1({ data, accentColor }: Props) {
+export default function Template4({ data, accentColor }: Props) {
+  const primaryColor = accentColor || "#f4a300";
   const styles = StyleSheet.create({
     page: {
       flexDirection: "column",
       padding: 30,
       fontFamily: "Roboto",
     },
-    section: {
-      marginBottom: 10,
-    },
     header: {
-      marginBottom: 20,
-      display: "flex",
       flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: 20,
     },
-    name: {
-      fontSize: 32,
-      fontWeight: "bold",
-    },
-    title: {
-      fontSize: 16,
-      marginBottom: 10,
-      color: "#666666",
+    profileImage: {
+      width: 120,
+      height: 120,
+      borderRadius: 4,
     },
     contactInfo: {
       fontSize: 10,
@@ -59,13 +54,29 @@ export default function Template1({ data, accentColor }: Props) {
       flexDirection: "column",
       gap: 5,
     },
+    name: {
+      fontSize: 24,
+      fontWeight: "bold",
+    },
+    title: {
+      fontSize: 12,
+      color: "#666666",
+    },
+    contactItem: {
+      flexDirection: "row",
+      gap: 4,
+    },
+    section: {
+      marginBottom: 10,
+    },
     sectionTitle: {
       fontSize: 14,
       fontWeight: "bold",
       marginBottom: 5,
       borderBottomWidth: 1,
-      borderBottomColor: "#000",
+      borderBottomColor: primaryColor,
       paddingBottom: 2,
+      color: primaryColor,
     },
     experienceItem: {
       marginBottom: 8,
@@ -114,76 +125,63 @@ export default function Template1({ data, accentColor }: Props) {
     hobbies: {
       fontSize: 10,
     },
-    profileImage: {
-      width: 120,
-      height: 120,
-      borderRadius: 1000,
-    },
-    titleImageContainer: {
-      display: "flex",
-      flexDirection: "row",
-      gap: 8,
-      alignItems: "center",
-      marginRight: 20,
-    },
   });
 
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        {/* header */}
         <View style={styles.header} wrap={false}>
-          <View wrap={false}>
-            <View style={styles.titleImageContainer}>
-              {data.personalDetails.image && (
-                <Image
-                  src={data.personalDetails.image}
-                  style={{ ...styles.profileImage, objectFit: "cover" }}
-                />
-              )}
-            </View>
-          </View>
           <View style={styles.contactInfo} wrap={false}>
-            <Text style={styles.name}>{data.personalDetails.name}</Text>
-            <Text style={styles.title}>{data.personalDetails.title}</Text>
-            {data.personalDetails.email && (
-              <View style={{ flexDirection: "row", gap: 4 }} wrap={false}>
-                <Text style={{ fontWeight: "bold" }}>Email:</Text>{" "}
-                <Text style={{ fontWeight: "normal" }}>
-                  {data.personalDetails.email}
-                </Text>
-              </View>
-            )}
-            {data.personalDetails.phone && (
-              <View style={{ flexDirection: "row", gap: 4 }} wrap={false}>
-                <Text style={{ fontWeight: "bold" }}>Phone:</Text>{" "}
-                <Text style={{ fontWeight: "normal" }}>
-                  {data.personalDetails.phone}
-                </Text>
-              </View>
-            )}
+            <View>
+              <Text style={styles.name}>{data.personalDetails.name}</Text>
+              <Text style={styles.title}>{data.personalDetails.title}</Text>
+            </View>
             {data.personalDetails.address && (
-              <View style={{ flexDirection: "row", gap: 4 }} wrap={false}>
+              <View style={styles.contactItem} wrap={false}>
                 <Text style={{ fontWeight: "bold" }}>Address:</Text>{" "}
                 <Text style={{ fontWeight: "normal" }}>
                   {data.personalDetails.address}
                 </Text>
               </View>
             )}
-            {data.personalDetails.github && (
-              <View style={{ flexDirection: "row", gap: 4 }} wrap={false}>
-                <Text style={{ fontWeight: "bold" }}>GitHub:</Text>{" "}
+            {data.personalDetails.phone && (
+              <View style={styles.contactItem} wrap={false}>
+                <Text style={{ fontWeight: "bold" }}>Phone:</Text>{" "}
                 <Text style={{ fontWeight: "normal" }}>
-                  {data.personalDetails.github}
+                  {data.personalDetails.phone}
                 </Text>
               </View>
             )}
+            {data.personalDetails.email && (
+              <View style={styles.contactItem} wrap={false}>
+                <Text style={{ fontWeight: "bold" }}>Email:</Text>{" "}
+                <Text style={{ fontWeight: "normal" }}>
+                  {data.personalDetails.email}
+                </Text>
+              </View>
+            )}
+            {data.personalDetails.github && (
+              <View style={styles.contactItem} wrap={false}>
+                <Text style={{ fontWeight: "bold" }}>LinkedIn:</Text>{" "}
+                <Link src={data.personalDetails.github}>
+                  <Text style={{ fontWeight: "normal", color: "#000" }}>
+                    {data.personalDetails.github}
+                  </Text>
+                </Link>
+              </View>
+            )}
           </View>
+          {data.personalDetails.image && (
+            <Image
+              src={data.personalDetails.image}
+              style={{ ...styles.profileImage, objectFit: "cover" }}
+            />
+          )}
         </View>
 
         {data.experiences.length > 0 && (
           <View style={styles.section} wrap={false}>
-            <Text style={styles.sectionTitle}>Experience</Text>
+            <Text style={styles.sectionTitle}>Work Experience</Text>
             {data.experiences.map((exp, index) => (
               <View key={index} style={styles.experienceItem} wrap={false}>
                 <View style={styles.jobTitleContainer} wrap={false}>

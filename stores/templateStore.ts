@@ -1,13 +1,18 @@
+import { Templates } from "@/components/EditorHeader";
 import { create } from "zustand";
 
 interface TemplateState {
-  template: "simple" | "sky";
-  setTemplate: (template: "simple" | "sky") => void;
+  template: Templates;
+  setTemplate: (template: Templates) => void;
+  color: string;
+  setColor: (color: string) => void;
 }
 
 const useTemplateStore = create<TemplateState>((set) => ({
   template: "simple",
-  setTemplate: (template: "simple" | "sky") => set({ template }),
+  setTemplate: (template: Templates) => set({ template }),
+  color: "#f4a300",
+  setColor: (color: string) => set({ color }),
 }));
 
 export default useTemplateStore;

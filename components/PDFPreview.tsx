@@ -5,14 +5,9 @@ import { debounce } from "lodash";
 import { Button } from "./ui/button";
 import { LoadingSpinner } from "./ui/LoadingSpinner";
 import { ICvPdf } from "@/interfaces/ICvPdf";
-import Template1 from "@/templates/Template1";
 import Template2 from "@/templates/Template2";
 import useTemplateStore from "@/stores/templateStore";
-
-const templates = {
-  simple: (data: ICvPdf) => <Template1 data={data} />,
-  sky: (data: ICvPdf) => <Template2 data={data} />,
-};
+import { templates, Templates } from "./EditorHeader";
 
 const PDFViewer = dynamic(
   () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
@@ -53,7 +48,7 @@ export function PdfDownloadButton({ data }: Props) {
 export default function PDFPreview({ data }: Props) {
   const template = useTemplateStore((state) => state.template);
   const [debouncedData, setDebouncedData] = useState(data);
-
+  const { color } = useTemplateStore();
   const debouncedSetData = useCallback(
     debounce((newData: ICvPdf) => {
       setDebouncedData(newData);
@@ -72,7 +67,7 @@ export default function PDFPreview({ data }: Props) {
       </div>
       <div className="h-full">
         <PDFViewer width="100%" height="100%">
-          {templates[template](debouncedData)}
+          {templates[template](debouncedData, color)}
         </PDFViewer>
       </div>
     </div>
