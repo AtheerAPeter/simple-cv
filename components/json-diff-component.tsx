@@ -11,6 +11,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import parse from "html-react-parser";
+import { removeUndefined } from "@/lib/utils";
 
 type JsonData = {
   experiences: Array<{
@@ -44,6 +45,8 @@ export function JsonDiffComponentComponent({
   newData,
   onSubmit,
 }: JsonDiffComponentProps) {
+  console.log(oldData, newData);
+
   const [differences, setDifferences] = useState<Difference[]>([]);
   const [selectedDiffs, setSelectedDiffs] = useState<Set<string>>(new Set());
 
@@ -143,7 +146,7 @@ export function JsonDiffComponentComponent({
         current[diff.path[diff.path.length - 1]] = diff.newValue;
       }
     });
-    onSubmit(updatedJson);
+    onSubmit(removeUndefined(updatedJson));
   };
 
   const renderValue = (value: any) => {
