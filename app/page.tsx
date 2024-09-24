@@ -1,7 +1,7 @@
 import MockSteps from "@/components/landingPage/MockSteps";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
-import { FileText, Zap, Star, Bot } from "lucide-react";
+import { FileText, Zap, Star, Bot, Github, Linkedin } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -86,6 +86,49 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <footer className="w-full py-4 bg-gray-100 dark:bg-gray-900">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <Logo />
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                © {new Date().getFullYear()} Smart CV
+              </p>
+            </div>
+            <nav className="flex space-x-4 text-sm">
+              <Link
+                href="/cv-builder"
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              >
+                CV Builder
+              </Link>
+              <Link
+                href="#features"
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              >
+                Features
+              </Link>
+            </nav>
+            <div className="flex space-x-4 text-sm items-center">
+              <Link
+                href="https://github.com/AtheerAPeter"
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 flex items-center"
+              >
+                <Github className="h-4 w-4 mr-1" />
+                Github
+              </Link>
+              <Link
+                target="_blank"
+                href="https://www.linkedin.com/in/atheer-a-peter-6723b9191/"
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 flex items-center"
+              >
+                <Linkedin className="h-4 w-4 mr-1" />
+                LinkedIn
+              </Link>
+            </div>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }
