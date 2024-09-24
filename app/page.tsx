@@ -1,4 +1,5 @@
 import MockSteps from "@/components/landingPage/MockSteps";
+import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { FileText, Zap, Star, Bot } from "lucide-react";
 import Link from "next/link";
@@ -6,41 +7,39 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main className="flex-1">
-      <header className="w-full bg-black text-white py-4">
-        <nav className="flex justify-between items-center container mx-auto lg:px-0 px-4">
-          <h1 className="text-2xl">CV Builder</h1>
-          <div className="gap-4 flex itmes-center">
-            <Link href="/cv-builder" className="hover:underline">
-              Get Started
-            </Link>
-            <Link href="#features" className="hover:underline">
-              Features
-            </Link>
+      <section className="w-full container mx-auto lg:h-screen h-auto">
+        <header className="w-full  py-4 mb-8">
+          <nav className="flex justify-between items-center container mx-auto lg:px-0 px-4">
+            <Logo />
+            <div className="gap-4 flex itmes-center">
+              <Link href="/cv-builder">
+                <Button className="font-bold" size={"lg"}>
+                  Get Started
+                </Button>
+              </Link>
+            </div>
+          </nav>
+        </header>
+        <div className="flex items-center lg:space-x-8">
+          <div className="flex flex-col items-center space-y-4 justify-center h-full my-20 text-center lg:text-start">
+            <div className="space-y-2">
+              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+                Create Your Perfect CV in Minutes
+              </h1>
+              <p className="text-gray-500 md:text-xl dark:text-gray-400">
+                Our AI-powered CV maker helps you build a professional CV that
+                stands out and matches job descriptions. Get started for free!
+              </p>
+            </div>
+            <div className="w-full flex justify-center lg:justify-start space-x-4">
+              <Link href="/cv-builder">
+                <Button className="font-bold" size={"lg"}>
+                  Get Started
+                </Button>
+              </Link>
+            </div>
           </div>
-        </nav>
-      </header>
-      <section className="w-full flex items-center container mx-auto lg:space-x-8 py-8">
-        <MockSteps />
-        <div className="flex flex-col items-center space-y-4 justify-center h-full my-20 text-center lg:text-start">
-          <div className="space-y-2">
-            <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-              Create Your Perfect CV in Minutes
-            </h1>
-            <p className="text-gray-500 md:text-xl dark:text-gray-400">
-              Our AI-powered CV maker helps you build a professional CV that
-              stands out and matches job descriptions. Get started for free!
-            </p>
-          </div>
-          <div className="w-full flex justify-center space-x-4">
-            <Link href="/cv-builder">
-              <Button size={"lg"}>Get Started</Button>
-            </Link>
-            <Link href="#features">
-              <Button variant={"outline"} size={"lg"}>
-                Learn More
-              </Button>
-            </Link>
-          </div>
+          <MockSteps />
         </div>
       </section>
       <section
