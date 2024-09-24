@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
-import { X, Save, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import "react-quill/dist/quill.snow.css";
 import { useToast } from "@/hooks/use-toast";
@@ -16,13 +15,6 @@ import PDFPreview from "@/components/PDFPreview";
 import LanguagesSection from "@/components/LanguagesSection";
 import HobbiesSection from "@/components/HobbiesSection";
 import ProjectsSection from "@/components/ProjectsSection";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
 import useTemplateStore from "@/stores/templateStore";
 import { SmartUpdateSkillsSection } from "@/components/SmartUpdateSkillsSection";
 import { EditorHeader } from "@/components/EditorHeader";
@@ -360,55 +352,6 @@ export default function Page() {
           onSave={saveToLocalStorage}
           onBack={() => router.replace("/")}
         />
-        {/* <div className="bg-gray-100 pb-4">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6">
-            <h1 className="text-3xl font-bold mb-4 lg:mb-0">CV Creator</h1>
-            <div className="grid lg:flex grid-cols-2 gap-2 items-center justify-between w-full lg:w-auto">
-              <Button
-                onClick={clearAll}
-                variant="outline"
-                className="flex items-center"
-              >
-                <X className="mr-1" size={16} />
-                <span className="text-sm">Clear</span>
-              </Button>
-              <Button
-                onClick={saveToLocalStorage}
-                variant="outline"
-                className="flex items-center"
-              >
-                <Save className="mr-1" size={16} />
-                <span className="text-sm">Save</span>
-              </Button>
-              <Button
-                onClick={() => setOpen(true)}
-                size="sm"
-                variant="outline"
-                className="flex items-center lg:hidden"
-              >
-                <ExternalLink className="mr-1" size={16} />
-                <span className="text-sm">Preview</span>
-              </Button>
-              <Select
-                value={template}
-                onValueChange={(value) =>
-                  setTemplate(value as "simple" | "sky")
-                }
-              >
-                <SelectTrigger className="w-full bg-white">
-                  <SelectValue placeholder="Template" />
-                </SelectTrigger>
-                <SelectContent className="w-full">
-                  {Object.keys(templates).map((template) => (
-                    <SelectItem key={template} value={template}>
-                      {template}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-        </div> */}
         <div className="space-y-6">
           <section>
             <h2 className="text-xl font-semibold mb-4">Personal Details</h2>

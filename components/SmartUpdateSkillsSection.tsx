@@ -6,6 +6,7 @@ import _ from "lodash";
 import { useToast } from "@/hooks/use-toast";
 import { useSmartUpdateSkills } from "@/hooks/useSmartUpdateSkills";
 import { MagicalTextarea } from "./magical-textarea";
+import { JsonDiffComponentComponent } from "./json-diff-component";
 
 interface Props {
   skills: SkillCategory[];
@@ -14,6 +15,7 @@ interface Props {
   cvData: ICvPdf;
 }
 export const SmartUpdateSkillsSection = (props: Props) => {
+  const [aiUpdatedData, setAiUpdatedData] = useState();
   const [jobDesction, setJobDescription] = useState("");
   const [usageCount, setUsageCount] = useState<number>(0);
   const { smartUpdateSkillsMutation } = useSmartUpdateSkills();
@@ -72,18 +74,12 @@ export const SmartUpdateSkillsSection = (props: Props) => {
             .trim(),
       });
       const result = JSON.parse(response);
-      if (result.experiences) {
-        props.setExperiences(result.experiences);
-      }
-      if (result.skills) {
-        props.setSkills(result.skills);
-      }
+      setAiUpdatedData(result);
       increaseUsageCount();
       setJobDescription("");
       toast({
         title: "Skills Updated",
-        description:
-          "Your skills and experiences have been updated successfully",
+        description: "Update successful",
         duration: 5000,
         className: "bg-green-500 text-white",
       });
@@ -115,6 +111,20 @@ export const SmartUpdateSkillsSection = (props: Props) => {
           {useageCountLimit}/{usageCount}
         </span>
       </div>
+      {!!aiUpdatedData && (
+        <JsonDiffComponentComponent
+          oldData={_.pick(props.cvData, ["skills", "experiences"])}
+          newData={aiUpdatedData}
+          onSubmit={(newData) => {
+            if (newData.skills) {
+              props.setSkills(newData.skills);
+            }
+            if (newData.experiences) {
+              props.setExperiences(newData.experiences);
+            }
+          }}
+        />
+      )}
     </div>
   );
 };
