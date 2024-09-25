@@ -7,6 +7,24 @@ import {
 } from "@/interfaces/IFormTypes";
 import { useState } from "react";
 
+/**
+ * A custom React hook for managing CV form state.
+ * @returns {Object} An object containing state variables and their setter functions for various CV fields:
+ *   - name: {string} The name of the CV owner
+ *   - title: {string} The professional title
+ *   - email: {string} The email address
+ *   - phone: {string} The phone number
+ *   - address: {string} The physical address
+ *   - github: {string} The GitHub profile URL
+ *   - image: {any} The profile image
+ *   - experiences: {Experience[]} An array of work experiences
+ *   - educations: {Education[]} An array of educational backgrounds
+ *   - skills: {SkillCategory[]} An array of skill categories
+ *   - languages: {Language[]} An array of languages known
+ *   - hobbies: {string[]} An array of hobbies
+ *   - projects: {Project[]} An array of projects
+ *   - currentHobby: {string} The current hobby being entered
+ */
 export const useCvForm = () => {
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
