@@ -29,6 +29,12 @@ Font.register({
   ],
 });
 
+/**
+ * Renders a resume template using the provided data and accent color
+ * @param {Object} data - The resume data containing personal details, experiences, education, skills, projects, languages, and hobbies
+ * @param {string} accentColor - The accent color to be used in the resume template (optional)
+ * @returns {JSX.Element} A React component representing the formatted resume
+ */
 export default function Template4({ data, accentColor }: Props) {
   const primaryColor = accentColor || "#f4a300";
   const styles = StyleSheet.create({
@@ -182,6 +188,11 @@ export default function Template4({ data, accentColor }: Props) {
         {data.experiences.length > 0 && (
           <View style={styles.section} wrap={false}>
             <Text style={styles.sectionTitle}>Work Experience</Text>
+            /**
+             * Renders a list of work experiences
+             * @param {Array} data.experiences - An array of experience objects
+             * @returns {React.ReactNode} A mapped array of View components representing each work experience
+             */
             {data.experiences.map((exp, index) => (
               <View key={index} style={styles.experienceItem} wrap={false}>
                 <View style={styles.jobTitleContainer} wrap={false}>
@@ -202,6 +213,11 @@ export default function Template4({ data, accentColor }: Props) {
         {data.educations.length > 0 && (
           <View style={styles.section} wrap={false}>
             <Text style={styles.sectionTitle}>Education</Text>
+            /**
+             * Renders a list of education items
+             * @param {Array} data.educations - An array of education objects
+             * @returns {Array} An array of View components, each representing an education item
+             */
             {data.educations.map((edu, index) => (
               <View key={index} style={styles.educationItem} wrap={false}>
                 <Text style={styles.jobTitle}>{edu.degree}</Text>
@@ -211,6 +227,13 @@ export default function Template4({ data, accentColor }: Props) {
               </View>
             ))}
           </View>
+        /**
+         * Renders a list of skill categories and their associated skills
+         * @param {Array} data.skills - An array of skill category objects
+         * @param {string} data.skills[].title - The title of the skill category
+         * @param {string[]} data.skills[].skills - An array of skills in the category
+         * @returns {JSX.Element} A React Native View component containing skill categories and skills
+         */
         )}
 
         {data.skills.length > 0 && (
@@ -225,6 +248,11 @@ export default function Template4({ data, accentColor }: Props) {
               </View>
             ))}
           </View>
+        /**
+         * Renders a list of projects
+         * @param {Array} data.projects - An array of project objects to be rendered
+         * @returns {JSX.Element} A View component containing a mapped list of project items
+         */
         )}
 
         {data.projects?.length > 0 && (
@@ -232,7 +260,16 @@ export default function Template4({ data, accentColor }: Props) {
             <Text style={styles.sectionTitle}>Projects</Text>
             {data.projects.map((project, index) => (
               <View key={index} style={styles.experienceItem} wrap={false}>
-                <Text style={styles.jobTitle}>{project.title}</Text>
+                ```
+                /**
+                 * Renders a list of language items
+                 * @param {Array} data.languages - An array of language objects
+                 * @param {string} data.languages[].language - The name of the language
+                 * @param {string} data.languages[].proficiency - The proficiency level of the language
+                 * @returns {React.ReactNode} A list of View components, each containing language information
+                 */
+                
+                ```                <Text style={styles.jobTitle}>{project.title}</Text>
                 {project.link && (
                   <Text style={styles.jobDetails}>
                     <Link href={project.link}>{project.link}</Link>
