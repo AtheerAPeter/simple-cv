@@ -29,6 +29,13 @@ Font.register({
   ],
 });
 
+/**
+ * Renders a resume template using the provided data and accent color
+ * @param {Object} props - The component props
+ * @param {Object} props.data - The resume data containing personal details, experiences, education, skills, projects, languages, and hobbies
+ * @param {string} props.accentColor - The accent color for styling (not used in this implementation)
+ * @returns {JSX.Element} A styled PDF document representing the resume
+ */
 export default function Template1({ data, accentColor }: Props) {
   const styles = StyleSheet.create({
     page: {
@@ -184,6 +191,12 @@ export default function Template1({ data, accentColor }: Props) {
         {data.experiences.length > 0 && (
           <View style={styles.section} wrap={false}>
             <Text style={styles.sectionTitle}>Experience</Text>
+            /**
+             * Renders a list of work experiences
+             * @param {Array} data.experiences - An array of experience objects
+             * @param {Function} renderHtmlContent - A function to render HTML content
+             * @returns {JSX.Element} A View component containing mapped experience items
+             */
             {data.experiences.map((exp, index) => (
               <View key={index} style={styles.experienceItem} wrap={false}>
                 <View style={styles.jobTitleContainer} wrap={false}>
@@ -204,6 +217,13 @@ export default function Template1({ data, accentColor }: Props) {
         {data.educations.length > 0 && (
           <View style={styles.section} wrap={false}>
             <Text style={styles.sectionTitle}>Education</Text>
+            ```
+            /**
+             * Renders a list of education items
+             * @param {Array} data.educations - An array of education objects
+             * @returns {JSX.Element} A View component containing a list of education items
+             */
+            ```
             {data.educations.map((edu, index) => (
               <View key={index} style={styles.educationItem} wrap={false}>
                 <Text style={styles.jobTitle}>{edu.degree}</Text>
@@ -211,6 +231,13 @@ export default function Template1({ data, accentColor }: Props) {
                   {edu.university} | {edu.startDate} - {edu.endDate}
                 </Text>
               </View>
+            /**
+             * Renders a list of skill categories and their associated skills.
+             * @param {Array} data.skills - An array of skill category objects.
+             * @param {string} data.skills[].title - The title of the skill category.
+             * @param {Array<string>} data.skills[].skills - An array of skills within the category.
+             * @returns {React.ReactNode} A React fragment containing the rendered skill categories and skills.
+             */
             ))}
           </View>
         )}
@@ -232,6 +259,11 @@ export default function Template1({ data, accentColor }: Props) {
         {data.projects?.length > 0 && (
           <View style={styles.section} wrap={false}>
             <Text style={styles.sectionTitle}>Projects</Text>
+            /**
+             * Renders a list of projects as React Native components
+             * @param {Array} data.projects - An array of project objects
+             * @returns {Array} An array of React Native View components, each representing a project
+             */
             {data.projects.map((project, index) => (
               <View key={index} style={styles.experienceItem} wrap={false}>
                 <Text style={styles.jobTitle}>{project.title}</Text>
@@ -239,7 +271,16 @@ export default function Template1({ data, accentColor }: Props) {
                   <Text style={styles.jobDetails}>
                     <Link href={project.link}>{project.link}</Link>
                   </Text>
-                )}
+                ```
+                /**
+                 * Renders a list of language proficiency items
+                 * @param {Array} data.languages - An array of language objects
+                 * @param {string} data.languages[].language - The name of the language
+                 * @param {string} data.languages[].proficiency - The proficiency level of the language
+                 * @returns {React.ReactNode} A React fragment containing View components for each language
+                 */
+                
+                ```                )}
                 <View style={styles.jobDescription} wrap={false}>
                   {renderHtmlContent(project.description)}
                 </View>
