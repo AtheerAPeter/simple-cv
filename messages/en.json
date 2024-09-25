@@ -1,0 +1,50 @@
+{
+  "home": {
+    "title": "Create Your Perfect CV in Minutes",
+    "paragraph": "Our AI powered CV maker helps you build a professional CV that stands out and matches job descriptions. Get started for free!",
+    "button": "Get Started",
+    "features": {
+      "title": "Features",
+      "easyToUse": {
+        "title": "Easy to Use",
+        "description": "Intuitive interface that guides you through the CV creation process step by step."
+      },
+      "professionalTemplates": {
+        "title": "Professional Templates",
+        "description": "Choose from a variety of professionally designed templates to make your CV stand out."
+      },
+      "atsFriendly": {
+        "title": "ATS Friendly",
+        "description": "Our CVs are optimized for Applicant Tracking Systems to increase your chances of getting an interview."
+      },
+      "aiPoweredCustomization": {
+        "title": "AI Powered Customization",
+        "description": "Our AI tailors your CV to match specific job descriptions, improving your chances of landing interviews."
+      }
+    },
+    "mock": {
+      "atmagic": "AI Magic",
+      "mockcv": {
+        "experience": "Experience",
+        "skills": "Skills"
+      },
+      "mockJobDescription": {
+        "title": "Job Description",
+        "keyResponsibilities": "Key Responsibilities:",
+        "k1": "Develop and enhance B2B SaaS products",
+        "k2": "Implement new features and views",
+        "k3": "Improve product UI/UX",
+        "k4": "Refactor existing components",
+        "idealCandidate": "Ideal Candidate:",
+        "i1": "3+ years of software development experience",
+        "i2": "Proficient in TypeScript, React, Tailwind, GraphQL",
+        "i3": "Autonomous work style",
+        "i4": "Task ownership",
+        "i5": "Customer focused mindset"
+      }
+    },
+    "common": {
+      "cvBuilder": "CV Builder"
+    }
+  }
+}

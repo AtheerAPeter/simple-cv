@@ -1,8 +1,9 @@
-"use client";
 import type { Metadata } from "next";
-import "./globals.css";
+import "../globals.css";
 import Head from "next/head";
 import { Nunito } from "next/font/google";
+import { getMessages } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -11,13 +12,16 @@ const nunito = Nunito({
   variable: "--font-nunito",
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: { locale: string };
 }>) {
+  const messages = await getMessages();
   return (
-    <html lang="en">
+    <html lang={params.locale}>
       <Head>
         <title>Simple AI CV Builder</title>
         <meta
@@ -31,7 +35,9 @@ export default function RootLayout({
       <body
         className={`${nunito.className} antialiased`} // Use the Nunito font
       >
-        {children}
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

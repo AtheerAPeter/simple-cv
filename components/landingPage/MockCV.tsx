@@ -1,9 +1,11 @@
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface Props {
   updated?: boolean;
 }
 const MockCV = (props?: Props) => {
+  const t = useTranslations("home.mock");
   return (
     <div
       className={cn(
@@ -26,7 +28,7 @@ const MockCV = (props?: Props) => {
         </div>
         <div>
           <p className="text-[8px] mt-2">
-            <strong>Experience</strong>
+            <strong>{t("mockcv.experience")}</strong>
           </p>
           <div className="h-2 w-full mb-1 flex-1 bg-gray-200 rounded-lg"></div>
           <div
@@ -46,7 +48,7 @@ const MockCV = (props?: Props) => {
             })}
           ></div>
           <p className="text-[8px] mt-2">
-            <strong>Skills</strong>
+            <strong>{t("mockcv.skills")}</strong>
           </p>
           <div className="h-2 w-full mb-1 flex-1 bg-gray-200 rounded-lg"></div>
           <div className="flex items-center w-full justify-between gap-2">
