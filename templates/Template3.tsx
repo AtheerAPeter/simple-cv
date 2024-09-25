@@ -25,6 +25,13 @@ Font.register({
   ],
 });
 
+/**
+ * A React functional component that renders a resume template.
+ * @param {Object} props - The component props.
+ * @param {Object} props.data - The resume data containing personal details, experiences, education, skills, languages, hobbies, and projects.
+ * @param {string} props.accentColor - The accent color to be used for certain elements in the template.
+ * @returns {React.ReactElement} A Document component containing a styled resume layout.
+ */
 const Template3: React.FC<Props> = ({ data, accentColor }) => {
   const styles = StyleSheet.create({
     page: {
@@ -144,6 +151,13 @@ const Template3: React.FC<Props> = ({ data, accentColor }) => {
 
           <View style={styles.sidebarSection}>
             <Text style={styles.sectionTitle}>Skills</Text>
+            /**
+             * Renders a list of skill categories and their associated skills
+             * @param {Array} data.skills - An array of skill category objects
+             * @param {string} data.skills[].title - The title of the skill category
+             * @param {Array} data.skills[].skills - An array of skills within the category
+             * @returns {JSX.Element} A View component containing mapped skill categories and their skills
+             */
             {data.skills.map((category, index) => (
               <View key={index} style={styles.skillCategory}>
                 <Text style={styles.skillTitle}>{category.title}</Text>
@@ -156,6 +170,13 @@ const Template3: React.FC<Props> = ({ data, accentColor }) => {
 
           <View style={styles.sidebarSection}>
             <Text style={styles.sectionTitle}>Languages</Text>
+            ```
+            /**
+             * Renders a list of languages with their proficiency levels
+             * @param {Array} data.languages - An array of language objects containing language and proficiency information
+             * @returns {Array} An array of Text components displaying language and proficiency for each language
+             */
+            ```
             {data.languages.map((lang, index) => (
               <Text key={index} style={styles.contactInfo}>
                 {lang.language} ({lang.proficiency})
@@ -175,6 +196,12 @@ const Template3: React.FC<Props> = ({ data, accentColor }) => {
         <View style={styles.main}>
           <View style={styles.mainSection}>
             <Text style={styles.sectionTitle}>Professional Experience</Text>
+            /**
+             * Renders a list of work experiences
+             * @param {Array} data.experiences - An array of experience objects
+             * @param {Function} renderHtmlContent - A function to render HTML content
+             * @returns {JSX.Element} A View component containing a mapped list of experience items
+             */
             {data.experiences.map((exp, index) => (
               <View key={index} style={styles.experienceItem}>
                 <Text style={styles.jobTitle}>{exp.title}</Text>
@@ -190,6 +217,13 @@ const Template3: React.FC<Props> = ({ data, accentColor }) => {
 
           <View style={styles.mainSection}>
             <Text style={styles.sectionTitle}>Education</Text>
+            ```
+            /**
+             * Renders a list of education items
+             * @param {Array} data.educations - An array of education objects
+             * @returns {JSX.Element} A View component containing a mapped list of education items
+             */
+            ```
             {data.educations.map((edu, index) => (
               <View key={index} style={styles.experienceItem}>
                 <Text style={styles.jobTitle}>{edu.degree}</Text>
@@ -203,6 +237,11 @@ const Template3: React.FC<Props> = ({ data, accentColor }) => {
           {data.projects?.length > 0 && (
             <View style={styles.mainSection}>
               <Text style={styles.sectionTitle}>Projects</Text>
+              /**
+               * Renders a list of projects from the provided data
+               * @param {Array} data.projects - An array of project objects to be rendered
+               * @returns {React.ReactNode} A mapped array of View components, each representing a project
+               */
               {data.projects.map((project, index) => (
                 <View key={index} style={styles.experienceItem}>
                   <Text style={styles.jobTitle}>{project.title}</Text>
