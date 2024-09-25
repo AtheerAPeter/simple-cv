@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import { Experience } from "@/interfaces/IFormTypes";
 import dynamic from "next/dynamic";
+import { useTranslations } from "next-intl";
 
 interface Props {
   experiences: Experience[];
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const ExperienceSection = (props: Props) => {
+  const t = useTranslations("experienceSection");
   const {
     experiences,
     handleExperienceChange,
@@ -27,7 +29,9 @@ const ExperienceSection = (props: Props) => {
       {experiences?.map((exp, index) => (
         <div key={index} className="mb-4 p-4 bg-white">
           <div className="flex justify-between items-center mb-2">
-            <h3 className="text-lg font-medium">Experience {index + 1}</h3>
+            <h3 className="text-lg font-medium">
+              {t("title")} {index + 1}
+            </h3>
             <Button
               variant="ghost"
               size="sm"
@@ -38,7 +42,7 @@ const ExperienceSection = (props: Props) => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor={`title-${index}`}>Job Title</Label>
+              <Label htmlFor={`title-${index}`}>{t("jobTitle")}</Label>
               <Input
                 id={`title-${index}`}
                 name="title"
@@ -50,7 +54,7 @@ const ExperienceSection = (props: Props) => {
               />
             </div>
             <div>
-              <Label htmlFor={`employer-${index}`}>Employer</Label>
+              <Label htmlFor={`employer-${index}`}>{t("employer")}</Label>
               <Input
                 id={`employer-${index}`}
                 name="employer"
@@ -62,7 +66,7 @@ const ExperienceSection = (props: Props) => {
               />
             </div>
             <div>
-              <Label htmlFor={`startDate-${index}`}>Start Date</Label>
+              <Label htmlFor={`startDate-${index}`}>{t("startDate")}</Label>
               <Input
                 id={`startDate-${index}`}
                 name="startDate"
@@ -76,7 +80,7 @@ const ExperienceSection = (props: Props) => {
               />
             </div>
             <div>
-              <Label htmlFor={`endDate-${index}`}>End Date</Label>
+              <Label htmlFor={`endDate-${index}`}>{t("endDate")}</Label>
               <Input
                 id={`endDate-${index}`}
                 name="endDate"
@@ -91,7 +95,7 @@ const ExperienceSection = (props: Props) => {
             </div>
           </div>
           <div className="mt-4">
-            <Label htmlFor={`description-${index}`}>Description</Label>
+            <Label htmlFor={`description-${index}`}>{t("description")}</Label>
             <ReactQuill
               theme="snow"
               value={exp.description}
@@ -112,7 +116,7 @@ const ExperienceSection = (props: Props) => {
         </div>
       ))}
       <Button type="button" onClick={addExperience} className="mt-2">
-        <PlusCircle className="mr-2 h-4 w-4" /> Add Experience
+        <PlusCircle className="mr-2 h-4 w-4" /> {t("addExperience")}
       </Button>
     </>
   );

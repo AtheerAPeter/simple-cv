@@ -19,8 +19,10 @@ import useTemplateStore from "@/stores/templateStore";
 import { SmartUpdateSkillsSection } from "@/components/SmartUpdateSkillsSection";
 import { EditorHeader } from "@/components/EditorHeader";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export default function Page() {
+  const t = useTranslations("cvBuilder");
   const router = useRouter();
   const { toast } = useToast();
   const {
@@ -329,8 +331,8 @@ export default function Page() {
     };
     localStorage.setItem("cvData", JSON.stringify(dataToSave));
     toast({
-      title: "CV Data Saved",
-      description: "Your CV data has been successfully saved to local storage.",
+      title: t("cvDataSaved.title"),
+      description: t("cvDataSaved.description"),
       duration: 3000,
     });
   };
@@ -341,7 +343,7 @@ export default function Page() {
         onClick={() => setOpen(true)}
         className="fixed bottom-4 right-4 lg:hidden z-10"
       >
-        Preview CV
+        {t("previewCV")}
       </Button>
       <div className="w-full lg:w-1/2 h-screen bg-white shadow-md hidden lg:flex flex-col">
         <PDFPreview data={data} />
@@ -354,7 +356,9 @@ export default function Page() {
         />
         <div className="space-y-6">
           <section>
-            <h2 className="text-xl font-semibold mb-4">Personal Details</h2>
+            <h2 className="text-xl font-semibold mb-4">
+              {t("personalDetails")}
+            </h2>
             <PersonalDetails
               name={name}
               title={title}
@@ -367,7 +371,7 @@ export default function Page() {
             />
           </section>
           <section>
-            <h2 className="text-xl font-semibold mb-4">Experience</h2>
+            <h2 className="text-xl font-semibold mb-4">{t("experience")}</h2>
             <ExperienceSection
               experiences={experiences}
               handleExperienceChange={handleExperienceChange}
@@ -376,7 +380,7 @@ export default function Page() {
             />
           </section>
           <section>
-            <h2 className="text-xl font-semibold mb-4">Eductaion</h2>
+            <h2 className="text-xl font-semibold mb-4">{t("education")}</h2>
             <EducationSection
               educations={educations}
               handleEducationChange={handleEducationChange}
@@ -385,13 +389,13 @@ export default function Page() {
             />
           </section>
           <section>
-            <h2 className="text-xl font-semibold mb-4">Skills</h2>
+            <h2 className="text-xl font-semibold mb-4">{t("skills")}</h2>
             <SkillsSection skills={skills} setSkills={setSkills} />
           </section>
           <section>
             <div className="flex items-start gap-2 mb-4">
-              <h2 className="text-xl font-semibold">Job Description</h2>
-              <p className="text-gray-400 text-xs">Beta</p>
+              <h2 className="text-xl font-semibold">{t("jobDescription")}</h2>
+              <p className="text-gray-400 text-xs">{t("beta")}</p>
             </div>
             <SmartUpdateSkillsSection
               cvData={data}
@@ -401,7 +405,7 @@ export default function Page() {
             />
           </section>
           <section>
-            <h2 className="text-xl font-semibold mb-4">Projects</h2>
+            <h2 className="text-xl font-semibold mb-4">{t("projects")}</h2>
             <ProjectsSection
               projects={projects}
               handleProjectChange={handleProjectChange}
@@ -410,7 +414,7 @@ export default function Page() {
             />
           </section>
           <section>
-            <h2 className="text-xl font-semibold mb-4">Languages</h2>
+            <h2 className="text-xl font-semibold mb-4">{t("languages")}</h2>
             <LanguagesSection
               languages={languages}
               addLanguage={addLanguage}
@@ -419,7 +423,7 @@ export default function Page() {
             />
           </section>
           <section>
-            <h2 className="text-xl font-semibold mb-4">Hobbies</h2>
+            <h2 className="text-xl font-semibold mb-4">{t("hobbies")}</h2>
             <HobbiesSection
               hobbies={hobbies}
               currentHobby={currentHobby}
@@ -430,14 +434,13 @@ export default function Page() {
           </section>
         </div>
         <p className="text-gray-500 text-xs mt-4">
-          This project is a work in progress. More templates and features will
-          be added soon
+          {t("workInProgress")}
           <Link
             className="pl-1 text-black font-bold"
             href="https://github.com/AtheerAPeter/simple-cv"
             target="_blank"
           >
-            GitHub
+            {t("github")}
           </Link>
         </p>
       </div>

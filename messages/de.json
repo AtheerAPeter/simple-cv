@@ -46,5 +46,70 @@
     "common": {
       "cvBuilder": "Lebenslauf Generator"
     }
+  },
+  "cvBuilder": {
+    "previewCV": "Lebenslauf Vorschau",
+    "personalDetails": "Persönliche Daten",
+    "experience": "Berufserfahrung",
+    "education": "Abschlüsse und Ausbildung",
+    "skills": "Fähigkeiten",
+    "jobDescription": "Stellenbeschreibung",
+    "beta": "Beta",
+    "projects": "Projekte",
+    "languages": "Sprachen",
+    "hobbies": "Hobbys",
+    "workInProgress": "Dieses Projekt befindet sich in der Entwicklung. Weitere Vorlagen und Funktionen werden in Kürze hinzugefügt",
+    "github": "GitHub",
+    "clearAll": "Alles löschen",
+    "save": "Speichern",
+    "back": "Zurück",
+    "cvDataSaved": {
+      "title": "Lebenslauf-Daten gespeichert",
+      "description": "Ihre Lebenslauf-Daten wurden erfolgreich im lokalen Speicher gespeichert."
+    }
+  },
+  "personalDetailsSection": {
+    "name": "Name",
+    "title": "Titel",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "address": "Adresse",
+    "github": "GitHub",
+    "profilePhoto": "Profilbild"
+  },
+  "experienceSection": {
+    "addExperience": "Erfahrung hinzufügen",
+    "title": "Berufserfahrung",
+    "jobTitle": "Berufsbezeichnung",
+    "employer": "Arbeitgeber",
+    "startDate": "Startdatum",
+    "endDate": "Enddatum",
+    "description": "Beschreibung"
+  },
+  "educationSection": {
+    "addEducation": "Ausbildung hinzufügen",
+    "title": "Ausbildung",
+    "degree": "Abschluss",
+    "university": "Universität",
+    "startDate": "Startdatum",
+    "endDate": "Enddatum"
+  },
+  "skillsSection": {
+    "addSkillCategory": "Fähigkeitskategorie hinzufügen",
+    "skillTitle": "Fähigkeitstitel"
+  },
+  "smartUpdateSkillsSection": {
+    "title": "Intelligente Aktualisierung der Fähigkeiten",
+    "placeholder": "Geben Sie die Stellenbeschreibung ein, um Ihre Fähigkeiten automatisch für eine bessere Übereinstimmung anzupassen",
+    "updateButton": "Fähigkeiten aktualisieren",
+    "usageLimit": "Nutzungslimit",
+    "limitReached": {
+      "title": "Nutzungslimit erreicht",
+      "description": "Das Limit wird in 24 Stunden zurückgesetzt"
+    },
+    "updateSuccess": {
+      "title": "Fähigkeiten aktualisiert",
+      "description": "Aktualisierung erfolgreich"
+    }
   }
 }

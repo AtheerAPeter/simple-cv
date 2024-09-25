@@ -46,5 +46,70 @@
     "common": {
       "cvBuilder": "CV Builder"
     }
+  },
+  "cvBuilder": {
+    "previewCV": "Preview CV",
+    "personalDetails": "Personal Details",
+    "experience": "Experience",
+    "education": "Degrees and Education",
+    "skills": "Skills",
+    "jobDescription": "Job Description",
+    "beta": "Beta",
+    "projects": "Projects",
+    "languages": "Languages",
+    "hobbies": "Hobbies",
+    "workInProgress": "This project is a work in progress. More templates and features will be added soon",
+    "github": "GitHub",
+    "clearAll": "Clear All",
+    "save": "Save",
+    "back": "Back",
+    "cvDataSaved": {
+      "title": "CV Data Saved",
+      "description": "Your CV data has been successfully saved to local storage."
+    }
+  },
+  "personalDetailsSection": {
+    "name": "Name",
+    "title": "Title",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "github": "GitHub",
+    "profilePhoto": "Profile Photo"
+  },
+  "experienceSection": {
+    "addExperience": "Add Experience",
+    "title": "Experience",
+    "jobTitle": "Job Title",
+    "employer": "Employer",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "description": "Description"
+  },
+  "educationSection": {
+    "addEducation": "Add Education",
+    "title": "Education",
+    "degree": "Degree",
+    "university": "University",
+    "startDate": "Start Date",
+    "endDate": "End Date"
+  },
+  "skillsSection": {
+    "addSkillCategory": "Add Skill Category",
+    "skillTitle": "Skill Title"
+  },
+  "smartUpdateSkillsSection": {
+    "title": "Smart Update Skills",
+    "placeholder": "Enter the job description to automatically adjust your skills for a better match",
+    "updateButton": "Update Skills",
+    "usageLimit": "Usage Limit",
+    "limitReached": {
+      "title": "Usage Limit Reached",
+      "description": "Limit will reset in 24 hours"
+    },
+    "updateSuccess": {
+      "title": "Skills Updated",
+      "description": "Update successful"
+    }
   }
 }

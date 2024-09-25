@@ -1,5 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useTranslations } from "next-intl";
 
 interface Props {
   name: string;
@@ -23,11 +24,12 @@ const PersonalDetails = (props: Props) => {
     handlePersonalDetailsChange,
     toast,
   } = props;
+  const t = useTranslations("personalDetailsSection");
   return (
     <div className="mb-4 p-4 bg-white">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <Label htmlFor="name">Name</Label>
+          <Label htmlFor="name">{t("name")}</Label>
           <Input
             id="name"
             name="name"
@@ -37,7 +39,7 @@ const PersonalDetails = (props: Props) => {
           />
         </div>
         <div>
-          <Label htmlFor="title">Title</Label>
+          <Label htmlFor="title">{t("title")}</Label>
           <Input
             id="title"
             name="title"
@@ -47,7 +49,7 @@ const PersonalDetails = (props: Props) => {
           />
         </div>
         <div>
-          <Label htmlFor="email">Email</Label>
+          <Label htmlFor="email">{t("email")}</Label>
           <Input
             id="email"
             name="email"
@@ -58,7 +60,7 @@ const PersonalDetails = (props: Props) => {
           />
         </div>
         <div>
-          <Label htmlFor="phone">Phone</Label>
+          <Label htmlFor="phone">{t("phone")}</Label>
           <Input
             id="phone"
             name="phone"
@@ -68,7 +70,7 @@ const PersonalDetails = (props: Props) => {
           />
         </div>
         <div>
-          <Label htmlFor="address">Address</Label>
+          <Label htmlFor="address">{t("address")}</Label>
           <Input
             id="address"
             name="address"
@@ -78,7 +80,7 @@ const PersonalDetails = (props: Props) => {
           />
         </div>
         <div>
-          <Label htmlFor="github">GitHub</Label>
+          <Label htmlFor="github">{t("github")}</Label>
           <Input
             id="github"
             name="github"
@@ -88,7 +90,7 @@ const PersonalDetails = (props: Props) => {
           />
         </div>
         <div>
-          <Label htmlFor="profilePhoto">Profile Photo</Label>
+          <Label htmlFor="profilePhoto">{t("profilePhoto")}</Label>
           <Input
             id="profilePhoto"
             name="profilePhoto"

@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useSmartUpdateSkills } from "@/hooks/useSmartUpdateSkills";
 import { MagicalTextarea } from "./magical-textarea";
 import { JsonDiffComponentComponent } from "./json-diff-component";
+import { useTranslations } from "next-intl";
 
 interface Props {
   skills: SkillCategory[];
@@ -15,6 +16,7 @@ interface Props {
   cvData: ICvPdf;
 }
 export const SmartUpdateSkillsSection = (props: Props) => {
+  const t = useTranslations("smartUpdateSkillsSection");
   const [aiUpdatedData, setAiUpdatedData] = useState();
   const [jobDesction, setJobDescription] = useState("");
   const [usageCount, setUsageCount] = useState<number>(0);
@@ -56,8 +58,8 @@ export const SmartUpdateSkillsSection = (props: Props) => {
   const onSubmit = async () => {
     if (usageCount >= useageCountLimit) {
       toast({
-        title: "You have reached the usage limit",
-        description: "Limit will reset in 24 hours",
+        title: t("limitReached.title"),
+        description: t("limitReached.description"),
         duration: 3000,
         variant: "destructive",
       });
@@ -78,8 +80,8 @@ export const SmartUpdateSkillsSection = (props: Props) => {
       increaseUsageCount();
       setJobDescription("");
       toast({
-        title: "Skills Updated",
-        description: "Update successful",
+        title: t("updateSuccess.title"),
+        description: t("updateSuccess.description"),
         duration: 5000,
         className: "bg-green-500 text-white",
       });
@@ -93,7 +95,7 @@ export const SmartUpdateSkillsSection = (props: Props) => {
       <MagicalTextarea
         value={jobDesction}
         onChange={onChangeJobDescriptionInput}
-        placeholder="Enter the job description to automatically adjust your skills for a better match"
+        placeholder={t("placeholder")}
       />
       <div className="mt-6 flex items-center">
         <Button
@@ -105,10 +107,10 @@ export const SmartUpdateSkillsSection = (props: Props) => {
           }
           className="mr-2"
         >
-          Update Skills
+          {t("updateButton")}
         </Button>
         <span>
-          {useageCountLimit}/{usageCount}
+          {t("usageLimit")}: {useageCountLimit}/{usageCount}
         </span>
       </div>
       {!!aiUpdatedData && (

@@ -10,6 +10,7 @@ import Template3 from "@/templates/Template3";
 import Template4 from "@/templates/Template4";
 import { ArrowLeftIcon, SaveIcon, TrashIcon } from "lucide-react";
 import Image from "next/image";
+import { LanguageSwitcherComponent } from "./language-switcher";
 
 interface Props {
   onClearAll: () => void;
@@ -90,6 +91,7 @@ export function EditorHeader(props: Props) {
           <ArrowLeftIcon className="h-4 w-4" />
         </Button>
         <div className="flex items-center space-x-4">
+          <LanguageSwitcherComponent />
           <Button variant="outline" size="icon" onClick={props.onClearAll}>
             <TrashIcon className="h-4 w-4" />
             <span className="sr-only">Clear</span>
