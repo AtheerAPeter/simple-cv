@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Epic CV Builder: Next.js CV Generator
 
-## Getting Started
+This Next.js application allows users to create and generate professional CVs using an AI-powered system.
 
-First, run the development server:
+### Features:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+* **Professional Templates:** Choose from a variety of pre-designed templates to create visually appealing CVs.
+* **AI-Powered Customization:** Use AI to customize your CV to match specific job descriptions, increasing your chances of getting an interview.
+* **ATS-Friendly:** The CVs generated are optimized for Applicant Tracking Systems (ATS) for maximum visibility.
+* **Easy to Use:** The intuitive interface guides you through the CV creation process with clear steps.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Usage:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Navigate to the homepage and click the "Get Started" button.
+2. Fill out the personal details section, including name, title, contact information, and profile photo.
+3. Add your work experience, education, skills, languages, hobbies, and projects using the provided input fields and rich text editor.
+4.  Use the "Job Description" section to input a specific job description.  The AI will help you optimize your skills and experiences to match the job requirements.
+5. Review your CV using the preview feature and download it as a PDF file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Code Overview:
 
-## Learn More
+This project consists of several components, including:
 
-To learn more about Next.js, take a look at the following resources:
+* **Components:** Contains reusable UI elements like buttons, inputs, and modals.
+* **Hooks:** Provides custom logic for interacting with forms and managing CV data.
+* **Interfaces:** Defines the structure of data used within the application.
+* **Lib:** Contains utility functions and placeholder data.
+* **Stores:** Manages application state, such as the selected CV template and accent color.
+* **Templates:** Defines the structure and styling of different CV templates.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Technologies:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+* **Next.js:** Framework for building server-rendered React applications.
+* **Tailwind CSS:** Utility-first CSS framework for rapid styling.
+* **React-Quill:** Rich text editor for creating descriptive content.
+* **@radix-ui/react-icons:** Library of icons for enhanced UI.
+* **@google/generative-ai:** API for accessing Google's generative AI models.
+* **zustand:** State management library for simple and efficient state management.
+* **@tanstack/react-query:** Data fetching and caching library for optimized data management.
 
-## Deploy on Vercel
+### Deployment:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The application can be deployed to Vercel or other hosting platforms. See the README.md for instructions on deploying your Next.js app.
