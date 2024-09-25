@@ -4,7 +4,7 @@ const MockJobDescription = () => {
   return (
     <div className="w-[200px]">
       <div className="bg-white p-4 border-2 border-gray-200 rounded-lg">
-        <h2 className="font-bold">About the job</h2>
+        <h2 className="font-bold">Job Description</h2>
         <div className="flex items-center w-full justify-between gap-2">
           <div className="h-2 mb-1 flex-1 bg-gray-200 rounded-lg"></div>
           <div className="h-2 mb-1 flex-1 bg-gray-200 rounded-lg"></div>
