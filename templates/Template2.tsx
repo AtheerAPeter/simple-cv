@@ -264,7 +264,12 @@ export default function Template2({ data, accentColor, titles }: Props) {
                   <Text style={styles.jobTitle}>{project.title}</Text>
                   {project.link && (
                     <Text style={styles.jobDetails}>
-                      <Link href={project.link}>{project.link}</Link>
+                      <Link
+                        style={{ color: "#000", fontWeight: "bold" }}
+                        href={project.link}
+                      >
+                        {project.link}
+                      </Link>
                     </Text>
                   )}
                   <View style={styles.jobDescription} wrap={false}>
