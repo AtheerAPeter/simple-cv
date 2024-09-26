@@ -15,11 +15,12 @@ import PDFPreview from "@/components/PDFPreview";
 import LanguagesSection from "@/components/LanguagesSection";
 import HobbiesSection from "@/components/HobbiesSection";
 import ProjectsSection from "@/components/ProjectsSection";
-import useTemplateStore from "@/stores/templateStore";
 import { SmartUpdateSkillsSection } from "@/components/SmartUpdateSkillsSection";
 import { EditorHeader } from "@/components/EditorHeader";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
+import { TranslateSection } from "@/components/TranslateSection";
+import { ICvPdf } from "@/interfaces/ICvPdf";
 
 export default function Page() {
   const t = useTranslations("cvBuilder");
@@ -56,8 +57,6 @@ export default function Page() {
     projects,
     setProjects,
   } = useCvForm();
-
-  const { template, setTemplate, color, setColor } = useTemplateStore();
 
   const [open, setOpen] = useState(false);
 
@@ -298,6 +297,15 @@ export default function Page() {
     projects,
   };
 
+  const onSetData = (data: Partial<ICvPdf>) => {
+    setExperiences(data.experiences || experiences);
+    setEducations(data.educations || educations);
+    setSkills(data.skills || skills);
+    setLanguages(data.languages || languages);
+    setHobbies(data.hobbies || hobbies);
+    setProjects(data.projects || projects);
+  };
+
   const clearAll = () => {
     setName("");
     setTitle("");
@@ -371,6 +379,7 @@ export default function Page() {
               toast={toast}
             />
           </section>
+
           <section>
             <h2 className="text-xl font-semibold mb-4">{t("experience")}</h2>
             <ExperienceSection
@@ -404,6 +413,12 @@ export default function Page() {
               setSkills={setSkills}
               setExperiences={setExperiences}
             />
+          </section>
+          <section>
+            <h2 className="text-xl font-semibold mb-4">
+              {t("translateTtile")}
+            </h2>
+            <TranslateSection cvData={data} onTranslate={onSetData} />
           </section>
           <section>
             <h2 className="text-xl font-semibold mb-4">{t("projects")}</h2>

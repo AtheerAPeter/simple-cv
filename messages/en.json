@@ -66,7 +66,8 @@
     "cvDataSaved": {
       "title": "CV Data Saved",
       "description": "Your CV data has been successfully saved to local storage."
-    }
+    },
+    "translateTtile": "Translation"
   },
   "personalDetailsSection": {
     "name": "Name",
@@ -127,5 +128,9 @@
   "hobbiesSection": {
     "addHobby": "Add a Hobby",
     "title": "Hobby"
+  },
+  "translateSection": {
+    "selectLanguage": "Select Language",
+    "button": "Translate"
   }
 }

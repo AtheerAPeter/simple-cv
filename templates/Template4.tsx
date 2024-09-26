@@ -180,7 +180,7 @@ export default function Template4({ data, accentColor }: Props) {
         </View>
 
         {data.experiences.length > 0 && (
-          <View style={styles.section} wrap={false}>
+          <View style={styles.section}>
             <Text style={styles.sectionTitle}>Work Experience</Text>
             {data.experiences.map((exp, index) => (
               <View key={index} style={styles.experienceItem} wrap={false}>

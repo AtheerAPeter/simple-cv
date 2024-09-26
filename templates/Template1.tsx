@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Font,
   Image,
-  Link, // Add this import
+  Link,
 } from "@react-pdf/renderer";
 
 interface Props {
@@ -182,7 +182,7 @@ export default function Template1({ data, accentColor }: Props) {
         </View>
 
         {data.experiences.length > 0 && (
-          <View style={styles.section} wrap={false}>
+          <View style={styles.section}>
             <Text style={styles.sectionTitle}>Experience</Text>
             {data.experiences.map((exp, index) => (
               <View key={index} style={styles.experienceItem} wrap={false}>
