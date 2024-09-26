@@ -12,6 +12,8 @@ import { ArrowLeftIcon, SaveIcon, TrashIcon } from "lucide-react";
 import Image from "next/image";
 import { LanguageSwitcherComponent } from "./language-switcher";
 import Template5 from "@/templates/Template5";
+import Template6 from "@/templates/Template6";
+import { GradientPicker } from "./GradientPicker";
 
 interface Props {
   onClearAll: () => void;
@@ -35,56 +37,12 @@ export const templates = {
   "skills up": (data: ICvPdf, accentColor: string, titles: ITitles) => (
     <Template5 data={data} accentColor={accentColor} titles={titles} />
   ),
+  "projects up": (data: ICvPdf, accentColor: string, titles: ITitles) => (
+    <Template6 data={data} accentColor={accentColor} titles={titles} />
+  ),
 };
 
 export type Templates = keyof typeof templates;
-
-const colors = [
-  {
-    tailwindValue: "bg-blue-500",
-    hex: "#3b82f6",
-  },
-  {
-    tailwindValue: "bg-green-500",
-    hex: "#22c55e",
-  },
-  {
-    tailwindValue: "bg-purple-500",
-    hex: "#8b5cf6",
-  },
-  {
-    tailwindValue: "bg-rose-500",
-    hex: "#ef4444",
-  },
-  {
-    tailwindValue: "bg-yellow-500",
-    hex: "#eab308",
-  },
-  {
-    tailwindValue: "bg-black",
-    hex: "#000000",
-  },
-  {
-    tailwindValue: "bg-pink-500",
-    hex: "#ec4899",
-  },
-  {
-    tailwindValue: "bg-indigo-500",
-    hex: "#6366f1",
-  },
-  {
-    tailwindValue: "bg-teal-500",
-    hex: "#14b8a6",
-  },
-  {
-    tailwindValue: "bg-orange-500",
-    hex: "#f97316",
-  },
-  {
-    tailwindValue: "bg-gray-500",
-    hex: "#6b7280",
-  },
-];
 
 export function EditorHeader(props: Props) {
   const { color, setColor, template, setTemplate } = useTemplateStore();
@@ -106,13 +64,17 @@ export function EditorHeader(props: Props) {
           </Button>
         </div>
       </header>
-      <main>
+
+      <main className="mb-4 p-4 bg-white">
+        <div className="flex justify-end mb-4">
+          <GradientPicker background={color} setBackground={setColor} />
+        </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4 lg:px-0">
           {Object.keys(templates).map((t, index) => (
             <Card
               key={index}
-              className={`cursor-pointer transition-all shadow-none rounded-none border-none ${
-                t === template ? "ring-2 ring-black" : ""
+              className={`cursor-pointer transition-all shadow-none border-none rounded-none ${
+                t === template ? "bg-black" : "bg-gray-200"
               }`}
               onClick={() => setTemplate(t as Templates)}
             >
@@ -127,20 +89,6 @@ export function EditorHeader(props: Props) {
               </CardContent>
             </Card>
           ))}
-        </div>
-        <div className="mt-8">
-          <div className="flex justify-center space-x-2 mb-8">
-            {colors.map((c, index) => (
-              <button
-                onClick={() => setColor(c.hex)}
-                key={index}
-                className={`w-5 h-5 rounded-full ${c.tailwindValue} hover:ring-2 ring-offset-2 ring-gray-300 transition-all focus:outline-none focus:ring-2`}
-                aria-label={`Select ${
-                  c.tailwindValue.split("-")[1]
-                } color scheme`}
-              />
-            ))}
-          </div>
         </div>
       </main>
     </div>
