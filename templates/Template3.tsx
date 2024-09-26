@@ -9,12 +9,13 @@ import {
   Link,
   Font,
 } from "@react-pdf/renderer";
-import { ICvPdf } from "@/interfaces/ICvPdf";
+import { ICvPdf, ITitles } from "@/interfaces/ICvPdf";
 import { renderHtmlContent } from "@/components/renderHTMLContent";
 
 interface Props {
   data: ICvPdf;
   accentColor?: string;
+  titles: ITitles;
 }
 
 Font.register({
@@ -25,7 +26,7 @@ Font.register({
   ],
 });
 
-const Template3: React.FC<Props> = ({ data, accentColor }) => {
+const Template3: React.FC<Props> = ({ data, accentColor, titles }) => {
   const styles = StyleSheet.create({
     page: {
       flexDirection: "row",
@@ -127,7 +128,6 @@ const Template3: React.FC<Props> = ({ data, accentColor }) => {
           <Text style={styles.title}>{data.personalDetails.title}</Text>
 
           <View style={styles.sidebarSection}>
-            <Text style={styles.sectionTitle}>Contact</Text>
             <Text style={styles.contactInfo}>{data.personalDetails.email}</Text>
             <Text style={styles.contactInfo}>{data.personalDetails.phone}</Text>
             <Text style={styles.contactInfo}>
@@ -143,7 +143,7 @@ const Template3: React.FC<Props> = ({ data, accentColor }) => {
           </View>
 
           <View style={styles.sidebarSection}>
-            <Text style={styles.sectionTitle}>Skills</Text>
+            <Text style={styles.sectionTitle}>{titles.skills}</Text>
             {data.skills.map((category, index) => (
               <View key={index} style={styles.skillCategory}>
                 <Text style={styles.skillTitle}>{category.title}</Text>
@@ -154,8 +154,8 @@ const Template3: React.FC<Props> = ({ data, accentColor }) => {
             ))}
           </View>
 
-          <View style={styles.sidebarSection}>
-            <Text style={styles.sectionTitle}>Languages</Text>
+          <View style={styles.sidebarSection} wrap={false}>
+            <Text style={styles.sectionTitle}>{titles.languages}</Text>
             {data.languages.map((lang, index) => (
               <Text key={index} style={styles.contactInfo}>
                 {lang.language} ({lang.proficiency})
@@ -164,8 +164,8 @@ const Template3: React.FC<Props> = ({ data, accentColor }) => {
           </View>
 
           {data.hobbies.length > 0 && (
-            <View style={styles.sidebarSection}>
-              <Text style={styles.sectionTitle}>Hobbies</Text>
+            <View style={styles.sidebarSection} wrap={false}>
+              <Text style={styles.sectionTitle}>{titles.hobbies}</Text>
               <Text style={styles.contactInfo}>{data.hobbies.join(" • ")}</Text>
             </View>
           )}
@@ -174,7 +174,7 @@ const Template3: React.FC<Props> = ({ data, accentColor }) => {
         {/* Main Content */}
         <View style={styles.main}>
           <View style={styles.mainSection}>
-            <Text style={styles.sectionTitle}>Professional Experience</Text>
+            <Text style={styles.sectionTitle}>{titles.experience}</Text>
             {data.experiences.map((exp, index) => (
               <View key={index} style={styles.experienceItem}>
                 <Text style={styles.jobTitle}>{exp.title}</Text>
@@ -188,8 +188,8 @@ const Template3: React.FC<Props> = ({ data, accentColor }) => {
             ))}
           </View>
 
-          <View style={styles.mainSection}>
-            <Text style={styles.sectionTitle}>Education</Text>
+          <View style={styles.mainSection} wrap={false}>
+            <Text style={styles.sectionTitle}>{titles.education}</Text>
             {data.educations.map((edu, index) => (
               <View key={index} style={styles.experienceItem}>
                 <Text style={styles.jobTitle}>{edu.degree}</Text>
@@ -202,7 +202,7 @@ const Template3: React.FC<Props> = ({ data, accentColor }) => {
 
           {data.projects?.length > 0 && (
             <View style={styles.mainSection}>
-              <Text style={styles.sectionTitle}>Projects</Text>
+              <Text style={styles.sectionTitle}>{titles.projects}</Text>
               {data.projects.map((project, index) => (
                 <View key={index} style={styles.experienceItem}>
                   <Text style={styles.jobTitle}>{project.title}</Text>

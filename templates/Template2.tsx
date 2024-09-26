@@ -1,5 +1,5 @@
 import { renderHtmlContent } from "@/components/renderHTMLContent";
-import { ICvPdf } from "@/interfaces/ICvPdf";
+import { ICvPdf, ITitles } from "@/interfaces/ICvPdf";
 import {
   Page,
   Text,
@@ -14,6 +14,7 @@ import {
 interface Props {
   data: ICvPdf;
   accentColor?: string;
+  titles: ITitles;
 }
 Font.register({
   family: "Roboto",
@@ -29,7 +30,7 @@ Font.register({
   ],
 });
 
-export default function Template2({ data, accentColor }: Props) {
+export default function Template2({ data, accentColor, titles }: Props) {
   const mainColor = accentColor || "#6ba5e3";
   const styles = StyleSheet.create({
     page: {
@@ -158,7 +159,7 @@ export default function Template2({ data, accentColor }: Props) {
                 style={{ flexDirection: "row", gap: 4, marginBottom: 5 }}
                 wrap={false}
               >
-                <Text style={{ fontWeight: "bold" }}>Email:</Text>{" "}
+                <Text style={{ fontWeight: "bold" }}>{titles.email}</Text>{" "}
                 <Text style={{ fontWeight: "normal" }}>
                   {data.personalDetails.email}
                 </Text>
@@ -169,7 +170,7 @@ export default function Template2({ data, accentColor }: Props) {
                 style={{ flexDirection: "row", gap: 4, marginBottom: 5 }}
                 wrap={false}
               >
-                <Text style={{ fontWeight: "bold" }}>Phone:</Text>{" "}
+                <Text style={{ fontWeight: "bold" }}>{titles.phone}</Text>{" "}
                 <Text style={{ fontWeight: "normal" }}>
                   {data.personalDetails.phone}
                 </Text>
@@ -180,7 +181,7 @@ export default function Template2({ data, accentColor }: Props) {
                 style={{ flexDirection: "row", gap: 4, marginBottom: 5 }}
                 wrap={false}
               >
-                <Text style={{ fontWeight: "bold" }}>Address:</Text>{" "}
+                <Text style={{ fontWeight: "bold" }}>{titles.address}</Text>{" "}
                 <Text style={{ fontWeight: "normal" }}>
                   {data.personalDetails.address}
                 </Text>
@@ -191,7 +192,7 @@ export default function Template2({ data, accentColor }: Props) {
                 style={{ flexDirection: "row", gap: 4, marginBottom: 5 }}
                 wrap={false}
               >
-                <Text style={{ fontWeight: "bold" }}>GitHub:</Text>{" "}
+                <Text style={{ fontWeight: "bold" }}>{titles.github}</Text>{" "}
                 <Text style={{ fontWeight: "normal" }}>
                   {data.personalDetails.github}
                 </Text>
@@ -202,7 +203,7 @@ export default function Template2({ data, accentColor }: Props) {
 
         {data.experiences.length > 0 && (
           <View>
-            <Text style={styles.sectionTitle}>Experience</Text>
+            <Text style={styles.sectionTitle}>{titles.experience}</Text>
             <View style={styles.section}>
               {data.experiences.map((exp, index) => (
                 <View key={index} style={styles.experienceItem} wrap={false}>
@@ -224,7 +225,7 @@ export default function Template2({ data, accentColor }: Props) {
 
         {data.educations.length > 0 && (
           <View wrap={false}>
-            <Text style={styles.sectionTitle}>Education</Text>
+            <Text style={styles.sectionTitle}>{titles.education}</Text>
             <View style={styles.section} wrap={false}>
               {data.educations.map((edu, index) => (
                 <View key={index} style={styles.educationItem} wrap={false}>
@@ -240,7 +241,7 @@ export default function Template2({ data, accentColor }: Props) {
 
         {data.skills.length > 0 && (
           <View wrap={false}>
-            <Text style={styles.sectionTitle}>Skills</Text>
+            <Text style={styles.sectionTitle}>{titles.skills}</Text>
             <View style={styles.section} wrap={false}>
               {data.skills.map((category, index) => (
                 <View key={index} style={styles.skillCategory} wrap={false}>
@@ -256,14 +257,19 @@ export default function Template2({ data, accentColor }: Props) {
 
         {data.projects?.length > 0 && (
           <View wrap={false}>
-            <Text style={styles.sectionTitle}>Projects</Text>
+            <Text style={styles.sectionTitle}>{titles.projects}</Text>
             <View style={styles.section} wrap={false}>
               {data.projects.map((project, index) => (
                 <View key={index} style={styles.experienceItem} wrap={false}>
                   <Text style={styles.jobTitle}>{project.title}</Text>
                   {project.link && (
                     <Text style={styles.jobDetails}>
-                      <Link href={project.link}>{project.link}</Link>
+                      <Link
+                        style={{ color: "#000", fontWeight: "bold" }}
+                        href={project.link}
+                      >
+                        {project.link}
+                      </Link>
                     </Text>
                   )}
                   <View style={styles.jobDescription} wrap={false}>
@@ -277,7 +283,7 @@ export default function Template2({ data, accentColor }: Props) {
 
         {data.languages.length > 0 && (
           <View wrap={false}>
-            <Text style={styles.sectionTitle}>Languages</Text>
+            <Text style={styles.sectionTitle}>{titles.languages}</Text>
             <View style={styles.section} wrap={false}>
               {data.languages.map((lang, index) => (
                 <View key={index} style={styles.languageItem} wrap={false}>
@@ -291,7 +297,7 @@ export default function Template2({ data, accentColor }: Props) {
 
         {data.hobbies.length > 0 && (
           <View wrap={false}>
-            <Text style={styles.sectionTitle}>Hobbies</Text>
+            <Text style={styles.sectionTitle}>{titles.hobbies}</Text>
             <View style={styles.section} wrap={false}>
               <Text style={styles.hobbies}>{data.hobbies.join(" | ")}</Text>
             </View>

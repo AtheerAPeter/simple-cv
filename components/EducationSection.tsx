@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Education } from "@/interfaces/IFormTypes";
 import { PlusCircle, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface Props {
   educations: Education[];
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const EducationSection = (props: Props) => {
+  const t = useTranslations("educationSection");
   const { educations, handleEducationChange, removeEducation, addEducation } =
     props;
   return (
@@ -22,7 +24,9 @@ const EducationSection = (props: Props) => {
       {educations?.map((edu, index) => (
         <div key={index} className="mb-4 p-4 bg-white">
           <div className="flex justify-between items-center mb-2">
-            <h3 className="text-lg font-medium">Education {index + 1}</h3>
+            <h3 className="text-lg font-medium">
+              {t("title")} {index + 1}
+            </h3>
             <Button
               variant="ghost"
               size="sm"
@@ -33,7 +37,7 @@ const EducationSection = (props: Props) => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor={`degree-${index}`}>Degree</Label>
+              <Label htmlFor={`degree-${index}`}>{t("degree")}</Label>
               <Input
                 id={`degree-${index}`}
                 name="degree"
@@ -43,7 +47,7 @@ const EducationSection = (props: Props) => {
               />
             </div>
             <div>
-              <Label htmlFor={`university-${index}`}>University</Label>
+              <Label htmlFor={`university-${index}`}>{t("university")}</Label>
               <Input
                 id={`university-${index}`}
                 name="university"
@@ -53,7 +57,7 @@ const EducationSection = (props: Props) => {
               />
             </div>
             <div>
-              <Label htmlFor={`eduStartDate-${index}`}>Start Date</Label>
+              <Label htmlFor={`eduStartDate-${index}`}>{t("startDate")}</Label>
               <Input
                 id={`eduStartDate-${index}`}
                 name="startDate"
@@ -65,7 +69,7 @@ const EducationSection = (props: Props) => {
               />
             </div>
             <div>
-              <Label htmlFor={`eduEndDate-${index}`}>End Date</Label>
+              <Label htmlFor={`eduEndDate-${index}`}>{t("endDate")}</Label>
               <Input
                 id={`eduEndDate-${index}`}
                 name="endDate"
@@ -80,7 +84,7 @@ const EducationSection = (props: Props) => {
         </div>
       ))}
       <Button type="button" onClick={addEducation} className="mt-2">
-        <PlusCircle className="mr-2 h-4 w-4" /> Add Education
+        <PlusCircle className="mr-2 h-4 w-4" /> {t("addEducation")}
       </Button>
     </>
   );

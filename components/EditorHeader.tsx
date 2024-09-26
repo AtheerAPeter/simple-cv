@@ -2,19 +2,16 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ICvPdf } from "@/interfaces/ICvPdf";
+import { ICvPdf, ITitles } from "@/interfaces/ICvPdf";
 import useTemplateStore from "@/stores/templateStore";
 import Template1 from "@/templates/Template1";
 import Template2 from "@/templates/Template2";
 import Template3 from "@/templates/Template3";
 import Template4 from "@/templates/Template4";
-import {
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  SaveIcon,
-  TrashIcon,
-} from "lucide-react";
+import { ArrowLeftIcon, SaveIcon, TrashIcon } from "lucide-react";
 import Image from "next/image";
+import { LanguageSwitcherComponent } from "./language-switcher";
+import Template5 from "@/templates/Template5";
 
 interface Props {
   onClearAll: () => void;
@@ -23,17 +20,20 @@ interface Props {
 }
 
 export const templates = {
-  simple: (data: ICvPdf, accentColor: string) => (
-    <Template1 data={data} accentColor={accentColor} />
+  simple: (data: ICvPdf, accentColor: string, titles: ITitles) => (
+    <Template1 data={data} accentColor={accentColor} titles={titles} />
   ),
-  header: (data: ICvPdf, accentColor: string) => (
-    <Template2 data={data} accentColor={accentColor} />
+  header: (data: ICvPdf, accentColor: string, titles: ITitles) => (
+    <Template2 data={data} accentColor={accentColor} titles={titles} />
   ),
-  modern: (data: ICvPdf, accentColor: string) => (
-    <Template3 data={data} accentColor={accentColor} />
+  modern: (data: ICvPdf, accentColor: string, titles: ITitles) => (
+    <Template3 data={data} accentColor={accentColor} titles={titles} />
   ),
-  "simple 2": (data: ICvPdf, accentColor: string) => (
-    <Template4 data={data} accentColor={accentColor} />
+  "simple 2": (data: ICvPdf, accentColor: string, titles: ITitles) => (
+    <Template4 data={data} accentColor={accentColor} titles={titles} />
+  ),
+  "skills up": (data: ICvPdf, accentColor: string, titles: ITitles) => (
+    <Template5 data={data} accentColor={accentColor} titles={titles} />
   ),
 };
 
@@ -89,12 +89,13 @@ const colors = [
 export function EditorHeader(props: Props) {
   const { color, setColor, template, setTemplate } = useTemplateStore();
   return (
-    <div className="container mx-auto p-6 max-w-4xl">
+    <div className="container mx-auto">
       <header className="flex justify-between mb-8">
         <Button variant="outline" size="icon" onClick={props.onBack}>
           <ArrowLeftIcon className="h-4 w-4" />
         </Button>
         <div className="flex items-center space-x-4">
+          <LanguageSwitcherComponent />
           <Button variant="outline" size="icon" onClick={props.onClearAll}>
             <TrashIcon className="h-4 w-4" />
             <span className="sr-only">Clear</span>
@@ -106,7 +107,7 @@ export function EditorHeader(props: Props) {
         </div>
       </header>
       <main>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4 lg:px-0">
           {Object.keys(templates).map((t, index) => (
             <Card
               key={index}
@@ -115,12 +116,12 @@ export function EditorHeader(props: Props) {
               }`}
               onClick={() => setTemplate(t as Templates)}
             >
-              <CardContent className="p-2">
+              <CardContent className="p-1">
                 <Image
                   alt={t}
                   src={`/templates/${index + 1}.png`}
-                  width={150}
-                  height={212}
+                  width={100}
+                  height={141}
                   className="w-full h-auto"
                 />
               </CardContent>
@@ -128,7 +129,7 @@ export function EditorHeader(props: Props) {
           ))}
         </div>
         <div className="mt-8">
-          <div className="flex justify-center space-x-4 mb-8">
+          <div className="flex justify-center space-x-2 mb-8">
             {colors.map((c, index) => (
               <button
                 onClick={() => setColor(c.hex)}
@@ -140,18 +141,6 @@ export function EditorHeader(props: Props) {
               />
             ))}
           </div>
-        </div>
-        <div>
-          {/* <div className="flex justify-center mt-6 space-x-4">
-            <Button variant="outline" size="icon">
-              <ArrowLeftIcon className="h-4 w-4" />
-              <span className="sr-only">Previous templates</span>
-            </Button>
-            <Button variant="outline" size="icon">
-              <ArrowRightIcon className="h-4 w-4" />
-              <span className="sr-only">Next templates</span>
-            </Button>
-          </div> */}
         </div>
       </main>
     </div>

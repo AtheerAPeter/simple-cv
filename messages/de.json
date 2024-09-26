@@ -1,0 +1,148 @@
+{
+  "home": {
+    "title": "Erstellen Sie Ihren perfekten Lebenslauf in Minuten",
+    "paragraph": "Unser KI gesteuerter Lebenslauf Generator hilft Ihnen, einen professionellen Lebenslauf zu erstellen, der hervorsticht und zu Stellenbeschreibungen passt. Starten Sie kostenlos!",
+    "button": "Jetzt beginnen",
+    "features": {
+      "title": "Funktionen",
+      "easyToUse": {
+        "title": "Einfach zu bedienen",
+        "description": "Intuitive Benutzeroberfläche, die Sie Schritt für Schritt durch den Erstellungsprozess des Lebenslaufs führt."
+      },
+      "professionalTemplates": {
+        "title": "Professionelle Vorlagen",
+        "description": "Wählen Sie aus einer Vielzahl professionell gestalteter Vorlagen, um Ihren Lebenslauf hervorzuheben."
+      },
+      "atsFriendly": {
+        "title": "ATS freundlich",
+        "description": "Unsere Lebensläufe sind für Bewerbermanagementsysteme optimiert, um Ihre Chancen auf ein Vorstellungsgespräch zu erhöhen."
+      },
+      "aiPoweredCustomization": {
+        "title": "KI gesteuerte Anpassung",
+        "description": "Unsere KI passt Ihren Lebenslauf an spezifische Stellenbeschreibungen an und verbessert Ihre Chancen auf Vorstellungsgespräche."
+      }
+    },
+    "mock": {
+      "atmagic": "KI Magie",
+      "mockcv": {
+        "experience": "Erfahrung",
+        "skills": "Fähigkeiten"
+      },
+      "mockJobDescription": {
+        "title": "Stellenbeschreibung",
+        "keyResponsibilities": "Hauptverantwortlichkeiten:",
+        "k1": "Entwicklung und Verbesserung von B2B SaaS Produkten",
+        "k2": "Implementierung neuer Funktionen und Ansichten",
+        "k3": "Verbesserung der Produkt UI/UX",
+        "k4": "Refaktorisierung bestehender Komponenten",
+        "idealCandidate": "Idealer Kandidat:",
+        "i1": "3+ Jahre Erfahrung in der Softwareentwicklung",
+        "i2": "Kenntnisse in TypeScript, React, Tailwind, GraphQL",
+        "i3": "Selbstständige Arbeitsweise",
+        "i4": "Aufgabenverantwortung",
+        "i5": "Kundenorientierte Denkweise"
+      }
+    },
+    "common": {
+      "cvBuilder": "Lebenslauf Generator"
+    }
+  },
+  "cvBuilder": {
+    "previewCV": "Lebenslauf Vorschau",
+    "personalDetails": "Persönliche Daten",
+    "experience": "Berufserfahrung",
+    "education": "Abschlüsse und Ausbildung",
+    "skills": "Fähigkeiten",
+    "jobDescription": "Stellenbeschreibung",
+    "beta": "Beta",
+    "projects": "Projekte",
+    "languages": "Sprachen",
+    "hobbies": "Hobbys",
+    "workInProgress": "Dieses Projekt befindet sich in der Entwicklung. Weitere Vorlagen und Funktionen werden in Kürze hinzugefügt",
+    "github": "GitHub",
+    "clearAll": "Alles löschen",
+    "save": "Speichern",
+    "back": "Zurück",
+    "cvDataSaved": {
+      "title": "Lebenslauf-Daten gespeichert",
+      "description": "Ihre Lebenslauf-Daten wurden erfolgreich im lokalen Speicher gespeichert."
+    },
+    "translateTtile": "Übersetzung"
+  },
+  "personalDetailsSection": {
+    "name": "Name",
+    "title": "Titel",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "address": "Adresse",
+    "github": "GitHub",
+    "profilePhoto": "Profilbild"
+  },
+  "experienceSection": {
+    "addExperience": "Erfahrung hinzufügen",
+    "title": "Berufserfahrung",
+    "jobTitle": "Berufsbezeichnung",
+    "employer": "Arbeitgeber",
+    "startDate": "Startdatum",
+    "endDate": "Enddatum",
+    "description": "Beschreibung"
+  },
+  "educationSection": {
+    "addEducation": "Ausbildung hinzufügen",
+    "title": "Ausbildung",
+    "degree": "Abschluss",
+    "university": "Universität",
+    "startDate": "Startdatum",
+    "endDate": "Enddatum"
+  },
+  "skillsSection": {
+    "addSkillCategory": "Fähigkeitskategorie hinzufügen",
+    "skillTitle": "Fähigkeitstitel"
+  },
+  "smartUpdateSkillsSection": {
+    "title": "Intelligente Aktualisierung der Fähigkeiten",
+    "placeholder": "Geben Sie die Stellenbeschreibung ein, um Ihre Fähigkeiten automatisch für eine bessere Übereinstimmung anzupassen",
+    "updateButton": "Fähigkeiten aktualisieren",
+    "usageLimit": "Nutzungslimit",
+    "limitReached": {
+      "title": "Nutzungslimit erreicht",
+      "description": "Das Limit wird in 24 Stunden zurückgesetzt"
+    },
+    "updateSuccess": {
+      "title": "Fähigkeiten aktualisiert",
+      "description": "Aktualisierung erfolgreich"
+    }
+  },
+  "projectsSection": {
+    "addProject": "Projekt hinzufügen",
+    "title": "Projekttitel",
+    "link": "Projektlink",
+    "description": "Beschreibung",
+    "project": "Projekt"
+  },
+  "languagesSection": {
+    "addLanguage": "Sprache hinzufügen",
+    "title": "Sprache",
+    "proficiency": "Fähigkeit"
+  },
+  "hobbiesSection": {
+    "addHobby": "Hobby hinzufügen",
+    "title": "Hobby"
+  },
+  "translateSection": {
+    "selectLanguage": "Sprache auswählen",
+    "button": "übersetzen"
+  },
+  "templateTranslation": {
+    "email": "E-Mail:",
+    "phone": "Telefon:",
+    "address": "Adresse:",
+    "github": "GitHub:",
+    "experience": "Erfahrung",
+    "education": "Bildung",
+    "skills": "Fähigkeiten",
+    "projects": "Projekte",
+    "languages": "Sprachen",
+    "hobbies": "Hobbys"
+  }
+}

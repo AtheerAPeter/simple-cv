@@ -1,10 +1,15 @@
 import MockSteps from "@/components/landingPage/MockSteps";
+import { LanguageSwitcherComponent } from "@/components/language-switcher";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { FileText, Zap, Star, Bot, Github, Linkedin } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 
 export default function Home() {
+  const t = useTranslations("home");
+  const locale = useLocale();
+
   return (
     <main className="flex-1">
       <section className="w-full container mx-auto lg:h-screen h-auto">
@@ -12,9 +17,10 @@ export default function Home() {
           <nav className="flex justify-between items-center container mx-auto lg:px-0 px-4">
             <Logo />
             <div className="gap-4 flex itmes-center">
-              <Link href="/cv-builder">
+              <LanguageSwitcherComponent />
+              <Link href={`${locale}/cv-builder`}>
                 <Button className="font-bold" size={"lg"}>
-                  Get Started
+                  {t("button")}
                 </Button>
               </Link>
             </div>
@@ -24,17 +30,16 @@ export default function Home() {
           <div className="flex flex-col items-center space-y-4 justify-center h-full my-20 text-center lg:text-start">
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                Create Your Perfect CV in Minutes
+                {t("title")}
               </h1>
               <p className="text-gray-500 md:text-xl dark:text-gray-400">
-                Our AI-powered CV maker helps you build a professional CV that
-                stands out and matches job descriptions. Get started for free!
+                {t("paragraph")}
               </p>
             </div>
             <div className="w-full flex justify-center lg:justify-start space-x-4">
-              <Link href="/cv-builder">
+              <Link href={`${locale}/cv-builder`}>
                 <Button className="font-bold" size={"lg"}>
-                  Get Started
+                  {t("button")}
                 </Button>
               </Link>
             </div>
@@ -48,39 +53,43 @@ export default function Home() {
       >
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">
-            Features
+            {t("features.title")}
           </h2>
           <div className="grid gap-6 lg:grid-cols-4 lg:gap-12">
             <div className="flex flex-col items-center space-y-4 text-center">
               <Zap className="h-10 w-10 text-primary" />
-              <h3 className="text-xl font-bold">Easy to Use</h3>
+              <h3 className="text-xl font-bold">
+                {t("features.easyToUse.title")}
+              </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                Intuitive interface that guides you through the CV creation
-                process step by step.
+                {t("features.easyToUse.description")}
               </p>
             </div>
             <div className="flex flex-col items-center space-y-4 text-center">
               <FileText className="h-10 w-10 text-primary" />
-              <h3 className="text-xl font-bold">Professional Templates</h3>
+              <h3 className="text-xl font-bold">
+                {t("features.professionalTemplates.title")}
+              </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                Choose from a variety of professionally designed templates to
-                make your CV stand out.
+                {t("features.professionalTemplates.description")}
               </p>
             </div>
             <div className="flex flex-col items-center space-y-4 text-center">
               <Star className="h-10 w-10 text-primary" />
-              <h3 className="text-xl font-bold">ATS-Friendly</h3>
+              <h3 className="text-xl font-bold">
+                {t("features.atsFriendly.title")}
+              </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                Our CVs are optimized for Applicant Tracking Systems to increase
-                your chances of getting an interview.
+                {t("features.atsFriendly.description")}
               </p>
             </div>
             <div className="flex flex-col items-center space-y-4 text-center">
               <Bot className="h-10 w-10 text-primary" />
-              <h3 className="text-xl font-bold">AI-Powered Customization</h3>
+              <h3 className="text-xl font-bold">
+                {t("features.aiPoweredCustomization.title")}
+              </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                Our AI tailors your CV to match specific job descriptions,
-                improving your chances of landing interviews.
+                {t("features.aiPoweredCustomization.description")}
               </p>
             </div>
           </div>
@@ -100,13 +109,13 @@ export default function Home() {
                 href="/cv-builder"
                 className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
               >
-                CV Builder
+                {t("common.cvBuilder")}
               </Link>
               <Link
                 href="#features"
                 className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
               >
-                Features
+                {t("features.title")}
               </Link>
             </nav>
             <div className="flex space-x-4 text-sm items-center">

@@ -23,3 +23,16 @@ export interface ICvPdf {
   hobbies: string[];
   projects: Project[];
 }
+
+export interface ITitles {
+  experience: string;
+  education: string;
+  skills: string;
+  projects: string;
+  languages: string;
+  hobbies: string;
+  email: string;
+  phone: string;
+  address: string;
+  github: string;
+}

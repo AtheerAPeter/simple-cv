@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { SkillCategory } from "@/interfaces/IFormTypes";
 import SkillItemInput from "./SkillItemInput";
+import { useTranslations } from "next-intl";
 
 interface SkillsSectionProps {
   skills: SkillCategory[];
@@ -16,8 +17,7 @@ export default function SkillsSection({
   skills,
   setSkills,
 }: SkillsSectionProps) {
-  const [currentSkill, setCurrentSkill] = useState("");
-
+  const t = useTranslations("skillsSection");
   const handleCategoryTitleChange = (
     index: number,
     e: React.ChangeEvent<HTMLInputElement>
@@ -63,7 +63,7 @@ export default function SkillsSection({
       {skills?.map((skillCategory, index) => (
         <div key={index} className="mb-4 p-4 bg-white">
           <div className="flex justify-between items-center mb-2">
-            <Label htmlFor={`skillTitle-${index}`}>Skill Category</Label>
+            <Label htmlFor={`skillTitle-${index}`}>{t("skillTitle")}</Label>
             <Button
               variant="ghost"
               size="sm"
@@ -95,7 +95,7 @@ export default function SkillsSection({
         </div>
       ))}
       <Button type="button" onClick={addSkillCategory} className="mt-2">
-        <PlusCircle className="mr-2 h-4 w-4" /> Add Skill Category
+        <PlusCircle className="mr-2 h-4 w-4" /> {t("addSkillCategory")}
       </Button>
     </>
   );
