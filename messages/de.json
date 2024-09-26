@@ -111,5 +111,21 @@
       "title": "Fähigkeiten aktualisiert",
       "description": "Aktualisierung erfolgreich"
     }
+  },
+  "projectsSection": {
+    "addProject": "Projekt hinzufügen",
+    "title": "Projekttitel",
+    "link": "Projektlink",
+    "description": "Beschreibung",
+    "project": "Projekt"
+  },
+  "languagesSection": {
+    "addLanguage": "Sprache hinzufügen",
+    "title": "Sprache",
+    "proficiency": "Fähigkeit"
+  },
+  "hobbiesSection": {
+    "addHobby": "Hobby hinzufügen",
+    "title": "Hobby"
   }
 }

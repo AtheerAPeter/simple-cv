@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { PlusCircle } from "lucide-react";
 
 interface Props {
   onAddSkill: (skill: string) => void;
@@ -21,8 +22,8 @@ export default function SkillItemInput(props: Props) {
         placeholder="Add a skill"
         className="border-gray-100"
       />
-      <Button type="button" onClick={onAddSkill}>
-        Add
+      <Button size={"icon"} type="button" onClick={onAddSkill}>
+        <PlusCircle size={20} />
       </Button>
     </div>
   );

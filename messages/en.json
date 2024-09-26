@@ -111,5 +111,21 @@
       "title": "Skills Updated",
       "description": "Update successful"
     }
+  },
+  "projectsSection": {
+    "addProject": "Add Project",
+    "title": "Project Title",
+    "link": "Project Link",
+    "description": "Description",
+    "project": "Project"
+  },
+  "languagesSection": {
+    "addLanguage": "Add Language",
+    "title": "Language",
+    "proficiency": "Proficiency"
+  },
+  "hobbiesSection": {
+    "addHobby": "Add a Hobby",
+    "title": "Hobby"
   }
 }

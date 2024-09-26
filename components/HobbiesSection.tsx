@@ -1,7 +1,8 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { X } from "lucide-react";
+import { PlusCircle, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface Props {
   hobbies: string[];
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const HobbiesSection = (props: Props) => {
+  const t = useTranslations("hobbiesSection");
   const { hobbies, currentHobby, setCurrentHobby, addHobby, removeHobby } =
     props;
   return (
@@ -34,11 +36,11 @@ const HobbiesSection = (props: Props) => {
           <Input
             value={currentHobby}
             onChange={(e) => setCurrentHobby(e.target.value)}
-            placeholder="Add a hobby"
+            placeholder={t("title")}
             className="border-gray-100"
           />
-          <Button type="button" onClick={addHobby}>
-            Add
+          <Button type="button" size={"icon"} onClick={addHobby}>
+            <PlusCircle size={20} />
           </Button>
         </div>
       </div>
