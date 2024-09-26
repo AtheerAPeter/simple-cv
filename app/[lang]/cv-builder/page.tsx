@@ -19,10 +19,11 @@ import useTemplateStore from "@/stores/templateStore";
 import { SmartUpdateSkillsSection } from "@/components/SmartUpdateSkillsSection";
 import { EditorHeader } from "@/components/EditorHeader";
 import { useRouter } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 export default function Page() {
   const t = useTranslations("cvBuilder");
+  const locale = useLocale();
   const router = useRouter();
   const { toast } = useToast();
   const {
@@ -352,7 +353,7 @@ export default function Page() {
         <EditorHeader
           onClearAll={clearAll}
           onSave={saveToLocalStorage}
-          onBack={() => router.replace("/")}
+          onBack={() => router.replace(`/${locale}`)}
         />
         <div className="space-y-6">
           <section>
