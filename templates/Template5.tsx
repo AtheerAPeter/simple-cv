@@ -30,7 +30,7 @@ Font.register({
   ],
 });
 
-export default function Template1({ data, accentColor, titles }: Props) {
+export default function Template5({ data, accentColor, titles }: Props) {
   const styles = StyleSheet.create({
     page: {
       flexDirection: "column",
@@ -65,8 +65,9 @@ export default function Template1({ data, accentColor, titles }: Props) {
       fontWeight: "bold",
       marginBottom: 5,
       borderBottomWidth: 1,
-      borderBottomColor: "#000",
+      borderBottomColor: accentColor,
       paddingBottom: 2,
+      color: accentColor,
     },
     experienceItem: {
       marginBottom: 8,
@@ -182,6 +183,20 @@ export default function Template1({ data, accentColor, titles }: Props) {
           </View>
         </View>
 
+        {data.skills.length > 0 && (
+          <View style={styles.section} wrap={false}>
+            <Text style={styles.sectionTitle}>{titles.skills}</Text>
+            {data.skills.map((category, index) => (
+              <View key={index} style={styles.skillCategory} wrap={false}>
+                <Text style={styles.skillTitle}>{category.title}</Text>
+                <Text style={styles.skillList}>
+                  {category.skills.join(" | ")}
+                </Text>
+              </View>
+            ))}
+          </View>
+        )}
+
         {data.experiences.length > 0 && (
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{titles.experience}</Text>
@@ -210,20 +225,6 @@ export default function Template1({ data, accentColor, titles }: Props) {
                 <Text style={styles.jobTitle}>{edu.degree}</Text>
                 <Text style={styles.jobDetails}>
                   {edu.university} | {edu.startDate} - {edu.endDate}
-                </Text>
-              </View>
-            ))}
-          </View>
-        )}
-
-        {data.skills.length > 0 && (
-          <View style={styles.section} wrap={false}>
-            <Text style={styles.sectionTitle}>{titles.skills}</Text>
-            {data.skills.map((category, index) => (
-              <View key={index} style={styles.skillCategory} wrap={false}>
-                <Text style={styles.skillTitle}>{category.title}</Text>
-                <Text style={styles.skillList}>
-                  {category.skills.join(" | ")}
                 </Text>
               </View>
             ))}

@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ICvPdf } from "@/interfaces/ICvPdf";
+import { ICvPdf, ITitles } from "@/interfaces/ICvPdf";
 import useTemplateStore from "@/stores/templateStore";
 import Template1 from "@/templates/Template1";
 import Template2 from "@/templates/Template2";
@@ -11,6 +11,7 @@ import Template4 from "@/templates/Template4";
 import { ArrowLeftIcon, SaveIcon, TrashIcon } from "lucide-react";
 import Image from "next/image";
 import { LanguageSwitcherComponent } from "./language-switcher";
+import Template5 from "@/templates/Template5";
 
 interface Props {
   onClearAll: () => void;
@@ -19,17 +20,20 @@ interface Props {
 }
 
 export const templates = {
-  simple: (data: ICvPdf, accentColor: string) => (
-    <Template1 data={data} accentColor={accentColor} />
+  simple: (data: ICvPdf, accentColor: string, titles: ITitles) => (
+    <Template1 data={data} accentColor={accentColor} titles={titles} />
   ),
-  header: (data: ICvPdf, accentColor: string) => (
-    <Template2 data={data} accentColor={accentColor} />
+  header: (data: ICvPdf, accentColor: string, titles: ITitles) => (
+    <Template2 data={data} accentColor={accentColor} titles={titles} />
   ),
-  modern: (data: ICvPdf, accentColor: string) => (
-    <Template3 data={data} accentColor={accentColor} />
+  modern: (data: ICvPdf, accentColor: string, titles: ITitles) => (
+    <Template3 data={data} accentColor={accentColor} titles={titles} />
   ),
-  "simple 2": (data: ICvPdf, accentColor: string) => (
-    <Template4 data={data} accentColor={accentColor} />
+  "simple 2": (data: ICvPdf, accentColor: string, titles: ITitles) => (
+    <Template4 data={data} accentColor={accentColor} titles={titles} />
+  ),
+  "skills up": (data: ICvPdf, accentColor: string, titles: ITitles) => (
+    <Template5 data={data} accentColor={accentColor} titles={titles} />
   ),
 };
 

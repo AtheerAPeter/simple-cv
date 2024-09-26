@@ -132,5 +132,17 @@
   "translateSection": {
     "selectLanguage": "Select Language",
     "button": "Translate"
+  },
+  "templateTranslation": {
+    "email": "Email:",
+    "phone": "Phone:",
+    "address": "Address:",
+    "github": "GitHub:",
+    "experience": "Experience",
+    "education": "Education",
+    "skills": "Skills",
+    "projects": "Projects",
+    "languages": "Languages",
+    "hobbies": "Hobbies"
   }
 }

@@ -1,5 +1,5 @@
 import { renderHtmlContent } from "@/components/renderHTMLContent";
-import { ICvPdf } from "@/interfaces/ICvPdf";
+import { ICvPdf, ITitles } from "@/interfaces/ICvPdf";
 import {
   Page,
   Text,
@@ -14,6 +14,7 @@ import {
 interface Props {
   data: ICvPdf;
   accentColor?: string;
+  titles: ITitles;
 }
 Font.register({
   family: "Roboto",
@@ -29,7 +30,7 @@ Font.register({
   ],
 });
 
-export default function Template4({ data, accentColor }: Props) {
+export default function Template4({ data, accentColor, titles }: Props) {
   const primaryColor = accentColor || "#f4a300";
   const styles = StyleSheet.create({
     page: {
@@ -138,7 +139,7 @@ export default function Template4({ data, accentColor }: Props) {
             </View>
             {data.personalDetails.address && (
               <View style={styles.contactItem} wrap={false}>
-                <Text style={{ fontWeight: "bold" }}>Address:</Text>{" "}
+                <Text style={{ fontWeight: "bold" }}>{titles.address}</Text>{" "}
                 <Text style={{ fontWeight: "normal" }}>
                   {data.personalDetails.address}
                 </Text>
@@ -146,7 +147,7 @@ export default function Template4({ data, accentColor }: Props) {
             )}
             {data.personalDetails.phone && (
               <View style={styles.contactItem} wrap={false}>
-                <Text style={{ fontWeight: "bold" }}>Phone:</Text>{" "}
+                <Text style={{ fontWeight: "bold" }}>{titles.phone}</Text>{" "}
                 <Text style={{ fontWeight: "normal" }}>
                   {data.personalDetails.phone}
                 </Text>
@@ -154,7 +155,7 @@ export default function Template4({ data, accentColor }: Props) {
             )}
             {data.personalDetails.email && (
               <View style={styles.contactItem} wrap={false}>
-                <Text style={{ fontWeight: "bold" }}>Email:</Text>{" "}
+                <Text style={{ fontWeight: "bold" }}>{titles.email}</Text>{" "}
                 <Text style={{ fontWeight: "normal" }}>
                   {data.personalDetails.email}
                 </Text>
@@ -162,7 +163,7 @@ export default function Template4({ data, accentColor }: Props) {
             )}
             {data.personalDetails.github && (
               <View style={styles.contactItem} wrap={false}>
-                <Text style={{ fontWeight: "bold" }}>LinkedIn:</Text>{" "}
+                <Text style={{ fontWeight: "bold" }}>{titles.github}</Text>{" "}
                 <Link src={data.personalDetails.github}>
                   <Text style={{ fontWeight: "normal", color: "#000" }}>
                     {data.personalDetails.github}
@@ -181,7 +182,7 @@ export default function Template4({ data, accentColor }: Props) {
 
         {data.experiences.length > 0 && (
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Work Experience</Text>
+            <Text style={styles.sectionTitle}>{titles.experience}</Text>
             {data.experiences.map((exp, index) => (
               <View key={index} style={styles.experienceItem} wrap={false}>
                 <View style={styles.jobTitleContainer} wrap={false}>
@@ -201,7 +202,7 @@ export default function Template4({ data, accentColor }: Props) {
 
         {data.educations.length > 0 && (
           <View style={styles.section} wrap={false}>
-            <Text style={styles.sectionTitle}>Education</Text>
+            <Text style={styles.sectionTitle}>{titles.education}</Text>
             {data.educations.map((edu, index) => (
               <View key={index} style={styles.educationItem} wrap={false}>
                 <Text style={styles.jobTitle}>{edu.degree}</Text>
@@ -215,7 +216,7 @@ export default function Template4({ data, accentColor }: Props) {
 
         {data.skills.length > 0 && (
           <View style={styles.section} wrap={false}>
-            <Text style={styles.sectionTitle}>Skills</Text>
+            <Text style={styles.sectionTitle}>{titles.skills}</Text>
             {data.skills.map((category, index) => (
               <View key={index} style={styles.skillCategory} wrap={false}>
                 <Text style={styles.skillTitle}>{category.title}</Text>
@@ -229,7 +230,7 @@ export default function Template4({ data, accentColor }: Props) {
 
         {data.projects?.length > 0 && (
           <View style={styles.section} wrap={false}>
-            <Text style={styles.sectionTitle}>Projects</Text>
+            <Text style={styles.sectionTitle}>{titles.projects}</Text>
             {data.projects.map((project, index) => (
               <View key={index} style={styles.experienceItem} wrap={false}>
                 <Text style={styles.jobTitle}>{project.title}</Text>
@@ -248,7 +249,7 @@ export default function Template4({ data, accentColor }: Props) {
 
         {data.languages.length > 0 && (
           <View style={styles.section} wrap={false}>
-            <Text style={styles.sectionTitle}>Languages</Text>
+            <Text style={styles.sectionTitle}>{titles.languages}</Text>
             {data.languages.map((lang, index) => (
               <View key={index} style={styles.languageItem} wrap={false}>
                 <Text>{lang.language}</Text>
@@ -260,7 +261,7 @@ export default function Template4({ data, accentColor }: Props) {
 
         {data.hobbies.length > 0 && (
           <View style={styles.section} wrap={false}>
-            <Text style={styles.sectionTitle}>Hobbies</Text>
+            <Text style={styles.sectionTitle}>{titles.hobbies}</Text>
             <Text style={styles.hobbies}>{data.hobbies.join(" | ")}</Text>
           </View>
         )}
