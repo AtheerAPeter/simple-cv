@@ -106,7 +106,7 @@ export default function Home() {
             </div>
             <nav className="flex space-x-4 text-sm">
               <Link
-                href="/cv-builder"
+                href={`/${locale}/cv-builder`}
                 className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
               >
                 {t("common.cvBuilder")}
