@@ -4,6 +4,7 @@ import Head from "next/head";
 import { Nunito } from "next/font/google";
 import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
+import { Analytics } from "@vercel/analytics/react";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -36,6 +37,7 @@ export default async function RootLayout({
         className={`${nunito.className} antialiased`} // Use the Nunito font
       >
         <NextIntlClientProvider messages={messages}>
+          <Analytics />
           {children}
         </NextIntlClientProvider>
       </body>
