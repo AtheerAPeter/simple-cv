@@ -1,4 +1,4 @@
-## Epic CV Builder: Next.js CV Generator
+## Simple CV Builder: Next.js CV Generator
 
 This Next.js application allows users to create and generate professional CVs using an AI-powered system.
 
