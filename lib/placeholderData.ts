@@ -1,70 +1,64 @@
 export const placeholderData = {
-  name: "John Doe",
-  title: "Senior Software Engineer",
-  email: "john.doe@example.com",
-  phone: "+1 (555) 123-4567",
-  address: "123 Tech Street, San Francisco, CA 94122",
-  github: "github.com/johndoe",
+  name: "Emily Chen",
+  title: "Full Stack Developer",
+  email: "emily.chen@techdev.com",
+  phone: "+1 (415) 555-7890",
+  address: "456 Coding Lane, San Francisco, CA 94110",
+  github: "github.com/emilychen-dev",
   image: "https://i.ibb.co/Y2xvPqm/580413-PS-PAW-BILL-SUIT-scaled-min.jpg",
   experiences: [
     {
-      title: "Senior Software Engineer",
-      employer: "Tech Solutions Inc.",
-      startDate: "03/2018",
-      endDate: "06/2023",
+      title: "Full Stack Developer",
+      employer: "InnoTech Solutions",
+      startDate: "09/2019",
+      endDate: "Present",
       description:
-        "<ul><li>Led a team of 5 developers in building scalable web applications using React and Node.js</li><li>Implemented CI/CD pipelines and reduced deployment time by 40%</li></ul>",
+        "<ul><li>Developed and maintained a cloud-based project management tool using React, Node.js, and MongoDB</li><li>Implemented real-time collaboration features using WebSockets, improving team productivity by 25%</li></ul>",
     },
     {
-      title: "Software Developer",
-      employer: "InnovateSoft",
-      startDate: "07/2015",
-      endDate: "02/2018",
+      title: "Frontend Developer",
+      employer: "WebCraft Studios",
+      startDate: "06/2017",
+      endDate: "08/2019",
       description:
-        "<ul><li>Developed and maintained multiple Java-based enterprise applications</li><li>Collaborated with cross-functional teams to deliver high-quality software solutions</li></ul>",
+        "<ul><li>Built responsive and accessible web applications using Vue.js and Nuxt.js</li><li>Optimized website performance, achieving a 40% reduction in load time</li></ul>",
     },
   ],
   educations: [
     {
-      degree: "Master of Science in Computer Science",
-      university: "Stanford University",
-      startDate: "09/2013",
-      endDate: "06/2015",
-    },
-    {
-      degree: "Bachelor of Science in Software Engineering",
-      university: "MIT",
-      startDate: "09/2009",
-      endDate: "05/2013",
+      degree: "Bachelor of Science in Computer Science",
+      university: "University of California, Berkeley",
+      startDate: "08/2013",
+      endDate: "05/2017",
     },
   ],
   skills: [
     {
       title: "Programming Languages",
-      skills: ["JavaScript", "TypeScript", "Python", "Java", "C++"],
+      skills: ["JavaScript", "TypeScript", "Python", "HTML", "CSS"],
     },
     {
       title: "Frameworks & Libraries",
-      skills: ["React", "Node.js", "Express", "Django", "Spring Boot"],
+      skills: ["React", "Vue.js", "Node.js", "Express", "MongoDB"],
     },
   ],
   languages: [
     { language: "English", proficiency: "Native" },
-    { language: "Spanish", proficiency: "Intermediate" },
+    { language: "Mandarin", proficiency: "Fluent" },
   ],
-  hobbies: ["Open-source contributing", "Tech blogging", "Hiking"],
+  hobbies: ["Competitive programming", "UI/UX design", "Rock climbing"],
   projects: [
     {
-      title: "Personal Website",
-      link: "https://johndoe.com",
+      title: "EcoTrack",
+      link: "https://ecotrack.emilychen.dev",
       description:
-        "<p>Developed a personal website using React, Node.js, and MongoDB to showcase my skills and experiences.</p>",
+        "<p>Developed a mobile-responsive web app using React Native and Firebase to help users track and reduce their carbon footprint.</p>",
     },
     {
-      title: "E-commerce Platform",
-      link: "https://example.com",
+      title: "AI-powered Recipe Generator",
+      link: "https://recipe-ai.emilychen.dev",
       description:
-        "<p>Contributed to the development of an e-commerce platform using Java, Spring Boot, and MySQL.</p>",
+        "<p>Created a machine learning model using Python and TensorFlow to generate unique recipes based on available ingredients.</p>",
     },
   ],
 };

@@ -45,6 +45,12 @@
     },
     "common": {
       "cvBuilder": "Lebenslauf Generator"
+    },
+    "mockSection": {
+      "howItWorks": "So funktioniert es",
+      "createYourCv": "Erstellen Sie Ihren Lebenslauf",
+      "updatedCv": "KI aktualisierter Lebenslauf",
+      "copyPasteJobDescription": "Stellenbeschreibung kopieren/einfügen"
     }
   },
   "cvBuilder": {

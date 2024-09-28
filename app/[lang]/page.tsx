@@ -1,3 +1,4 @@
+import InteractingCard from "@/components/InteractingCard";
 import MockSteps from "@/components/landingPage/MockSteps";
 import { LanguageSwitcherComponent } from "@/components/language-switcher";
 import Logo from "@/components/Logo";
@@ -12,13 +13,13 @@ export default function Home() {
 
   return (
     <main className="flex-1">
-      <section className="w-full container mx-auto lg:h-screen h-auto">
+      <section className="w-full container mx-auto h-auto">
         <header className="w-full  py-4 mb-8">
           <nav className="flex justify-between items-center container mx-auto lg:px-0 px-4">
             <Logo />
             <div className="gap-4 flex itmes-center">
               <LanguageSwitcherComponent />
-              <Link href={`${locale}/services`}>
+              <Link href={`${locale}/cv-builder`}>
                 <Button className="font-bold" size={"lg"}>
                   {t("button")}
                 </Button>
@@ -27,7 +28,7 @@ export default function Home() {
           </nav>
         </header>
         <div className="flex items-center lg:space-x-8">
-          <div className="flex flex-col items-center space-y-4 justify-center h-full my-20 text-center lg:text-start">
+          <div className="flex flex-col items-center space-y-4 justify-center h-full my-20 text-center lg:text-start flex-1 lg:pr-20">
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
                 {t("title")}
@@ -37,15 +38,23 @@ export default function Home() {
               </p>
             </div>
             <div className="w-full flex justify-center lg:justify-start space-x-4">
-              <Link href={`${locale}/services`}>
+              <Link href={`${locale}/cv-builder`}>
                 <Button className="font-bold" size={"lg"}>
                   {t("button")}
                 </Button>
               </Link>
             </div>
           </div>
-          <MockSteps />
+          <Link href={`${locale}/cv-builder`}>
+            <InteractingCard />
+          </Link>
         </div>
+      </section>
+      <section className="py-10 hidden lg:block">
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">
+          {t("mockSection.howItWorks")}
+        </h2>
+        <MockSteps />
       </section>
       <section
         id="features"
@@ -106,7 +115,7 @@ export default function Home() {
             </div>
             <nav className="flex space-x-4 text-sm">
               <Link
-                href={`/${locale}/services`}
+                href={`/${locale}/cv-builder`}
                 className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
               >
                 {t("common.cvBuilder")}

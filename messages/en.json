@@ -45,6 +45,12 @@
     },
     "common": {
       "cvBuilder": "CV Builder"
+    },
+    "mockSection": {
+      "howItWorks": "How it works",
+      "createYourCv": "Create your CV",
+      "updatedCv": "AI Updated CV",
+      "copyPasteJobDescription": "Copy/Paste Job Description"
     }
   },
   "cvBuilder": {
