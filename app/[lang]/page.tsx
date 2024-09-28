@@ -18,7 +18,7 @@ export default function Home() {
             <Logo />
             <div className="gap-4 flex itmes-center">
               <LanguageSwitcherComponent />
-              <Link href={`${locale}/cv-builder`}>
+              <Link href={`${locale}/services`}>
                 <Button className="font-bold" size={"lg"}>
                   {t("button")}
                 </Button>
@@ -37,7 +37,7 @@ export default function Home() {
               </p>
             </div>
             <div className="w-full flex justify-center lg:justify-start space-x-4">
-              <Link href={`${locale}/cv-builder`}>
+              <Link href={`${locale}/services`}>
                 <Button className="font-bold" size={"lg"}>
                   {t("button")}
                 </Button>
@@ -106,7 +106,7 @@ export default function Home() {
             </div>
             <nav className="flex space-x-4 text-sm">
               <Link
-                href={`/${locale}/cv-builder`}
+                href={`/${locale}/services`}
                 className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
               >
                 {t("common.cvBuilder")}
