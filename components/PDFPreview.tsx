@@ -5,7 +5,6 @@ import { debounce } from "lodash";
 import { Button } from "./ui/button";
 import { LoadingSpinner } from "./ui/LoadingSpinner";
 import { ICvPdf } from "@/interfaces/ICvPdf";
-import Template2 from "@/templates/Template2";
 import useTemplateStore from "@/stores/templateStore";
 import { templates } from "./EditorHeader";
 import { useTranslations } from "next-intl";

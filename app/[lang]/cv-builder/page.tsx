@@ -449,16 +449,6 @@ export default function Page() {
             />
           </section>
         </div>
-        {/* <p className="text-gray-500 text-xs mt-4">
-          {t("workInProgress")}
-          <Link
-            className="pl-1 text-black font-bold"
-            href="https://github.com/AtheerAPeter/simple-cv"
-            target="_blank"
-          >
-            {t("github")}
-          </Link>
-        </p> */}
       </div>
       <PreviewCvModal
         children={<PDFPreview data={data} />}
