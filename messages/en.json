@@ -150,5 +150,15 @@
     "projects": "Projects",
     "languages": "Languages",
     "hobbies": "Hobbies"
+  },
+  "services": {
+    "title": "Accelerate Your Job Applications with AI Powered CV Creator",
+    "subtitle": "Customize your CV and cover letter instantly to match job descriptions using AI.",
+    "cvBuilder": {
+      "title": "CV Builder"
+    },
+    "coverLetter": {
+      "title": "Cover Letter"
+    }
   }
 }

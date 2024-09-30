@@ -27,7 +27,7 @@ export default async function RootLayout({
         <title>Simple AI CV Builder</title>
         <meta
           name="description"
-          content="  Our AI-powered CV maker helps you build a professional CV that
+          content="Our AI-powered CV maker helps you build a professional CV that
               stands out and matches job descriptions. Get started for free!"
         />{" "}
         <meta name="viewport" content="width=device-width, initial-scale=1" />

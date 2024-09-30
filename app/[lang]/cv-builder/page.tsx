@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import "react-quill/dist/quill.snow.css";
 import { useToast } from "@/hooks/use-toast";
 import { useCvForm } from "@/hooks/useCvForm";
-import Link from "next/link";
 import { placeholderData } from "@/lib/placeholderData";
 import EducationSection from "@/components/EducationSection";
 import ExperienceSection from "@/components/ExperienceSection";
@@ -361,7 +360,7 @@ export default function Page() {
         <EditorHeader
           onClearAll={clearAll}
           onSave={saveToLocalStorage}
-          onBack={() => router.replace(`/${locale}`)}
+          onBack={() => router.replace(`/${locale}/services`)}
         />
         <div className="space-y-6">
           <section>

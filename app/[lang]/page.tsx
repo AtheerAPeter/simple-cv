@@ -1,7 +1,9 @@
+import Footer from "@/components/Footer";
 import InteractingCard from "@/components/InteractingCard";
 import MockSteps from "@/components/landingPage/MockSteps";
 import { LanguageSwitcherComponent } from "@/components/language-switcher";
 import Logo from "@/components/Logo";
+import { NavBar } from "@/components/NavBar";
 import { Button } from "@/components/ui/button";
 import { FileText, Zap, Star, Bot, Github, Linkedin } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
@@ -14,19 +16,7 @@ export default function Home() {
   return (
     <main className="flex-1">
       <section className="w-full container mx-auto h-auto">
-        <header className="w-full  py-4 mb-8">
-          <nav className="flex justify-between items-center container mx-auto lg:px-0 px-4">
-            <Logo />
-            <div className="gap-4 flex itmes-center">
-              <LanguageSwitcherComponent />
-              <Link href={`${locale}/cv-builder`}>
-                <Button className="font-bold" size={"lg"}>
-                  {t("button")}
-                </Button>
-              </Link>
-            </div>
-          </nav>
-        </header>
+        <NavBar getStarted />
         <div className="flex items-center lg:space-x-8">
           <div className="flex flex-col items-center space-y-4 justify-center h-full my-20 text-center lg:text-start flex-1 lg:pr-20">
             <div className="space-y-2">
@@ -38,14 +28,14 @@ export default function Home() {
               </p>
             </div>
             <div className="w-full flex justify-center lg:justify-start space-x-4">
-              <Link href={`${locale}/cv-builder`}>
+              <Link href={`${locale}/services`}>
                 <Button className="font-bold" size={"lg"}>
                   {t("button")}
                 </Button>
               </Link>
             </div>
           </div>
-          <Link href={`${locale}/cv-builder`}>
+          <Link href={`${locale}/services`}>
             <InteractingCard />
           </Link>
         </div>
@@ -104,49 +94,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <footer className="w-full py-4 bg-gray-100 dark:bg-gray-900">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-wrap items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Logo />
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                © {new Date().getFullYear()} Smart CV
-              </p>
-            </div>
-            <nav className="flex space-x-4 text-sm">
-              <Link
-                href={`/${locale}/cv-builder`}
-                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-              >
-                {t("common.cvBuilder")}
-              </Link>
-              <Link
-                href="#features"
-                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-              >
-                {t("features.title")}
-              </Link>
-            </nav>
-            <div className="flex space-x-4 text-sm items-center">
-              <Link
-                href="https://github.com/AtheerAPeter"
-                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 flex items-center"
-              >
-                <Github className="h-4 w-4 mr-1" />
-                Github
-              </Link>
-              <Link
-                target="_blank"
-                href="https://www.linkedin.com/in/atheer-a-peter-6723b9191/"
-                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 flex items-center"
-              >
-                <Linkedin className="h-4 w-4 mr-1" />
-                LinkedIn
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </main>
   );
 }

@@ -150,5 +150,15 @@
     "projects": "Projekte",
     "languages": "Sprachen",
     "hobbies": "Hobbys"
+  },
+  "services": {
+    "title": "Bewerbungen beschleunigen mit KI Lebenslauf Ersteller",
+    "subtitle": "Passen Sie Ihren Lebenslauf und Ihr Anschreiben sofort mit KI an Stellenbeschreibungen an.",
+    "cvBuilder": {
+      "title": "Lebenslauf Ersteller"
+    },
+    "coverLetter": {
+      "title": "Anschreiben"
+    }
   }
 }
