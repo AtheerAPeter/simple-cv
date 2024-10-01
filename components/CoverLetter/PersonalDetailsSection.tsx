@@ -7,11 +7,13 @@ interface Props {
   email: string;
   phone: string;
   address: string;
+  date: string;
   handlePersonalDetailsChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const PersonalDetails = (props: Props) => {
-  const { name, email, phone, address, handlePersonalDetailsChange } = props;
+  const { name, email, phone, address, handlePersonalDetailsChange, date } =
+    props;
   const t = useTranslations("personalDetailsSection");
   return (
     <div className="mb-4 p-4 bg-white">
@@ -53,6 +55,16 @@ const PersonalDetails = (props: Props) => {
             id="address"
             name="address"
             value={address}
+            onChange={handlePersonalDetailsChange}
+            className="border-gray-100"
+          />
+        </div>
+        <div>
+          <Label htmlFor="date">{t("date")}</Label>
+          <Input
+            id="date"
+            name="date"
+            value={date}
             onChange={handlePersonalDetailsChange}
             className="border-gray-100"
           />

@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   bulletPoint: {
-    width: 3,
-    height: 3,
+    width: 2,
+    height: 2,
     borderRadius: 1,
     backgroundColor: "black",
     marginRight: 5,

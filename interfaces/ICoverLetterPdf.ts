@@ -7,12 +7,12 @@ export interface ICoverLetterPdf {
   };
   date: string;
   recipient: {
-    name: string;
-    title: string;
     company: string;
+    manager: string;
     address: string;
+    position: string;
   };
-  salutation: string;
-  paragraphs: string[];
+  paragraph: string;
+  opening: string;
   closing: string;
 }

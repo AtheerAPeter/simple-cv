@@ -5,7 +5,7 @@ export async function POST(request: Request) {
     if (!request || !request.json) {
       throw new Error("Invalid request object");
     }
-    const { message } = await request.json();
+    const { message, mode } = await request.json();
     if (!message) {
       throw new Error("Invalid request object");
     }
@@ -19,7 +19,7 @@ export async function POST(request: Request) {
       topP: 0.95,
       topK: 64,
       maxOutputTokens: 8192,
-      responseMimeType: "application/json",
+      responseMimeType: mode === "json" ? "application/json" : "text/plain",
     };
     const chatSession = model.startChat({
       generationConfig,

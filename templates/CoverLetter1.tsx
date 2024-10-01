@@ -1,6 +1,5 @@
-import { renderHtmlContent } from "@/components/renderHTMLContent";
 import { ICoverLetterPdf } from "@/interfaces/ICoverLetterPdf";
-import { ITitles } from "@/interfaces/ICvPdf";
+import { renderHtmlContent } from "@/components/renderHTMLContent";
 import {
   Page,
   Text,
@@ -37,7 +36,7 @@ export default function CoverLetter1({ data, accentColor }: Props) {
       fontFamily: "Roboto",
     },
     header: {
-      marginBottom: 20,
+      marginBottom: 10,
     },
     name: {
       fontSize: 24,
@@ -49,7 +48,6 @@ export default function CoverLetter1({ data, accentColor }: Props) {
     },
     date: {
       fontSize: 10,
-      marginTop: 20,
       marginBottom: 20,
     },
     recipient: {
@@ -73,6 +71,23 @@ export default function CoverLetter1({ data, accentColor }: Props) {
       fontSize: 12,
       marginTop: 40,
     },
+    recipientName: {
+      fontSize: 12,
+      fontWeight: "bold",
+      marginBottom: 5,
+    },
+    recipientCompany: {
+      fontSize: 11,
+    },
+    recipientAddress: {
+      fontSize: 10,
+    },
+    paragraph: {
+      fontSize: 11,
+      lineHeight: 1.6,
+      textAlign: "justify",
+      marginBottom: 15,
+    },
   });
 
   return (
@@ -81,9 +96,8 @@ export default function CoverLetter1({ data, accentColor }: Props) {
         {/* Header */}
         <View style={styles.header}>
           <Text style={styles.name}>{data.personalDetails.name}</Text>
-          <Text style={styles.contactInfo}>
-            {data.personalDetails.email} | {data.personalDetails.phone}
-          </Text>
+          <Text style={styles.contactInfo}>{data.personalDetails.email}</Text>
+          <Text style={styles.contactInfo}>{data.personalDetails.phone}</Text>
           <Text style={styles.contactInfo}>{data.personalDetails.address}</Text>
         </View>
 
@@ -92,29 +106,18 @@ export default function CoverLetter1({ data, accentColor }: Props) {
 
         {/* Recipient */}
         <View style={styles.recipient}>
-          <Text>{data.recipient.name}</Text>
-          <Text>{data.recipient.title}</Text>
-          <Text>{data.recipient.company}</Text>
-          <Text>{data.recipient.address}</Text>
+          <Text style={styles.recipientName}>{data.recipient.manager}</Text>
+          <Text style={styles.recipientCompany}>{data.recipient.company}</Text>
+          <Text style={styles.recipientAddress}>{data.recipient.address}</Text>
+          <Text style={styles.recipientAddress}>{data.recipient.position}</Text>
         </View>
-
-        {/* Salutation */}
-        <Text style={styles.salutation}>{data.salutation},</Text>
 
         {/* Content */}
-        <View style={styles.content}>
-          {data.paragraphs.map((paragraph, index) => (
-            <Text key={index} style={{ marginBottom: 10 }}>
-              {renderHtmlContent(paragraph)}
-            </Text>
-          ))}
+        <Text style={styles.paragraph}>{data.opening}</Text>
+        <View style={styles.paragraph}>
+          {renderHtmlContent(data.paragraph)}
         </View>
-
-        {/* Closing */}
-        <Text style={styles.closing}>{data.closing},</Text>
-
-        {/* Signature */}
-        <Text style={styles.signature}>{data.personalDetails.name}</Text>
+        <Text style={styles.paragraph}>{data.closing}</Text>
       </Page>
     </Document>
   );

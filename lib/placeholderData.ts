@@ -62,3 +62,14 @@ export const placeholderData = {
     },
   ],
 };
+
+export const placeholderDataCoverLetter = {
+  company: "Innovate Systems LLC",
+  manager: "Sarah Johnson",
+  position: "Full Stack Developer",
+  companyAddress: "1234 Tech Park Drive, Suite 500, San Francisco, CA 94105",
+  paragraph:
+    "<p>I am writing to express my interest in the <strong>Job Title</strong> position at <strong>Company Name</strong>, as advertised on Job Board/Company Website. With <strong>X years</strong> of experience in <strong>your field</strong>, I am confident in my ability to contribute to your team and help <strong>Company Name</strong> achieve its goals.</p><p>In my current role as a <strong>Your Job Title</strong> at <strong>Current Company</strong>, I have developed strong skills in <strong>Key Skills Related to the Job</strong>, which have allowed me to <strong>Brief Example of an Achievement or Contribution</strong>. I am particularly drawn to <strong>Company Name</strong> because of its commitment to <strong>Something You Admire About the Company</strong>, and I am eager to bring my expertise in <strong>Your Expertise</strong> to help drive the company's continued success.</p><p>Thank you for considering my application. I look forward to the opportunity to further discuss how my skills and experiences align with the needs of <strong>Company Name</strong>.</p>",
+  opening: "Dear Hiring Manager,",
+  closing: "Best regards, Emma",
+};
