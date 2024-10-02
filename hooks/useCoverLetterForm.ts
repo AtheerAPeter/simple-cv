@@ -42,7 +42,7 @@ export const useCoverLetterForm = () => {
   const debouncedSetData = useCallback(
     debounce((newData: ICoverLetterPdf) => {
       setDebouncedData(newData);
-    }, 1000),
+    }, 500),
     []
   );
 

@@ -65,6 +65,8 @@ export function PdfDownloadButton({ data }: Props) {
 }
 
 export default function PDFPreview({ data }: Props) {
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+
   const t = useTranslations("templateTranslation");
   const titles = {
     experience: t("experience"),
@@ -84,7 +86,7 @@ export default function PDFPreview({ data }: Props) {
   const debouncedSetData = useCallback(
     debounce((newData: ICvPdf) => {
       setDebouncedData(newData);
-    }, 1000),
+    }, 500),
     []
   );
 
@@ -92,16 +94,28 @@ export default function PDFPreview({ data }: Props) {
     debouncedSetData(data);
   }, [data, debouncedSetData]);
 
+  useEffect(() => {
+    if (debouncedData.personalDetails.name) {
+      setIsDataLoaded(true);
+    }
+  }, [debouncedData]);
+
   return (
     <div className="space-y-4 lg:space-y-0 p-2 lg:p-0 h-full">
       <div className="flex justify-end lg:hidden">
         <PdfDownloadButton data={debouncedData} />
       </div>
-      <div className="h-full">
-        <PDFViewer width="100%" height="100%">
-          {templates[template](debouncedData, color, titles)}
-        </PDFViewer>
-      </div>
+      {isDataLoaded ? (
+        <div className="h-full">
+          <PDFViewer width="100%" height="100%">
+            {templates[template](debouncedData, color, titles)}
+          </PDFViewer>
+        </div>
+      ) : (
+        <div className="h-full w-full flex items-center justify-center">
+          <LoadingSpinner />
+        </div>
+      )}
     </div>
   );
 }

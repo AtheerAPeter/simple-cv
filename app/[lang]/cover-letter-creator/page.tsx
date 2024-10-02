@@ -23,6 +23,7 @@ import CoverLetterPageHeader from "@/components/CoverLetter/CoverLetterPageHeade
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
@@ -32,6 +33,7 @@ export default function Page() {
   const [cvData, setCvData] = useState<ICvPdf>();
   const router = useRouter();
   const { toast } = useToast();
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   const {
     name,
@@ -60,6 +62,12 @@ export default function Page() {
     closing,
     setClosing,
   } = useCoverLetterForm();
+
+  useEffect(() => {
+    if (debouncedData.personalDetails.name) {
+      setIsDataLoaded(true);
+    }
+  }, [debouncedData]);
 
   useEffect(() => {
     const placeholder =
@@ -188,9 +196,15 @@ export default function Page() {
     <div className="flex flex-col lg:flex-row min-h-screen">
       <div className="w-full lg:w-1/2 h-screen bg-white shadow-md hidden lg:flex flex-col">
         <div className="h-full">
-          <PDFViewer width="100%" height="100%">
-            <CoverLetter1 data={debouncedData} />
-          </PDFViewer>
+          {isDataLoaded ? (
+            <PDFViewer width="100%" height="100%">
+              <CoverLetter1 data={debouncedData} />
+            </PDFViewer>
+          ) : (
+            <div className="w-full h-full flex justify-center items-center">
+              <LoadingSpinner />
+            </div>
+          )}
         </div>
       </div>
       <div className="w-full lg:w-1/2 h-screen overflow-y-auto p-2 lg:p-8 bg-gray-100 text-gray-900 space-y-6">
