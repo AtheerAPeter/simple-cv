@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "../globals.css";
-import Head from "next/head";
 import { Nunito } from "next/font/google";
 import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
@@ -22,20 +21,8 @@ export default async function RootLayout({
 }>) {
   const messages = await getMessages();
   return (
-    <html lang={params.locale}>
-      <Head>
-        <title>Simple AI CV Builder</title>
-        <meta
-          name="description"
-          content="Our AI-powered CV maker helps you build a professional CV that
-              stands out and matches job descriptions. Get started for free!"
-        />{" "}
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <body
-        className={`${nunito.className} antialiased`} // Use the Nunito font
-      >
+    <html lang={params.locale} className={nunito.className}>
+      <body className="antialiased font-nunito">
         <NextIntlClientProvider messages={messages}>
           <Analytics />
           {children}

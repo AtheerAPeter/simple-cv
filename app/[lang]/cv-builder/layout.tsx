@@ -25,13 +25,11 @@ export default function RootLayout({
   });
 
   return (
-    <html lang="en">
-      <body className={`${nunito.className} antialiased`}>
-        <QueryClientProvider client={queryClient}>
-          <Toaster />
-          {children}
-        </QueryClientProvider>
-      </body>
-    </html>
+    <div className={`${nunito.className} antialiased`}>
+      <QueryClientProvider client={queryClient}>
+        <Toaster />
+        {children}
+      </QueryClientProvider>
+    </div>
   );
 }
