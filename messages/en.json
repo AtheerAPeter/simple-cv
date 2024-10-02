@@ -162,6 +162,7 @@
     }
   },
   "coverLetterPage": {
+    "previw": "Preview",
     "title": "Cover Letter",
     "personalDetails": "Personal Details",
     "name": "Name",

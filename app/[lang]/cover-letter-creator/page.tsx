@@ -21,11 +21,19 @@ import CoverLetter1 from "@/templates/CoverLetter1";
 import "react-quill/dist/quill.snow.css";
 import CoverLetterPageHeader from "@/components/CoverLetter/CoverLetterPageHeader";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
+import PreviewCvModal from "@/components/modals/PreviewCvModal";
+import { Button } from "@/components/ui/button";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+const PDFDownloadLink = dynamic(
+  () => import("@react-pdf/renderer").then((mod) => mod.PDFDownloadLink),
+  {
+    ssr: false,
+    loading: () => <p>Loading download link...</p>,
+  }
+);
 
 export default function Page() {
   const t = useTranslations("coverLetterPage");
@@ -34,6 +42,7 @@ export default function Page() {
   const router = useRouter();
   const { toast } = useToast();
   const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const {
     name,
@@ -286,6 +295,35 @@ export default function Page() {
           />
         </section>
       </div>
+      <PreviewCvModal
+        children={
+          <div>
+            <div className="flex justify-end lg:hidden">
+              <PDFDownloadLink
+                document={<CoverLetter1 data={debouncedData} />}
+                fileName={`${Date.now()}.pdf`}
+              >
+                {({ blob, url, loading, error }) => (
+                  <Button disabled={loading}>
+                    {loading ? "Generating PDF..." : "Download PDF"}
+                  </Button>
+                )}
+              </PDFDownloadLink>
+            </div>
+            <PDFViewer width="100%" height="100%">
+              <CoverLetter1 data={debouncedData} />
+            </PDFViewer>
+          </div>
+        }
+        open={open}
+        setOpen={setOpen}
+      />
+      <Button
+        onClick={() => setOpen(true)}
+        className="fixed bottom-4 right-4 lg:hidden z-10"
+      >
+        {t("previw")}
+      </Button>
     </div>
   );
 }
