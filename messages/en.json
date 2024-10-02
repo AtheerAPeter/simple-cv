@@ -150,5 +150,39 @@
     "projects": "Projects",
     "languages": "Languages",
     "hobbies": "Hobbies"
+  },
+  "services": {
+    "title": "Accelerate Your Job Applications with AI Powered CV Creator",
+    "subtitle": "Customize your CV and cover letter instantly to match job descriptions using AI.",
+    "cvBuilder": {
+      "title": "CV Builder"
+    },
+    "coverLetter": {
+      "title": "Cover Letter"
+    }
+  },
+  "coverLetterPage": {
+    "title": "Cover Letter",
+    "personalDetails": "Personal Details",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "date": "Date",
+    "recipient": {
+      "title": "Recipient",
+      "recipientName": "Recipient Name",
+      "companyName": "Company Name",
+      "position": "Position"
+    },
+    "opening": "Opening",
+    "closing": "Closing",
+    "placeholder": "Enter the job description to automatically generate your cover letter based on your CV details",
+    "aiGeneratedCoverLetter": "AI Generated Cover Letter",
+    "generate": "Generate",
+    "clDataSaved": {
+      "title": "Cover Letter Data Saved",
+      "description": "Your Cover Letter data has been successfully saved to local storage."
+    }
   }
 }

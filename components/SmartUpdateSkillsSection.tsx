@@ -74,6 +74,7 @@ export const SmartUpdateSkillsSection = (props: Props) => {
           )} try to make it as human as possible`
             .replace(/(\r\n|\n|\r)/gm, " ")
             .trim(),
+        mode: "json",
       });
       const result = JSON.parse(response);
       setAiUpdatedData(result);

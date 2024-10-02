@@ -150,5 +150,39 @@
     "projects": "Projekte",
     "languages": "Sprachen",
     "hobbies": "Hobbys"
+  },
+  "services": {
+    "title": "Bewerbungen beschleunigen mit KI Lebenslauf Ersteller",
+    "subtitle": "Passen Sie Ihren Lebenslauf und Ihr Anschreiben sofort mit KI an Stellenbeschreibungen an.",
+    "cvBuilder": {
+      "title": "Lebenslauf Ersteller"
+    },
+    "coverLetter": {
+      "title": "Anschreiben"
+    }
+  },
+  "coverLetterPage": {
+    "title": "Anschreiben",
+    "personalDetails": "Persönliche Daten",
+    "name": "Name",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "address": "Adresse",
+    "date": "Datum",
+    "recipient": {
+      "title": "Empfänger",
+      "recipientName": "Name des Empfängers",
+      "companyName": "Firmenname",
+      "position": "Position"
+    },
+    "opening": "Eröffnung",
+    "closing": "Schluss",
+    "placeholder": "Geben Sie die Stellenbeschreibung ein, um automatisch Ihr Anschreiben basierend auf Ihren Lebenslaufdaten zu generieren",
+    "aiGeneratedCoverLetter": "KI-generiertes Anschreiben",
+    "generate": "Generieren",
+    "clDataSaved": {
+      "title": "Anschreiben-Daten gespeichert",
+      "description": "Ihre Anschreiben-Daten wurden erfolgreich im lokalen Speicher gesichert."
+    }
   }
 }
