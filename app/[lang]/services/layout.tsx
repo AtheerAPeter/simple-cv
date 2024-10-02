@@ -8,7 +8,7 @@ interface Props {
 export default async function RootLayout(props: Props) {
   return (
     <div className="h-screen flex flex-col justify-between">
-      <NavBar getStarted={false} />
+      <NavBar />
       {props.children}
       <Footer />
     </div>
