@@ -185,5 +185,10 @@
       "title": "Cover Letter Data Saved",
       "description": "Your Cover Letter data has been successfully saved to local storage."
     }
+  },
+  "jsonDiff": {
+    "plsSelect": "Please select the changes you want to apply to your CV below",
+    "disselectAll": "Deselect All",
+    "submitChanges": "Submit Changes"
   }
 }

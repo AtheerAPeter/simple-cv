@@ -10,8 +10,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Plus, Minus, Edit } from "lucide-react";
 import parse from "html-react-parser";
 import { removeUndefined } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 type JsonData = {
   experiences: Array<{
@@ -32,6 +35,7 @@ type Difference = {
   oldValue: any;
   newValue: any;
   displayPath: string;
+  type: "added" | "removed" | "changed";
 };
 
 interface JsonDiffComponentProps {
@@ -45,7 +49,7 @@ export function JsonDiffComponentComponent({
   newData,
   onSubmit,
 }: JsonDiffComponentProps) {
-  console.log(oldData, newData);
+  const t = useTranslations("jsonDiff");
 
   const [differences, setDifferences] = useState<Difference[]>([]);
   const [selectedDiffs, setSelectedDiffs] = useState<Set<string>>(new Set());
@@ -63,8 +67,12 @@ export function JsonDiffComponentComponent({
   ): Difference[] => {
     let diffs: Difference[] = [];
 
-    if (typeof oldObj !== typeof newObj) {
-      diffs.push(createDifference(path, oldObj, newObj));
+    if (oldObj === undefined && newObj !== undefined) {
+      diffs.push(createDifference(path, oldObj, newObj, "added"));
+    } else if (oldObj !== undefined && newObj === undefined) {
+      diffs.push(createDifference(path, oldObj, newObj, "removed"));
+    } else if (typeof oldObj !== typeof newObj) {
+      diffs.push(createDifference(path, oldObj, newObj, "changed"));
     } else if (Array.isArray(oldObj) && Array.isArray(newObj)) {
       const maxLength = Math.max(oldObj.length, newObj.length);
       for (let i = 0; i < maxLength; i++) {
@@ -86,7 +94,7 @@ export function JsonDiffComponentComponent({
         );
       }
     } else if (oldObj !== newObj) {
-      diffs.push(createDifference(path, oldObj, newObj));
+      diffs.push(createDifference(path, oldObj, newObj, "changed"));
     }
 
     return diffs;
@@ -95,7 +103,8 @@ export function JsonDiffComponentComponent({
   const createDifference = (
     path: string[],
     oldValue: any,
-    newValue: any
+    newValue: any,
+    type: "added" | "removed" | "changed"
   ): Difference => {
     let displayPath = path.join(".");
     if (path[0] === "skills") {
@@ -113,7 +122,7 @@ export function JsonDiffComponentComponent({
         newData.experiences[expIndex]?.title;
       displayPath = `Experience - ${expTitle} - ${path[2]}`;
     }
-    return { path, oldValue, newValue, displayPath };
+    return { path, oldValue, newValue, displayPath, type };
   };
 
   const handleCheckboxChange = (path: string) => {
@@ -170,57 +179,90 @@ export function JsonDiffComponentComponent({
 
   const groupedDifferences = groupDifferencesByCategory();
 
+  const getIcon = (type: "added" | "removed" | "changed") => {
+    switch (type) {
+      case "added":
+        return <Plus className="w-4 h-4" />;
+      case "removed":
+        return <Minus className="w-4 h-4" />;
+      case "changed":
+        return <Edit className="w-4 h-4" />;
+    }
+  };
+
   if (differences.length === 0) {
     return null;
   }
 
   return (
-    <div className="w-full mx-auto lg:p-6 pt-6 space-y-6">
-      <p>Please select the changes you want to apply to your CV below</p>
-      <div className="flex justify-between mb-4">
-        <Button onClick={handleDeselectAll} variant="outline">
-          Deselect All
-        </Button>
-        <Button onClick={handleSubmit}>Submit Changes</Button>
-      </div>
-      <ScrollArea className="h-[600px] w-full border rounded-md p-4">
-        <Accordion type="single" collapsible className="w-full">
-          {Object.entries(groupedDifferences).map(
-            ([category, diffs], index) => (
-              <AccordionItem value={category} key={index}>
-                <AccordionTrigger className="text-lg font-semibold">
-                  {category.charAt(0).toUpperCase() + category.slice(1)}
-                </AccordionTrigger>
-                <AccordionContent>
-                  {diffs.map((diff, diffIndex) => (
-                    <div
-                      key={diffIndex}
-                      className="flex items-start space-x-2 mb-4 p-2 bg-gray-100 rounded"
-                    >
-                      <Checkbox
-                        id={`diff-${category}-${diffIndex}`}
-                        checked={selectedDiffs.has(diff.path.join("."))}
-                        onCheckedChange={() =>
-                          handleCheckboxChange(diff.path.join("."))
-                        }
-                      />
-                      <div className="flex-grow">
-                        <p className="font-semibold">{diff.displayPath}</p>
-                        <div className="text-red-500">
-                          - {renderValue(diff.oldValue)}
-                        </div>
-                        <div className="text-green-500">
-                          + {renderValue(diff.newValue)}
+    <Card className="w-full max-w-4xl mx-auto">
+      <CardHeader className="border-b">
+        <CardTitle>{t("jsonDiffViewer")}</CardTitle>
+      </CardHeader>
+      <CardContent className="p-6">
+        <p className="mb-6 text-muted-foreground">{t("plsSelect")}</p>
+        <div className="flex justify-between mb-6">
+          <Button onClick={handleDeselectAll} variant="outline">
+            {t("disselectAll")}
+          </Button>
+          <Button onClick={handleSubmit}>{t("submitChanges")}</Button>
+        </div>
+        <ScrollArea className="h-[600px] w-full">
+          <Accordion
+            type="multiple"
+            defaultValue={Object.keys(groupedDifferences)}
+            className="w-full"
+          >
+            {Object.entries(groupedDifferences).map(
+              ([category, diffs], index) => (
+                <AccordionItem
+                  value={category}
+                  key={index}
+                  className="border-b"
+                >
+                  <AccordionTrigger className="text-lg font-semibold py-4">
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    {diffs.map((diff, diffIndex) => (
+                      <div key={diffIndex} className="mb-4 p-4 border">
+                        <div className="flex items-start space-x-4">
+                          <Checkbox
+                            id={`diff-${category}-${diffIndex}`}
+                            checked={selectedDiffs.has(diff.path.join("."))}
+                            onCheckedChange={() =>
+                              handleCheckboxChange(diff.path.join("."))
+                            }
+                            className="mt-1"
+                          />
+                          <div className="flex-grow">
+                            <div className="flex items-center gap-2 mb-2">
+                              {getIcon(diff.type)}
+                              <p className="font-semibold">
+                                {diff.displayPath}
+                              </p>
+                            </div>
+                            {diff.type !== "added" && (
+                              <div className="bg-red-100 p-3 mt-2">
+                                {renderValue(diff.oldValue)}
+                              </div>
+                            )}
+                            {diff.type !== "removed" && (
+                              <div className="bg-green-100 p-3 mt-2">
+                                {renderValue(diff.newValue)}
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </AccordionContent>
-              </AccordionItem>
-            )
-          )}
-        </Accordion>
-      </ScrollArea>
-    </div>
+                    ))}
+                  </AccordionContent>
+                </AccordionItem>
+              )
+            )}
+          </Accordion>
+        </ScrollArea>
+      </CardContent>
+    </Card>
   );
 }

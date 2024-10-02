@@ -185,5 +185,10 @@
       "title": "Anschreiben-Daten gespeichert",
       "description": "Ihre Anschreiben-Daten wurden erfolgreich im lokalen Speicher gesichert."
     }
+  },
+  "jsonDiff": {
+    "plsSelect": "Bitte wählen Sie unten die Änderungen aus, die Sie auf Ihren Lebenslauf anwenden möchten",
+    "disselectAll": "Alle abwählen",
+    "submitChanges": "Änderungen übernehmen"
   }
 }
