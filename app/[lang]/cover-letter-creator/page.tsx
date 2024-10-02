@@ -1,28 +1,37 @@
 "use client";
+
+import { useEffect, useState, useCallback } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import dynamic from "next/dynamic";
+import { PDFViewer } from "@react-pdf/renderer";
+
 import EmployerDetailsSection from "@/components/CoverLetter/EmployerDetailsSection";
 import PersonalDetails from "@/components/CoverLetter/PersonalDetailsSection";
 import SmartCoverLetterForm from "@/components/CoverLetter/SmartCoverLetterForm";
 import { Input } from "@/components/ui/input";
-import { useAI } from "@/hooks/useAI";
+import { Label } from "@/components/ui/label";
 import { useCoverLetterForm } from "@/hooks/useCoverLetterForm";
 import { ICvPdf } from "@/interfaces/ICvPdf";
 import {
-  placeholderData,
   placeholderDataCoverLetter,
+  placeholderDataCoverLetterDE,
 } from "@/lib/placeholderData";
 import CoverLetter1 from "@/templates/CoverLetter1";
-import { Label } from "@radix-ui/react-label";
-import { PDFViewer } from "@react-pdf/renderer";
-import { useLocale, useTranslations } from "next-intl";
-import dynamic from "next/dynamic";
-import { useCallback, useEffect, useState } from "react";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+
 import "react-quill/dist/quill.snow.css";
+import CoverLetterPageHeader from "@/components/CoverLetter/CoverLetterPageHeader";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 export default function Page() {
-  const t = useTranslations("cvBuilder");
+  const t = useTranslations("coverLetterPage");
   const locale = useLocale();
   const [cvData, setCvData] = useState<ICvPdf>();
+  const router = useRouter();
+  const { toast } = useToast();
 
   const {
     name,
@@ -53,104 +62,145 @@ export default function Page() {
   } = useCoverLetterForm();
 
   useEffect(() => {
-    const savedData = localStorage.getItem("cvData");
-    if (!savedData) {
-      setName(placeholderData.name);
-      setEmail(placeholderData.email);
-      setPhone(placeholderData.phone);
-      setAddress(placeholderData.address);
-      setCompany(placeholderDataCoverLetter.company);
-      setManager(placeholderDataCoverLetter.manager);
-      setPosition(placeholderDataCoverLetter.position);
-      setCompanyAddress(placeholderDataCoverLetter.companyAddress);
-      setDescription(placeholderDataCoverLetter.paragraph);
-      setOpening(placeholderDataCoverLetter.opening);
-      setClosing(placeholderDataCoverLetter.closing);
-    } else {
-      const parsedData = JSON.parse(savedData);
-      setCvData(parsedData);
-      setName(parsedData.name);
-      setEmail(parsedData.email);
-      setPhone(parsedData.phone);
-      setAddress(parsedData.address);
-      setDescription(placeholderDataCoverLetter.paragraph);
-      setOpening(placeholderDataCoverLetter.opening);
-      setClosing(
-        `${locale === "en" ? "Best regards," : "Grüße,"} ${parsedData.name}`
+    const placeholder =
+      locale === "en"
+        ? placeholderDataCoverLetter
+        : placeholderDataCoverLetterDE;
+
+    const savedCVData = localStorage.getItem("cvData");
+    const savedCoverLetterData = localStorage.getItem("CLData");
+
+    if (savedCoverLetterData) {
+      const parsedCLData = JSON.parse(savedCoverLetterData);
+      setName(parsedCLData.name || placeholder.name);
+      setEmail(parsedCLData.email || placeholder.email);
+      setPhone(parsedCLData.phone || placeholder.phone);
+      setAddress(parsedCLData.address || placeholder.address);
+      setCompany(parsedCLData.company || placeholder.company);
+      setManager(parsedCLData.manager || placeholder.manager);
+      setPosition(parsedCLData.position || placeholder.position);
+      setCompanyAddress(
+        parsedCLData.companyAddress || placeholder.companyAddress
       );
+      setDescription(parsedCLData.description || placeholder.paragraph);
+      setOpening(parsedCLData.opening || placeholder.opening);
+      setClosing(parsedCLData.closing || placeholder.closing);
+    } else if (savedCVData) {
+      const parsedCVData = JSON.parse(savedCVData);
+      setCvData(parsedCVData);
+      setName(parsedCVData.name);
+      setEmail(parsedCVData.email);
+      setPhone(parsedCVData.phone);
+      setAddress(parsedCVData.address);
+      setCompany(placeholder.company);
+      setManager(placeholder.manager);
+      setPosition(placeholder.position);
+      setCompanyAddress(placeholder.companyAddress);
+      setDescription(placeholder.paragraph);
+      setOpening(placeholder.opening);
+      setClosing(`${placeholder.closing} ${parsedCVData.name}`);
+    } else {
+      setName(placeholder.name);
+      setEmail(placeholder.email);
+      setPhone(placeholder.phone);
+      setAddress(placeholder.address);
+      setCompany(placeholder.company);
+      setManager(placeholder.manager);
+      setPosition(placeholder.position);
+      setCompanyAddress(placeholder.companyAddress);
+      setDescription(placeholder.paragraph);
+      setOpening(placeholder.opening);
+      setClosing(placeholder.closing);
     }
   }, []);
 
   const handlePersonalDetailsChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value, files } = e.target;
-      switch (name) {
-        case "name":
-          setName(value);
-          break;
-        case "date":
-          setDate(value);
-          break;
-        case "email":
-          setEmail(value);
-          break;
-        case "phone":
-          setPhone(value);
-          break;
-        case "address":
-          setAddress(value);
-          break;
-
-        default:
-          break;
-      }
+      const { name, value } = e.target;
+      const setters: { [key: string]: (value: string) => void } = {
+        name: setName,
+        date: setDate,
+        email: setEmail,
+        phone: setPhone,
+        address: setAddress,
+      };
+      setters[name]?.(value);
     },
     []
   );
 
   const handleEmployerDetailsChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value, files } = e.target;
-      switch (name) {
-        case "companyName":
-          setCompany(value);
-          break;
-        case "managerName":
-          setManager(value);
-          break;
-        case "companyAddress":
-          setCompanyAddress(value);
-          break;
-        case "position":
-          setPosition(value);
-          break;
-
-        default:
-          break;
-      }
+      const { name, value } = e.target;
+      const setters: { [key: string]: (value: string) => void } = {
+        companyName: setCompany,
+        managerName: setManager,
+        companyAddress: setCompanyAddress,
+        position: setPosition,
+      };
+      setters[name]?.(value);
     },
     []
   );
 
+  const onBack = () => {
+    router.replace(`/${locale}/services`);
+  };
+
+  const saveToLocalStorage = () => {
+    const dataToSave = {
+      name,
+      email,
+      phone,
+      address,
+      company,
+      manager,
+      position,
+      companyAddress,
+      description,
+      opening,
+      closing,
+    };
+    localStorage.setItem("CLData", JSON.stringify(dataToSave));
+    toast({
+      title: t("clDataSaved.title"),
+      description: t("clDataSaved.description"),
+      duration: 3000,
+    });
+  };
+
+  const clearAll = () => {
+    setName("");
+    setEmail("");
+    setPhone("");
+    setAddress("");
+    setCompany("");
+    setManager("");
+    setPosition("");
+    setCompanyAddress("");
+    setDescription("");
+    setOpening("");
+    setClosing("");
+    setDate("");
+  };
+
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
       <div className="w-full lg:w-1/2 h-screen bg-white shadow-md hidden lg:flex flex-col">
-        <div className="space-y-4 lg:space-y-0 p-2 lg:p-0 h-full">
-          <div className="flex justify-end lg:hidden">
-            {/* <PdfDownloadButton data={debouncedData} /> */}
-          </div>
-          <div className="h-full">
-            <PDFViewer width="100%" height="100%">
-              <CoverLetter1 data={debouncedData} />
-            </PDFViewer>
-          </div>
+        <div className="h-full">
+          <PDFViewer width="100%" height="100%">
+            <CoverLetter1 data={debouncedData} />
+          </PDFViewer>
         </div>
       </div>
       <div className="w-full lg:w-1/2 h-screen overflow-y-auto p-2 lg:p-8 bg-gray-100 text-gray-900 space-y-6">
+        <CoverLetterPageHeader
+          onBack={onBack}
+          onSave={saveToLocalStorage}
+          onClearAll={clearAll}
+        />
         <section>
-          <div className="flex items-start gap-2 mb-4">
-            <h2 className="text-xl font-semibold">Personal Details</h2>
-          </div>
+          <h2 className="text-xl font-semibold mb-4">{t("personalDetails")}</h2>
           <PersonalDetails
             date={date}
             name={name}
@@ -161,9 +211,7 @@ export default function Page() {
           />
         </section>
         <section>
-          <div className="flex items-start gap-2 mb-4">
-            <h2 className="text-xl font-semibold">Employer Details</h2>
-          </div>
+          <h2 className="text-xl font-semibold mb-4">{t("recipient.title")}</h2>
           <EmployerDetailsSection
             position={position}
             handleEmployerDetailsChange={handleEmployerDetailsChange}
@@ -173,13 +221,11 @@ export default function Page() {
           />
         </section>
         <section>
-          <div className="flex items-start gap-2 mb-4">
-            <h2 className="text-xl font-semibold">Cover Letter</h2>
-          </div>
+          <h2 className="text-xl font-semibold mb-4">{t("title")}</h2>
           <div className="mb-4 p-4 bg-white">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="opening">Opening</Label>
+                <Label htmlFor="opening">{t("opening")}</Label>
                 <Input
                   id="opening"
                   name="opening"
@@ -189,17 +235,16 @@ export default function Page() {
                 />
               </div>
               <div>
-                <Label htmlFor="opening">Closing</Label>
+                <Label htmlFor="closing">{t("closing")}</Label>
                 <Input
-                  id="opening"
-                  name="opening"
+                  id="closing"
+                  name="closing"
                   value={closing}
                   onChange={(e) => setClosing(e.target.value)}
                   className="border-gray-100"
                 />
               </div>
             </div>
-
             <div className="mt-4">
               <ReactQuill
                 theme="snow"
@@ -215,10 +260,10 @@ export default function Page() {
           </div>
         </section>
         <section>
-          <div className="flex items-start gap-2 mb-4">
-            <h2 className="text-xl font-semibold">AI Generated Cover Letter</h2>
-            <p className="text-gray-400 text-xs">{t("beta")}</p>
-          </div>
+          <h2 className="text-xl font-semibold mb-4">
+            {t("aiGeneratedCoverLetter")}
+            <span className="text-gray-400 text-xs ml-2">Beta</span>
+          </h2>
           <SmartCoverLetterForm
             mockCoverLetter={description}
             experience={cvData?.experiences || []}

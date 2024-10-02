@@ -3,6 +3,7 @@ import { MagicalTextarea } from "../magical-textarea";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Experience, SkillCategory } from "@/interfaces/IFormTypes";
+import { useTranslations } from "next-intl";
 
 interface Props {
   mockCoverLetter: string;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const SmartCoverLetterForm = (props: Props) => {
+  const t = useTranslations("coverLetterPage");
   const [jobDesction, setJobDescription] = useState("");
   const { AIMutataion } = useAI();
 
@@ -40,7 +42,7 @@ const SmartCoverLetterForm = (props: Props) => {
       <MagicalTextarea
         value={jobDesction}
         onChange={onChangeJobDescriptionInput}
-        placeholder="Enter the job description to automatically generate your cover letter based on your CV details"
+        placeholder={t("placeholder")}
       />
       <div className="mt-6 flex items-center">
         <Button
@@ -49,7 +51,7 @@ const SmartCoverLetterForm = (props: Props) => {
           disabled={jobDesction.trim().length < 20 || AIMutataion.isPending}
           className="mr-2"
         >
-          Generate
+          {t("generate")}
         </Button>
       </div>
     </div>

@@ -11,12 +11,12 @@ interface Props {
 }
 
 const EmployerDetailsSection = (props: Props) => {
-  const t = useTranslations("personalDetailsSection");
+  const t = useTranslations("coverLetterPage");
   return (
     <div className="mb-4 p-4 bg-white">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <Label htmlFor="companyName">Name</Label>
+          <Label htmlFor="companyName">{t("recipient.companyName")}</Label>
           <Input
             id="companyName"
             name="companyName"
@@ -26,7 +26,7 @@ const EmployerDetailsSection = (props: Props) => {
           />
         </div>
         <div>
-          <Label htmlFor="managerName">Recipient Name</Label>
+          <Label htmlFor="managerName">{t("recipient.recipientName")}</Label>
           <Input
             id="managerName"
             name="managerName"
@@ -36,7 +36,7 @@ const EmployerDetailsSection = (props: Props) => {
           />
         </div>
         <div>
-          <Label htmlFor="companyAddress">Address</Label>
+          <Label htmlFor="companyAddress">{t("address")}</Label>
           <Input
             id="companyAddress"
             name="companyAddress"
@@ -46,7 +46,7 @@ const EmployerDetailsSection = (props: Props) => {
           />
         </div>
         <div>
-          <Label htmlFor="position">Position</Label>
+          <Label htmlFor="position">{t("recipient.position")}</Label>
           <Input
             id="position"
             name="position"

@@ -14,7 +14,7 @@ interface Props {
 const PersonalDetails = (props: Props) => {
   const { name, email, phone, address, handlePersonalDetailsChange, date } =
     props;
-  const t = useTranslations("personalDetailsSection");
+  const t = useTranslations("coverLetterPage");
   return (
     <div className="mb-4 p-4 bg-white">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
