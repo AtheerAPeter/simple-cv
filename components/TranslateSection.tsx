@@ -31,6 +31,7 @@ export const TranslateSection = (props: Props) => {
       message: `translate the values of this cv json to ${selectedLanguage}: ${JSON.stringify(
         _.omit(props.cvData, "personalDetails")
       )}`,
+      mode: "json",
     });
     const result = JSON.parse(response);
     props.onTranslate(result);
