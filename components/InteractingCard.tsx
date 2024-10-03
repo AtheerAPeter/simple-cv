@@ -45,9 +45,6 @@ const InteractingCard = () => {
 
   return (
     <motion.div
-      initial={{ scale: 0, rotate: "180deg" }}
-      animate={{ scale: 1, rotate: 0 }}
-      transition={{ duration: 0.5, ease: "easeIn" }}
       className="card relative rounded-xl bg-white transition-[all_400ms_cubic-bezier(0.03,0.98,0.52,0.99)_0s] will-change-transform hidden lg:block"
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
