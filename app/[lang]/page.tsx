@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <main className="flex-1">
-      <section className="w-full container mx-auto h-auto">
+      <section className="w-full container mx-auto h-auto md:px-10">
         <NavBar />
         <div className="flex items-center lg:space-x-8 lg:px-0 px-4">
           <div className="flex flex-col items-center space-y-4 justify-center h-full my-10 text-center lg:text-start flex-1 lg:pr-20">

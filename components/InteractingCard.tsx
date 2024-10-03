@@ -58,8 +58,8 @@ const InteractingCard = () => {
           className="rounded-lg"
           src={locale === "en" ? "/templates/1.png" : "/templates/1-de.png"}
           alt="template"
-          width={400}
-          height={567}
+          width={350}
+          height={475}
         />
       </div>
     </div>
