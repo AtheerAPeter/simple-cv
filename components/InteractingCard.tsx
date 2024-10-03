@@ -2,6 +2,7 @@
 import { useLocale } from "next-intl";
 import Image from "next/image";
 import { useState, MouseEvent, useCallback } from "react";
+import * as motion from "framer-motion/client";
 
 function throttle<T extends (...args: any[]) => any>(
   func: T,
@@ -30,7 +31,7 @@ const InteractingCard = () => {
       const y = e.clientY - box.top;
       const centerX = box.width / 2;
       const centerY = box.height / 2;
-      const rotateX = (y - centerY) / 7;
+      const rotateX = (y - centerY) / 2;
       const rotateY = (centerX - x) / 7;
 
       setRotate({ x: rotateX, y: rotateY });
@@ -43,7 +44,10 @@ const InteractingCard = () => {
   };
 
   return (
-    <div
+    <motion.div
+      initial={{ scale: 0, rotate: "180deg" }}
+      animate={{ scale: 1, rotate: 0 }}
+      transition={{ duration: 0.5, ease: "easeIn" }}
       className="card relative rounded-xl bg-white transition-[all_400ms_cubic-bezier(0.03,0.98,0.52,0.99)_0s] will-change-transform hidden lg:block"
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
@@ -58,11 +62,11 @@ const InteractingCard = () => {
           className="rounded-lg"
           src={locale === "en" ? "/templates/1.png" : "/templates/1-de.png"}
           alt="template"
-          width={350}
-          height={475}
+          width={320}
+          height={440}
         />
       </div>
-    </div>
+    </motion.div>
   );
 };
 
