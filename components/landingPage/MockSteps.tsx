@@ -1,10 +1,7 @@
 "use client";
 import MockCV from "./MockCV";
 import MockJobDescription from "./MockJobDescription";
-import ArrowDownSvgrepoCom from "../ArrowDownSVG";
-import ArrowRightSvgrepoCom from "../ArrowRightSVG";
 import { AiMagicCircle } from "../ai-magic-circle";
-import GradientWrapper from "../GradientWrapper";
 import { useTranslations } from "next-intl";
 
 const MockSteps = () => {
@@ -18,25 +15,23 @@ const MockSteps = () => {
           </p>
           <MockJobDescription />
         </div>
-        <ArrowDownSvgrepoCom />
+        <div className="w-2 h-[100px] bg-gradient-to-b from-blue-400 via-purple-400 to-pink-400 opacity-80 absolute -bottom-[100px] -z-10 animate-pulse"></div>
       </div>
-      <div className="flex items-center justify-evenly gap-2">
+      <div className="flex items-center justify-evenly gap-20">
+        <div className="h-2 w-[400px] bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 opacity-80 absolute -z-10 animate-pulse"></div>
         <div className="flex flex-col items-center justify-center">
           <p className="text-center text-sm mb-2">
             {t("mockSection.createYourCv")}
           </p>
           <MockCV />
         </div>
-        <ArrowRightSvgrepoCom />
         <AiMagicCircle />
-        <ArrowRightSvgrepoCom />
         <div className="flex flex-col items-center justify-center">
           <p className="text-center text-sm mb-2">
             {t("mockSection.updatedCv")}
           </p>
-          <GradientWrapper className="p-2 rounded-lg flex items-center justify-center overflow-hidden">
-            <MockCV updated />
-          </GradientWrapper>
+
+          <MockCV updated />
         </div>
       </div>
     </div>

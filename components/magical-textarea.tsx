@@ -1,31 +1,16 @@
-"use client";
-import { useEffect, useState } from "react";
-import GradientWrapper from "./GradientWrapper";
-
 interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
 
 export function MagicalTextarea(props: Props) {
-  const [hue, setHue] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setHue((prevHue) => (prevHue + 1) % 360);
-    }, 50);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <div className="flex items-center justify-center w-full bg-white">
-      <GradientWrapper className="relative w-full flex items-center justify-center p-2 rounded-lg">
-        <textarea
-          className={`
-            w-full p-4 rounded-lg bg-white
+    <div className="relative h-40 z-20">
+      <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 opacity-75 blur-sm -z-10" />
+      <textarea
+        className={`
+            w-full p-4 rounded-lg
             focus:outline-none resize-none h-40
             `}
-          {...props}
-        />
-      </GradientWrapper>
+        {...props}
+      />
     </div>
   );
 }

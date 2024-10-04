@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ICvPdf, ITitles } from "@/interfaces/ICvPdf";
@@ -73,8 +71,8 @@ export function EditorHeader(props: Props) {
           {Object.keys(templates).map((t, index) => (
             <Card
               key={index}
-              className={`cursor-pointer transition-all shadow-none border-none rounded-none ${
-                t === template ? "bg-black" : "bg-gray-200"
+              className={`cursor-pointer transition-all rounded-sm  ${
+                t === template ? "ring-2 ring-black" : "ring-0"
               }`}
               onClick={() => setTemplate(t as Templates)}
             >
