@@ -195,7 +195,7 @@ export function JsonDiffComponentComponent({
   }
 
   return (
-    <Card className="w-full max-w-4xl mx-auto">
+    <Card className="w-full max-w-4xl mx-auto mt-6">
       <CardHeader className="border-b">
         <CardTitle>{t("jsonDiffViewer")}</CardTitle>
       </CardHeader>
