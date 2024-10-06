@@ -77,6 +77,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      drizzle-orm:
+        specifier: ^0.33.0
+        version: 0.33.0(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@types/pg@8.11.6)(@types/react@18.3.6)(@vercel/postgres@0.10.0)(react@18.3.1)
       framer-motion:
         specifier: ^11.11.0
         version: 11.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -3542,7 +3545,6 @@ snapshots:
       combined-stream: 1.0.8
       mime-types: 2.1.35
 
-<<<<<<< HEAD
   framer-motion@11.11.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       tslib: 2.7.0
@@ -3550,8 +3552,6 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-=======
->>>>>>> 6b8e74a (chore: remove eslint)
   fsevents@2.3.3:
     optional: true
 
