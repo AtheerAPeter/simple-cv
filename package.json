@@ -32,11 +32,8 @@
     "axios": "^1.7.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-<<<<<<< HEAD
     "framer-motion": "^11.11.0",
-=======
     "drizzle-orm": "^0.33.0",
->>>>>>> 79a927c (feat: drizzle orm setup done)
     "html-react-parser": "^5.1.16",
     "i18next": "^23.15.1",
     "i18next-resources-to-backend": "^1.2.1",
