@@ -15,10 +15,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { User, LogOut } from "lucide-react";
+import { LoadingSpinner } from "./ui/LoadingSpinner";
 
 export const NavBar = () => {
   const locale = useLocale();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   return (
     <header className="w-full py-4 mb-8">
@@ -28,23 +29,27 @@ export const NavBar = () => {
         </Link>
         <div className="flex items-center gap-4">
           <LanguageSwitcherComponent />
-          {session ? (
+          {status === "loading" ? (
+            <LoadingSpinner />
+          ) : status === "authenticated" ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Avatar className="h-8 w-8 cursor-pointer">
                   <AvatarImage
-                    src={session.user?.image || ""}
-                    alt={session.user?.name || ""}
+                    src={session?.user?.image || ""}
+                    alt={session?.user?.name || ""}
                   />
                   <AvatarFallback>
-                    {session.user?.name?.[0] || "U"}
+                    {session?.user?.name?.[0] || "U"}
                   </AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem>
                   <User className="mr-2 h-4 w-4" />
-                  <Link href={`/${locale}/profile`}>Profile</Link>
+                  <Link className="flex-1" href={`/${locale}/profile`}>
+                    Profile
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={() => signOut()}>
