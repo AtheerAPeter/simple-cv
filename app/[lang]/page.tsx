@@ -3,6 +3,7 @@ import InteractingCard from "@/components/InteractingCard";
 import MockSteps from "@/components/landingPage/MockSteps";
 import { NavBar } from "@/components/NavBar";
 import { Button } from "@/components/ui/button";
+import { auth } from "@/lib/auth";
 import { FileText, Zap, Star, Bot } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";

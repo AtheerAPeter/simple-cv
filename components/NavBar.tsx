@@ -2,6 +2,7 @@ import Link from "next/link";
 import { LanguageSwitcherComponent } from "./language-switcher";
 import Logo from "./Logo";
 import { useLocale } from "next-intl";
+import { signIn } from "@/lib/auth";
 
 export const NavBar = () => {
   const locale = useLocale();
@@ -14,6 +15,14 @@ export const NavBar = () => {
         <div className="gap-4 flex itmes-center">
           <LanguageSwitcherComponent />
         </div>
+        <form
+          action={async () => {
+            "use server";
+            await signIn("google");
+          }}
+        >
+          <button type="submit">Signin with Google</button>
+        </form>
       </nav>
     </header>
   );
