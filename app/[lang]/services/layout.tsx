@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import { NavBar } from "@/components/NavBar";
+import { SessionProvider } from "next-auth/react";
 import { Nunito } from "next/font/google";
 
 interface Props {
@@ -15,12 +16,14 @@ const nunito = Nunito({
 
 export default async function RootLayout(props: Props) {
   return (
-    <div
-      className={`h-screen flex flex-col justify-between ${nunito.className}`}
-    >
-      <NavBar />
-      {props.children}
-      <Footer />
-    </div>
+    <SessionProvider>
+      <div
+        className={`h-screen flex flex-col justify-between ${nunito.className}`}
+      >
+        <NavBar />
+        {props.children}
+        <Footer />
+      </div>
+    </SessionProvider>
   );
 }

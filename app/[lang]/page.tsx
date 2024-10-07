@@ -4,6 +4,7 @@ import MockSteps from "@/components/landingPage/MockSteps";
 import { NavBar } from "@/components/NavBar";
 import { Button } from "@/components/ui/button";
 import { FileText, Zap, Star, Bot } from "lucide-react";
+import { SessionProvider } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 
@@ -14,7 +15,9 @@ export default function Home() {
   return (
     <main className="flex-1">
       <section className="w-full container mx-auto h-auto md:px-10 lg:px-0">
-        <NavBar />
+        <SessionProvider>
+          <NavBar />
+        </SessionProvider>
         <div className="flex items-center lg:space-x-8 lg:px-0 px-4">
           <div className="flex flex-col items-center space-y-4 justify-center h-full my-10 text-center lg:text-start flex-1 lg:pr-20">
             <div className="space-y-2">
