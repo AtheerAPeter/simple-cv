@@ -20,12 +20,16 @@ import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { TranslateSection } from "@/components/TranslateSection";
 import { ICvPdf } from "@/interfaces/ICvPdf";
+import { useSession } from "next-auth/react";
+import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 
 export default function Page() {
   const t = useTranslations("cvBuilder");
   const locale = useLocale();
   const router = useRouter();
   const { toast } = useToast();
+  const { status } = useSession();
+
   const {
     name,
     setName,
@@ -344,6 +348,21 @@ export default function Page() {
       duration: 3000,
     });
   };
+  if (status === "loading") {
+    return (
+      <div className="flex items-center justify-center h-screen w-screen">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (status === "unauthenticated") {
+    return (
+      <div className="flex items-center justify-center h-screen w-screen">
+        <p>X</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">

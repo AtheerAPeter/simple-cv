@@ -1,6 +1,14 @@
+import { auth } from "@/auth";
+import { db } from "@/drizzle/db";
+import { users } from "@/drizzle/schema";
+import { eq } from "drizzle-orm";
+
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-export async function POST(request: Request) {
+export const POST = auth(async function POST(request) {
+  if (!request.auth?.user) {
+    return new Response("Unauthorized", { status: 401 });
+  }
   try {
     if (!request || !request.json) {
       throw new Error("Invalid request object");
@@ -26,6 +34,15 @@ export async function POST(request: Request) {
       history: [],
     });
     const result = await chatSession.sendMessage(message);
+    const response = await db
+      .update(users)
+      .set({
+        usage: (request.auth?.user as any)?.usage + 1,
+      })
+      .where(eq(users.id, request.auth?.user?.id!))
+      .returning({
+        usage: users.usage,
+      });
     return new Response(JSON.stringify(result.response.text()));
   } catch (error) {
     console.error("Error generating content:", error);
@@ -34,4 +51,4 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-}
+});
