@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useSession, signIn, signOut } from "next-auth/react";
-import { useLocale } from "next-intl";
+import { useSession, signIn } from "next-auth/react";
+import { useLocale, useTranslations } from "next-intl";
 import { LanguageSwitcherComponent } from "./language-switcher";
 import Logo from "./Logo";
 import { Button } from "@/components/ui/button";
@@ -14,12 +14,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { User, LogOut } from "lucide-react";
+import { User } from "lucide-react";
 import { LoadingSpinner } from "./ui/LoadingSpinner";
 
 export const NavBar = () => {
   const locale = useLocale();
   const { data: session, status } = useSession();
+  const t = useTranslations("profile");
 
   return (
     <header className="w-full py-4 mb-8">
@@ -48,18 +49,13 @@ export const NavBar = () => {
                 <DropdownMenuItem>
                   <User className="mr-2 h-4 w-4" />
                   <Link className="flex-1" href={`/${locale}/profile`}>
-                    Profile
+                    {t("profile")}
                   </Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => signOut()}>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Log out</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button onClick={() => signIn()}>Sign In</Button>
+            <Button onClick={() => signIn()}>{t("signIn")}</Button>
           )}
         </div>
       </nav>

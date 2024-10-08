@@ -5,17 +5,27 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { LogOut } from "lucide-react";
 import { SessionProvider } from "next-auth/react";
+import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 import React from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default async function page() {
   const session = await auth();
-
+  const t = await getTranslations("profile");
   if (!session?.user) {
     redirect("/");
   }
-
-  console.log(session.user);
 
   return (
     <>
@@ -46,22 +56,36 @@ export default async function page() {
                   </p>
                 </div>
               </div>
-              <form
-                action={async () => {
-                  "use server";
-                  await signOut();
-                }}
-              >
-                <Button variant="destructive" className="mt-4 sm:mt-0">
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Logout
-                </Button>
-              </form>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button variant="destructive" className="mt-4 sm:mt-0">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    {t("logOut")}
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      {t("logOutConfirmTitle")}
+                    </AlertDialogTitle>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>{t("cancel")}</AlertDialogCancel>
+                    <AlertDialogAction asChild>
+                      <form
+                        action={async () => {
+                          "use server";
+                          await signOut();
+                        }}
+                      >
+                        <button type="submit">{t("logOut")}</button>
+                      </form>
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
           </CardHeader>
-          <CardContent>
-            {/* Additional content can be added here in the future */}
-          </CardContent>
         </Card>
       </div>
     </>

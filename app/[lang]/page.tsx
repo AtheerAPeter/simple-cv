@@ -1,3 +1,4 @@
+import { auth } from "@/auth";
 import Footer from "@/components/Footer";
 import InteractingCard from "@/components/InteractingCard";
 import MockSteps from "@/components/landingPage/MockSteps";
@@ -5,12 +6,18 @@ import { NavBar } from "@/components/NavBar";
 import { Button } from "@/components/ui/button";
 import { FileText, Zap, Star, Bot } from "lucide-react";
 import { SessionProvider } from "next-auth/react";
-import { useLocale, useTranslations } from "next-intl";
+import { getLocale, getTranslations } from "next-intl/server";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
-export default function Home() {
-  const t = useTranslations("home");
-  const locale = useLocale();
+export default async function Home() {
+  const t = await getTranslations("home");
+  const locale = await getLocale();
+  const session = await auth();
+
+  if (session?.user) {
+    return redirect(`/${locale}/services`);
+  }
 
   return (
     <main className="flex-1">
