@@ -1,10 +1,7 @@
 import "@/drizzle/envConfig";
-import { drizzle } from "drizzle-orm/vercel-postgres";
-import { sql } from "@vercel/postgres";
 import * as schema from "./schema";
+import postgres from "postgres";
+import { drizzle } from "drizzle-orm/postgres-js";
 
-export const db = drizzle(sql, { schema });
-
-export const getUsers = async () => {
-  return db.query.UsersTable.findMany();
-};
+const pool = postgres(process.env.NEXTPOSTGRES_URL!, { max: 1 });
+export const db = drizzle(pool, { schema });

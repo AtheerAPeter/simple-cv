@@ -191,5 +191,12 @@
     "disselectAll": "Deselect All",
     "submitChanges": "Submit Changes",
     "jsonDiffViewer": "Difference Viewer"
+  },
+  "profile": {
+    "profile": "Profile",
+    "signIn": "Sign In",
+    "logOut": "Logout",
+    "cancel": "Cancel",
+    "logOutConfirmTitle": "Are you sure you want to log out?"
   }
 }

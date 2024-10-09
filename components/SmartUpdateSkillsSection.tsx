@@ -8,6 +8,7 @@ import { useSmartUpdateSkills } from "@/hooks/useSmartUpdateSkills";
 import { MagicalTextarea } from "./magical-textarea";
 import { JsonDiffComponentComponent } from "./json-diff-component";
 import { useTranslations } from "next-intl";
+import { useUser } from "@/hooks/useUser";
 
 interface Props {
   skills: SkillCategory[];
@@ -17,6 +18,7 @@ interface Props {
 }
 export const SmartUpdateSkillsSection = (props: Props) => {
   const t = useTranslations("smartUpdateSkillsSection");
+  const { user, userQuery } = useUser();
   const [aiUpdatedData, setAiUpdatedData] = useState();
   const [jobDesction, setJobDescription] = useState("");
   const [usageCount, setUsageCount] = useState<number>(0);
@@ -76,6 +78,7 @@ export const SmartUpdateSkillsSection = (props: Props) => {
             .trim(),
         mode: "json",
       });
+      await userQuery.refetch();
       const result = JSON.parse(response);
       setAiUpdatedData(result);
       increaseUsageCount();
@@ -111,7 +114,7 @@ export const SmartUpdateSkillsSection = (props: Props) => {
           {t("updateButton")}
         </Button>
         <span>
-          {t("usageLimit")}: {useageCountLimit}/{usageCount}
+          {t("usageLimit")}: {useageCountLimit}/{user?.usage}
         </span>
       </div>
       {!!aiUpdatedData && (

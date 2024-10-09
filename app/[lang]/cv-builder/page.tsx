@@ -20,12 +20,17 @@ import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { TranslateSection } from "@/components/TranslateSection";
 import { ICvPdf } from "@/interfaces/ICvPdf";
+import { useSession } from "next-auth/react";
+import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
+import { FloatingSidebarComponent } from "@/components/floating-sidebar";
 
 export default function Page() {
   const t = useTranslations("cvBuilder");
   const locale = useLocale();
   const router = useRouter();
   const { toast } = useToast();
+  const { status } = useSession();
+
   const {
     name,
     setName,
@@ -344,15 +349,26 @@ export default function Page() {
       duration: 3000,
     });
   };
+  if (status === "loading") {
+    return (
+      <div className="flex items-center justify-center h-screen w-screen">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (status === "unauthenticated") {
+    return (
+      <div className="flex items-center justify-center h-screen w-screen">
+        <p>X</p>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
-      <Button
-        onClick={() => setOpen(true)}
-        className="fixed bottom-4 right-4 lg:hidden z-10"
-      >
-        {t("previewCV")}
-      </Button>
+      <FloatingSidebarComponent />
+
       <div className="w-full lg:w-1/2 h-screen bg-white shadow-md hidden lg:flex flex-col">
         <PDFPreview data={data} />
       </div>
@@ -454,6 +470,12 @@ export default function Page() {
         open={open}
         setOpen={setOpen}
       />
+      <Button
+        onClick={() => setOpen(true)}
+        className="fixed bottom-4 right-4 lg:hidden z-10"
+      >
+        {t("previewCV")}
+      </Button>
     </div>
   );
 }
