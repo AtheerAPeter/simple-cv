@@ -205,9 +205,9 @@ export default function Page() {
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
-      <SessionProvider>
+      {/* <SessionProvider>
         <FloatingSidebarComponent />
-      </SessionProvider>
+      </SessionProvider> */}
       <div className="w-full lg:w-1/2 h-screen bg-white shadow-md hidden lg:flex flex-col">
         <div className="h-full">
           {isDataLoaded ? (
