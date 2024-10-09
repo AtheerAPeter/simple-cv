@@ -1,3 +1,4 @@
+import { relations } from "drizzle-orm";
 import {
   boolean,
   timestamp,
@@ -5,8 +6,11 @@ import {
   text,
   primaryKey,
   integer,
+  pgEnum,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccountType } from "next-auth/adapters";
+
+// user stuff =================================================================================
 
 export const users = pgTable("user", {
   id: text("id")
@@ -18,6 +22,10 @@ export const users = pgTable("user", {
   image: text("image"),
   usage: integer("usage").default(0),
 });
+
+export const usersRelations = relations(users, ({ many }) => ({
+  documents: many(documents),
+}));
 
 export const accounts = pgTable(
   "account",
@@ -85,3 +93,25 @@ export const authenticators = pgTable(
     }),
   })
 );
+// end of user stuff =================================================================================
+
+export const documentTypeEnum = pgEnum("type", ["cv", "cl"]);
+
+export const documents = pgTable("document", {
+  id: text("id").primaryKey(),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  title: text("title"),
+  type: documentTypeEnum("type").notNull().default("cv"),
+  content: text("content").notNull(),
+  createdAt: timestamp("createdAt", { mode: "date" }).notNull(),
+  updatedAt: timestamp("updatedAt", { mode: "date" }).notNull(),
+});
+
+export const documentsRelations = relations(documents, ({ one }) => ({
+  author: one(users, {
+    fields: [documents.userId],
+    references: [users.id],
+  }),
+}));

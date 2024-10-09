@@ -22,6 +22,7 @@ import { TranslateSection } from "@/components/TranslateSection";
 import { ICvPdf } from "@/interfaces/ICvPdf";
 import { useSession } from "next-auth/react";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
+import { FloatingSidebarComponent } from "@/components/floating-sidebar";
 
 export default function Page() {
   const t = useTranslations("cvBuilder");
@@ -366,12 +367,8 @@ export default function Page() {
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
-      <Button
-        onClick={() => setOpen(true)}
-        className="fixed bottom-4 right-4 lg:hidden z-10"
-      >
-        {t("previewCV")}
-      </Button>
+      <FloatingSidebarComponent />
+
       <div className="w-full lg:w-1/2 h-screen bg-white shadow-md hidden lg:flex flex-col">
         <PDFPreview data={data} />
       </div>
@@ -473,6 +470,12 @@ export default function Page() {
         open={open}
         setOpen={setOpen}
       />
+      <Button
+        onClick={() => setOpen(true)}
+        className="fixed bottom-4 right-4 lg:hidden z-10"
+      >
+        {t("previewCV")}
+      </Button>
     </div>
   );
 }

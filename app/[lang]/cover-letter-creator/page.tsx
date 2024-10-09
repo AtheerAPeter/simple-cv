@@ -25,6 +25,8 @@ import { useToast } from "@/hooks/use-toast";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import PreviewCvModal from "@/components/modals/PreviewCvModal";
 import { Button } from "@/components/ui/button";
+import { FloatingSidebarComponent } from "@/components/floating-sidebar";
+import { SessionProvider } from "next-auth/react";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 const PDFDownloadLink = dynamic(
@@ -203,6 +205,9 @@ export default function Page() {
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
+      <SessionProvider>
+        <FloatingSidebarComponent />
+      </SessionProvider>
       <div className="w-full lg:w-1/2 h-screen bg-white shadow-md hidden lg:flex flex-col">
         <div className="h-full">
           {isDataLoaded ? (
