@@ -163,7 +163,7 @@ export default function Page() {
   );
 
   const onBack = () => {
-    router.replace(`/${locale}/services`);
+    router.replace(`/${locale}/dashboard`);
   };
 
   const saveToLocalStorage = () => {

@@ -379,7 +379,7 @@ export default function Page({ params }: { params: { id: string } }) {
               onClearAll={clearAll}
               onSave={onSaveToServer}
               isSaving={updateMutation.isPending}
-              onBack={() => router.replace(`/${locale}/services`)}
+              onBack={() => router.replace(`/${locale}/dashboard`)}
             />
             <div className="space-y-6">
               <section>
