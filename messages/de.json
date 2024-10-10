@@ -198,5 +198,19 @@
     "logOut": "Abmelden",
     "cancel": "Abbrechen",
     "logOutConfirmTitle": "Sind Sie sicher, dass Sie sich abmelden möchten?"
+  },
+  "common": {
+    "cv": "Lebenslauf",
+    "coverLetter": "Anschreiben",
+    "create": "Erstellen",
+    "createNew": "Neues erstellen",
+    "add": "Hinzufügen",
+    "createdOn": "Erstellt am",
+    "updatedOn": "Aktualisiert am",
+    "delete": "löschen",
+    "view": "Ansicht",
+    "edit": "Bearbeiten",
+    "areYouSure": "Sind Sie sicher?",
+    "cancel": "Abbrechen"
   }
 }

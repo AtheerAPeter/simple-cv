@@ -1,81 +1,105 @@
 "use client";
+
+import { DocumentList } from "@/components/DocumentsList/document-list";
 import { Button } from "@/components/ui/button";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
-import { ArrowRight, FileText, PenTool } from "lucide-react";
-import { signIn, useSession } from "next-auth/react";
+import { useCachedSession } from "@/hooks/useCachedSession";
+import { useDocument } from "@/hooks/useDocument";
+import {
+  placeholderData,
+  placeholderDataCoverLetter,
+  placeholderDataCoverLetterDE,
+} from "@/lib/placeholderData";
+import { signIn } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function Page() {
   const t = useTranslations("services");
   const locale = useLocale();
-  const { status } = useSession();
-  console.log(status);
+  const { session, sessionQuery } = useCachedSession();
+  const router = useRouter();
+  const { list, listQuery, createMutation, deleteMutation } = useDocument({
+    listEnabled: true,
+  });
 
   const localizedHref = (path: string) => `/${locale}${path}`;
   const onSignin = () => {
     signIn();
   };
 
-  return (
-    <div className="container mx-auto px-4 lg:px-0 py-8 flex-1 max-w-4xl">
-      <h1 className="text-3xl lg:text-4xl font-bold text-center mb-6">
-        {t("title")}
-      </h1>
-      <p className="text-lg lg:text-xl text-center mb-8">{t("subtitle")}</p>
-      <div className="flex flex-col gap-4 relative">
-        {status === "loading" && (
-          <div className="absolute inset-0 z-10 bg-white/30 backdrop-blur-sm rounded-lg flex items-center justify-center">
+  const onCreateNew = async (type: "CV" | "Cover Letter") => {
+    if (type === "CV") {
+      const response = await createMutation.mutateAsync({
+        documentTitle: crypto.randomUUID().slice(0, 8),
+        content: JSON.stringify(placeholderData),
+        type: "cv",
+      });
+      if (response) {
+        router.push(localizedHref(`/cv-builder/${response.id}`));
+      }
+    }
+    if (type === "Cover Letter") {
+      const response = await createMutation.mutateAsync({
+        documentTitle: crypto.randomUUID().slice(0, 8),
+        content: JSON.stringify(
+          locale === "en"
+            ? placeholderDataCoverLetter
+            : placeholderDataCoverLetterDE
+        ),
+        type: "cl",
+      });
+      if (response) {
+        router.push(localizedHref(`/cover-letter-creator/${response.id}`));
+      }
+    }
+  };
+
+  const onDeleteDocument = async (id: string) => {
+    const response = await deleteMutation.mutateAsync(id);
+    if (response) {
+      listQuery.refetch();
+    }
+  };
+
+  if (sessionQuery.isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen w-screen">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (session?.status === "unauthenticated") {
+    return (
+      <div className="container mx-auto h-full flex items-center justify-center flex-col">
+        <Button
+          className="w-1/2 rounded-full font-bold"
+          size={"lg"}
+          onClick={onSignin}
+        >
+          Sign In to start
+        </Button>
+      </div>
+    );
+  }
+  if (!!session?.data?.user) {
+    return (
+      <div className="container mx-auto flex-1">
+        {listQuery.isLoading ? (
+          <div className="flex-1 w-full flex items-center justify-center">
             <LoadingSpinner />
           </div>
+        ) : (
+          <DocumentList
+            onCreateNew={onCreateNew}
+            documents={list}
+            onDelete={onDeleteDocument}
+          />
         )}
-        {status === "unauthenticated" && (
-          <div className="absolute inset-0 z-10 bg-white/30 backdrop-blur-sm rounded-lg flex items-center justify-center">
-            <Button onClick={onSignin}>Sign in to continue</Button>
-          </div>
-        )}
-
-        <Link
-          href={
-            status === "authenticated"
-              ? localizedHref("/cv-builder")
-              : localizedHref("/")
-          }
-          className="w-full"
-        >
-          <Button
-            variant="outline"
-            className="w-full justify-between text-lg py-8 px-6 hover:bg-primary hover:text-primary-foreground transition-all duration-200"
-          >
-            <div className="flex items-center">
-              <FileText className="h-6 w-6 mr-4" />
-              {t("cvBuilder.title")}
-            </div>
-            <ArrowRight className="h-6 w-6" />
-          </Button>
-        </Link>
-        <Link
-          href={
-            status === "authenticated"
-              ? localizedHref("/cover-letter-creator")
-              : localizedHref("/")
-          }
-          className="w-full"
-        >
-          <Button
-            variant="outline"
-            className="w-full justify-between text-lg py-8 px-6 hover:bg-primary hover:text-primary-foreground transition-all duration-200"
-          >
-            <div className="flex items-center">
-              <PenTool className="h-6 w-6 mr-4" />
-              {t("coverLetter.title")}
-            </div>
-            <ArrowRight className="h-6 w-6" />
-          </Button>
-        </Link>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default Page;

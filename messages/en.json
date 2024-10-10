@@ -198,5 +198,19 @@
     "logOut": "Logout",
     "cancel": "Cancel",
     "logOutConfirmTitle": "Are you sure you want to log out?"
+  },
+  "common": {
+    "cv": "CV",
+    "coverLetter": "Cover Letter",
+    "create": "Create",
+    "createNew": "Create New",
+    "add": "Add",
+    "createdOn": "Created On",
+    "updatedOn": "Updated On",
+    "delete": "Delete",
+    "view": "View",
+    "edit": "Edit",
+    "areYouSure": "Are you sure?",
+    "cancel": "Cancel"
   }
 }

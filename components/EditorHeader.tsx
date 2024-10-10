@@ -17,6 +17,7 @@ interface Props {
   onClearAll: () => void;
   onSave: () => void;
   onBack: () => void;
+  isSaving: boolean;
 }
 
 export const templates = {
@@ -56,7 +57,13 @@ export function EditorHeader(props: Props) {
             <TrashIcon className="h-4 w-4" />
             <span className="sr-only">Clear</span>
           </Button>
-          <Button variant="outline" size="icon" onClick={props.onSave}>
+          <Button
+            isLoading={props.isSaving}
+            disabled={props.isSaving}
+            variant="outline"
+            size="icon"
+            onClick={props.onSave}
+          >
             <SaveIcon className="h-4 w-4" />
             <span className="sr-only">Save</span>
           </Button>
