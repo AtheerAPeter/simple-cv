@@ -107,7 +107,7 @@ export default function PDFPreview({ data }: Props) {
       </div>
       {isDataLoaded ? (
         <div className="h-full">
-          <PDFViewer width="100%" height="100%">
+          <PDFViewer showToolbar={false} width="100%" height="100%">
             {templates[template](debouncedData, color, titles)}
           </PDFViewer>
         </div>
