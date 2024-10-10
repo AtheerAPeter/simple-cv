@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 
 function Page() {
   const t = useTranslations("services");
+  const t2 = useTranslations("profile");
   const locale = useLocale();
   const { session, sessionQuery } = useCachedSession();
   const router = useRouter();
@@ -69,20 +70,6 @@ function Page() {
       </div>
     );
   }
-
-  if (session?.status === "unauthenticated") {
-    return (
-      <div className="container mx-auto h-full flex items-center justify-center flex-col">
-        <Button
-          className="w-1/2 rounded-full font-bold"
-          size={"lg"}
-          onClick={onSignin}
-        >
-          Sign In to start
-        </Button>
-      </div>
-    );
-  }
   if (!!session?.data?.user) {
     return (
       <div className="container mx-auto flex-1">
@@ -97,6 +84,14 @@ function Page() {
             onDelete={onDeleteDocument}
           />
         )}
+      </div>
+    );
+  } else {
+    return (
+      <div className="container mx-auto h-full flex items-center justify-center flex-col">
+        <Button className="w-1/2 font-bold" size={"lg"} onClick={onSignin}>
+          {t2("signIn")}
+        </Button>
       </div>
     );
   }

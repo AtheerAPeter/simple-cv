@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 import { SessionProvider, signOut, useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import React from "react";
 import {
   AlertDialog,
@@ -18,13 +18,18 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useTranslations } from "next-intl";
 import { ArrowLeftIcon, LogOut } from "lucide-react";
+import { queryClientRoot } from "@/lib/queryClient";
+import { placeholderData } from "@/lib/placeholderData";
 
 export default function page() {
   const { data: session, status } = useSession();
   const t = useTranslations("profile");
+  const router = useRouter();
 
   const onLogout = async () => {
     await signOut();
+    await queryClientRoot.clear();
+    router.replace("/");
   };
 
   if (status === "unauthenticated") {
@@ -51,7 +56,13 @@ export default function page() {
                       alt={session?.user?.name!}
                     />
                     <AvatarFallback>
-                      {session?.user?.name!.charAt(0)}
+                      <AvatarImage
+                        className="rounded-full"
+                        src={
+                          "https://i.ibb.co/Y2xvPqm/580413-PS-PAW-BILL-SUIT-scaled-min.jpg"
+                        }
+                        alt={session?.user?.name!}
+                      />
                     </AvatarFallback>
                   </Avatar>
                   <div className="text-center sm:text-left">
