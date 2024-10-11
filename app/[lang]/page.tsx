@@ -32,7 +32,7 @@ export default async function Home() {
                 {t("title")}
               </h1>
               <p className="text-gray-500 md:text-xl dark:text-gray-400">
-                {t("paragraph")}
+                {t("description")}
               </p>
             </div>
             <div className="w-full flex justify-center lg:justify-start space-x-4">

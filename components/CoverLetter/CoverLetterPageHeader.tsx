@@ -6,6 +6,7 @@ interface Props {
   onBack: () => void;
   onClearAll: () => void;
   onSave: () => void;
+  isSaving: boolean;
 }
 
 const CoverLetterPageHeader = (props: Props) => {
@@ -21,7 +22,13 @@ const CoverLetterPageHeader = (props: Props) => {
             <TrashIcon className="h-4 w-4" />
             <span className="sr-only">Clear</span>
           </Button>
-          <Button variant="outline" size="icon" onClick={props.onSave}>
+          <Button
+            isLoading={props.isSaving}
+            disabled={props.isSaving}
+            variant="outline"
+            size="icon"
+            onClick={props.onSave}
+          >
             <SaveIcon className="h-4 w-4" />
             <span className="sr-only">Save</span>
           </Button>

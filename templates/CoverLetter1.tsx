@@ -82,7 +82,7 @@ export default function CoverLetter1({ data, accentColor }: Props) {
     recipientAddress: {
       fontSize: 10,
     },
-    paragraph: {
+    description: {
       fontSize: 11,
       lineHeight: 1.6,
       textAlign: "justify",
@@ -113,11 +113,11 @@ export default function CoverLetter1({ data, accentColor }: Props) {
         </View>
 
         {/* Content */}
-        <Text style={styles.paragraph}>{data.opening}</Text>
-        <View style={styles.paragraph}>
-          {renderHtmlContent(data.paragraph)}
+        <Text style={styles.description}>{data.opening}</Text>
+        <View style={styles.description}>
+          {renderHtmlContent(data.description)}
         </View>
-        <Text style={styles.paragraph}>{data.closing}</Text>
+        <Text style={styles.description}>{data.closing}</Text>
       </Page>
     </Document>
   );

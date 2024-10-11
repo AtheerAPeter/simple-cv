@@ -19,7 +19,6 @@ import {
 import { useTranslations } from "next-intl";
 import { ArrowLeftIcon, LogOut } from "lucide-react";
 import { queryClientRoot } from "@/lib/queryClient";
-import { placeholderData } from "@/lib/placeholderData";
 
 export default function page() {
   const { data: session, status } = useSession();
