@@ -35,26 +35,39 @@ export function EditableDocumentTitleComponent({
   };
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center space-y-2">
       {isEditing ? (
         <>
           <Input
+            id="documentTitle"
             value={editedTitle}
             onChange={(e) => setEditedTitle(e.target.value)}
             className="flex-grow"
             autoFocus
           />
-          <Button onClick={handleSave} size="icon" variant="ghost">
-            <Check className="h-4 w-4" />
-          </Button>
-          <Button onClick={handleCancel} size="icon" variant="ghost">
-            <X className="h-4 w-4" />
-          </Button>
+          <div className="flex space-x-2 ml-1">
+            <Button onClick={handleSave} size="icon" variant="ghost">
+              <Check className="h-4 w-4" />
+            </Button>
+            <Button onClick={handleCancel} size="icon" variant="ghost">
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
         </>
       ) : (
         <>
-          <h1 className="text-2xl font-bold">{title}</h1>
-          <Button onClick={handleEdit} size="icon" variant="ghost">
+          <Input
+            id="documentTitle"
+            value={title}
+            className="flex-grow"
+            disabled
+          />
+          <Button
+            className="ml-1"
+            onClick={handleEdit}
+            size="icon"
+            variant="ghost"
+          >
             <Pencil className="h-4 w-4" />
           </Button>
         </>

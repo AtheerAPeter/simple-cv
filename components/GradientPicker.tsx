@@ -77,7 +77,7 @@ export function GradientPicker({
           <div className="w-full flex items-center gap-2">
             {background ? (
               <div
-                className="h-4 w-4 rounded !bg-center !bg-cover transition-all"
+                className="h-4 w-4 !bg-center !bg-cover transition-all"
                 style={{ background }}
               ></div>
             ) : (

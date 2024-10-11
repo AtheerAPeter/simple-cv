@@ -24,7 +24,7 @@ const LanguagesSection = (props: Props) => {
   return (
     <>
       {languages?.map((lang, index) => (
-        <div key={index} className="mb-4 p-4 bg-white">
+        <div key={index} className="mb-4 border border-input p-4">
           <div className="flex justify-between items-center mb-2">
             <h3 className="text-lg font-medium">
               {t("title")} {index + 1}
@@ -45,7 +45,6 @@ const LanguagesSection = (props: Props) => {
                 name="language"
                 value={lang.language}
                 onChange={(e) => handleLanguageChange(index, e)}
-                className="border-gray-100"
               />
             </div>
             <div>
@@ -55,7 +54,6 @@ const LanguagesSection = (props: Props) => {
                 name="proficiency"
                 value={lang.proficiency}
                 onChange={(e) => handleLanguageChange(index, e)}
-                className="border-gray-100"
               />
             </div>
           </div>

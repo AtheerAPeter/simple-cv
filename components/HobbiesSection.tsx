@@ -17,34 +17,28 @@ const HobbiesSection = (props: Props) => {
   const { hobbies, currentHobby, setCurrentHobby, addHobby, removeHobby } =
     props;
   return (
-    <>
-      <div className="mb-4 p-4 bg-white">
-        <div className="flex flex-wrap gap-2 mb-2">
-          {hobbies?.map((hobby, index) => (
-            <Badge key={index} variant="secondary" className="px-2 py-1">
-              {hobby}
-              <button
-                onClick={() => removeHobby(index)}
-                className="ml-2 text-xs"
-              >
-                <X className="h-3 w-3" />
-              </button>
-            </Badge>
-          ))}
-        </div>
-        <div className="flex gap-2">
-          <Input
-            value={currentHobby}
-            onChange={(e) => setCurrentHobby(e.target.value)}
-            placeholder={t("title")}
-            className="border-gray-100"
-          />
-          <Button type="button" size={"icon"} onClick={addHobby}>
-            <PlusCircle size={20} />
-          </Button>
-        </div>
+    <div>
+      <div className="flex flex-wrap gap-2 mb-2">
+        {hobbies?.map((hobby, index) => (
+          <Badge key={index} variant="secondary" className="px-2 py-1">
+            {hobby}
+            <button onClick={() => removeHobby(index)} className="ml-2 text-xs">
+              <X className="h-3 w-3" />
+            </button>
+          </Badge>
+        ))}
       </div>
-    </>
+      <div className="flex gap-2">
+        <Input
+          value={currentHobby}
+          onChange={(e) => setCurrentHobby(e.target.value)}
+          placeholder={t("title")}
+        />
+        <Button type="button" size={"icon"} onClick={addHobby}>
+          <PlusCircle size={20} />
+        </Button>
+      </div>
+    </div>
   );
 };
 

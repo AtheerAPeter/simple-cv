@@ -16,7 +16,7 @@ const PersonalDetails = (props: Props) => {
     props;
   const t = useTranslations("coverLetterPage");
   return (
-    <div className="mb-4 p-4 bg-white">
+    <div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <Label htmlFor="name">{t("name")}</Label>
@@ -25,7 +25,6 @@ const PersonalDetails = (props: Props) => {
             name="name"
             value={name}
             onChange={handlePersonalDetailsChange}
-            className="border-gray-100"
           />
         </div>
         <div>
@@ -36,7 +35,6 @@ const PersonalDetails = (props: Props) => {
             type="email"
             value={email}
             onChange={handlePersonalDetailsChange}
-            className="border-gray-100"
           />
         </div>
         <div>
@@ -46,7 +44,6 @@ const PersonalDetails = (props: Props) => {
             name="phone"
             value={phone}
             onChange={handlePersonalDetailsChange}
-            className="border-gray-100"
           />
         </div>
         <div>
@@ -56,7 +53,6 @@ const PersonalDetails = (props: Props) => {
             name="address"
             value={address}
             onChange={handlePersonalDetailsChange}
-            className="border-gray-100"
           />
         </div>
         <div>
@@ -66,7 +62,6 @@ const PersonalDetails = (props: Props) => {
             name="date"
             value={date}
             onChange={handlePersonalDetailsChange}
-            className="border-gray-100"
           />
         </div>
       </div>

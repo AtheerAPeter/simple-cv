@@ -68,7 +68,7 @@ export const SmartUpdateSkillsSection = (props: Props) => {
   };
 
   return (
-    <div className="mb-4 p-4 bg-white">
+    <div>
       <MagicalTextarea
         value={jobDesction}
         onChange={onChangeJobDescriptionInput}

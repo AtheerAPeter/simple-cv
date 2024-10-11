@@ -38,7 +38,7 @@ export const TranslateSection = (props: Props) => {
   };
 
   return (
-    <div className="mb-4 p-4 bg-white">
+    <div>
       <div className="flex items-center space-x-4">
         <Select onValueChange={setSelectedLanguage} value={selectedLanguage}>
           <SelectTrigger className="w-full bg-white">

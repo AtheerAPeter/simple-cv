@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import Footer from "@/components/Footer";
 import InteractingCard from "@/components/InteractingCard";
 import MockSteps from "@/components/landingPage/MockSteps";
-import { NavBar } from "@/components/NavBar";
+import { NavBarServer } from "@/components/NavbarServer";
 import { Button } from "@/components/ui/button";
 import { FileText, Zap, Star, Bot } from "lucide-react";
 import { SessionProvider } from "next-auth/react";
@@ -23,16 +23,16 @@ export default async function Home() {
     <main className="flex-1">
       <section className="w-full container mx-auto h-auto md:px-10 lg:px-0">
         <SessionProvider>
-          <NavBar />
+          <NavBarServer />
         </SessionProvider>
-        <div className="flex items-center lg:space-x-8 lg:px-0 px-4">
+        <div className="flex items-center lg:space-x-8 lg:px-0 px-4 mt-8">
           <div className="flex flex-col items-center space-y-4 justify-center h-full my-10 text-center lg:text-start flex-1 lg:pr-20">
             <div className="space-y-2">
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-4xl lg:text-5xl/none">
                 {t("title")}
               </h1>
               <p className="text-gray-500 md:text-xl dark:text-gray-400">
-                {t("description")}
+                {t("paragraph")}
               </p>
             </div>
             <div className="w-full flex justify-center lg:justify-start space-x-4">

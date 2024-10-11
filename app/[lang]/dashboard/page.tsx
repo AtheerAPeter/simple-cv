@@ -26,7 +26,7 @@ function Page() {
 
   const localizedHref = (path: string) => `/${locale}${path}`;
   const onSignin = () => {
-    signIn();
+    signIn("google");
   };
 
   const onCreateNew = async (type: "CV" | "Cover Letter") => {
@@ -82,6 +82,7 @@ function Page() {
             onCreateNew={onCreateNew}
             documents={list}
             onDelete={onDeleteDocument}
+            isCreating={createMutation.isPending}
           />
         )}
       </div>

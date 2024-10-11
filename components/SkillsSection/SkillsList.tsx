@@ -61,7 +61,7 @@ export default function SkillsSection({
   return (
     <>
       {skills?.map((skillCategory, index) => (
-        <div key={index} className="mb-4 p-4 bg-white">
+        <div key={index} className="mb-4 p-4 border border-input">
           <div className="flex justify-between items-center mb-2">
             <Label htmlFor={`skillTitle-${index}`}>{t("skillTitle")}</Label>
             <Button
@@ -76,7 +76,7 @@ export default function SkillsSection({
             id={`skillTitle-${index}`}
             value={skillCategory.title}
             onChange={(e) => handleCategoryTitleChange(index, e)}
-            className="outline-none border-none mb-2"
+            className="mb-2"
           />
           <div className="flex flex-wrap gap-2 mb-2">
             {skillCategory.skills.map((skill, skillIndex) => (

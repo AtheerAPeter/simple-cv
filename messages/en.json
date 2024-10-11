@@ -211,6 +211,8 @@
     "view": "View",
     "edit": "Edit",
     "areYouSure": "Are you sure?",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "myDocuments": "My Documents",
+    "duplicate": "Duplicate"
   }
 }

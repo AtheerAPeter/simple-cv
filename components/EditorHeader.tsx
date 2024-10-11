@@ -70,7 +70,7 @@ export function EditorHeader(props: Props) {
         </div>
       </header>
 
-      <main className="mb-4 p-4 bg-white">
+      <main>
         <div className="flex justify-end mb-4">
           <GradientPicker background={color} setBackground={setColor} />
         </div>

@@ -27,7 +27,7 @@ const ExperienceSection = (props: Props) => {
   return (
     <>
       {experiences?.map((exp, index) => (
-        <div key={index} className="mb-4 p-4 bg-white">
+        <div key={index} className="mb-4 p-4 border border-input">
           <div className="flex justify-between items-center mb-2">
             <h3 className="text-lg font-medium">
               {t("title")} {index + 1}
@@ -50,7 +50,6 @@ const ExperienceSection = (props: Props) => {
                 onChange={(e) =>
                   handleExperienceChange(index, "title", e.target.value)
                 }
-                className="border-gray-100"
               />
             </div>
             <div>
@@ -62,7 +61,6 @@ const ExperienceSection = (props: Props) => {
                 onChange={(e) =>
                   handleExperienceChange(index, "employer", e.target.value)
                 }
-                className="border-gray-100"
               />
             </div>
             <div>
@@ -76,7 +74,6 @@ const ExperienceSection = (props: Props) => {
                 onChange={(e) =>
                   handleExperienceChange(index, "startDate", e.target.value)
                 }
-                className="border-gray-100"
               />
             </div>
             <div>
@@ -90,7 +87,6 @@ const ExperienceSection = (props: Props) => {
                 onChange={(e) =>
                   handleExperienceChange(index, "endDate", e.target.value)
                 }
-                className="border-gray-100"
               />
             </div>
           </div>

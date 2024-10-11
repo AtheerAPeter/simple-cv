@@ -15,6 +15,7 @@ interface Props {
   onCreateNew: (type: "CV" | "Cover Letter") => void;
   onDelete: (id: string) => void;
   documents?: (typeof documents.$inferSelect)[];
+  isCreating: boolean;
 }
 
 export function DocumentList(props: Props) {
@@ -23,10 +24,10 @@ export function DocumentList(props: Props) {
   return (
     <div className="w-full mx-auto p-4">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">My Documents</h1>
+        <h1 className="text-2xl font-bold">{t("myDocuments")}</h1>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button>
+            <Button isLoading={props.isCreating} disabled={props.isCreating}>
               <Plus className="mr-2 h-4 w-4" />
               {t("createNew")}
             </Button>
@@ -50,6 +51,7 @@ export function DocumentList(props: Props) {
       <div className="space-y-4">
         {props.documents?.map((doc) => (
           <DocumentItem
+            onCopy={() => {}}
             key={doc.id}
             doc={doc}
             locale={locale}

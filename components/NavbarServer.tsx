@@ -15,11 +15,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { User } from "lucide-react";
 import { LoadingSpinner } from "./ui/LoadingSpinner";
-import { useCachedSession } from "@/hooks/useCachedSession";
 
-export const NavBar = () => {
+export const NavBarServer = () => {
   const locale = useLocale();
-  const { session, sessionQuery } = useCachedSession();
+  const { data: session, status } = useSession();
   const t = useTranslations("profile");
 
   return (
@@ -30,18 +29,18 @@ export const NavBar = () => {
         </Link>
         <div className="flex items-center gap-4">
           <LanguageSwitcherComponent />
-          {sessionQuery.isFetching ? (
+          {status === "loading" ? (
             <LoadingSpinner />
-          ) : session?.status === "authenticated" ? (
+          ) : status === "authenticated" ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Avatar className="h-8 w-8 cursor-pointer">
                   <AvatarImage
-                    src={session?.data?.user?.image || ""}
-                    alt={session?.data?.user?.name || ""}
+                    src={session?.user?.image || ""}
+                    alt={session?.user?.name || ""}
                   />
                   <AvatarFallback>
-                    {session?.data?.user?.name?.[0] || "U"}
+                    {session?.user?.name?.[0] || "U"}
                   </AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>

@@ -13,7 +13,7 @@ interface Props {
 const EmployerDetailsSection = (props: Props) => {
   const t = useTranslations("coverLetterPage");
   return (
-    <div className="mb-4 p-4 bg-white">
+    <div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <Label htmlFor="companyName">{t("recipient.companyName")}</Label>
@@ -22,7 +22,6 @@ const EmployerDetailsSection = (props: Props) => {
             name="companyName"
             value={props.companyName}
             onChange={props.handleEmployerDetailsChange}
-            className="border-gray-100"
           />
         </div>
         <div>
@@ -32,7 +31,6 @@ const EmployerDetailsSection = (props: Props) => {
             name="managerName"
             value={props.managerName}
             onChange={props.handleEmployerDetailsChange}
-            className="border-gray-100"
           />
         </div>
         <div>
@@ -42,7 +40,6 @@ const EmployerDetailsSection = (props: Props) => {
             name="companyAddress"
             value={props.companyAddress}
             onChange={props.handleEmployerDetailsChange}
-            className="border-gray-100"
           />
         </div>
         <div>
@@ -52,7 +49,6 @@ const EmployerDetailsSection = (props: Props) => {
             name="position"
             value={props.position}
             onChange={props.handleEmployerDetailsChange}
-            className="border-gray-100"
           />
         </div>
       </div>

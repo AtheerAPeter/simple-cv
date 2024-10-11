@@ -21,6 +21,7 @@ import PreviewCvModal from "@/components/modals/PreviewCvModal";
 import { Button } from "@/components/ui/button";
 import { useDocument } from "@/hooks/useDocument";
 import { ICoverLetterResponse } from "@/interfaces/ICoverLetterPdf";
+import { FloatingSidebarComponent } from "@/components/floating-sidebar";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 const PDFDownloadLink = dynamic(
@@ -171,9 +172,10 @@ export default function Page({ params }: { params: { id: string } }) {
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
-      {/* <SessionProvider>
-        <FloatingSidebarComponent />
-      </SessionProvider> */}
+      <FloatingSidebarComponent
+        documentTitle={document?.title!}
+        documentId={document?.id!}
+      />
       <div className="w-full lg:w-1/2 h-screen bg-white shadow-md hidden lg:flex flex-col">
         <div className="h-full">
           {isDataLoaded ? (
@@ -187,7 +189,7 @@ export default function Page({ params }: { params: { id: string } }) {
           )}
         </div>
       </div>
-      <div className="w-full lg:w-1/2 h-screen overflow-y-auto p-2 lg:p-8 bg-gray-100 text-gray-900 space-y-6">
+      <div className="w-full lg:w-1/2 h-screen overflow-y-auto p-2 lg:p-8">
         <CoverLetterPageHeader
           onBack={onBack}
           onSave={saveToLocalStorage}
@@ -195,7 +197,9 @@ export default function Page({ params }: { params: { id: string } }) {
           isSaving={updateMutation.isPending}
         />
         <section>
-          <h2 className="text-xl font-semibold mb-4">{t("personalDetails")}</h2>
+          <h2 className="text-xl font-semibold mb-3 mt-10">
+            {t("personalDetails")}
+          </h2>
           <PersonalDetails
             date={date}
             name={name}
@@ -206,7 +210,9 @@ export default function Page({ params }: { params: { id: string } }) {
           />
         </section>
         <section>
-          <h2 className="text-xl font-semibold mb-4">{t("recipient.title")}</h2>
+          <h2 className="text-xl font-semibold mb-3 mt-10">
+            {t("recipient.title")}
+          </h2>
           <EmployerDetailsSection
             position={position}
             handleEmployerDetailsChange={handleEmployerDetailsChange}
@@ -216,8 +222,8 @@ export default function Page({ params }: { params: { id: string } }) {
           />
         </section>
         <section>
-          <h2 className="text-xl font-semibold mb-4">{t("title")}</h2>
-          <div className="mb-4 p-4 bg-white">
+          <h2 className="text-xl font-semibold mb-3 mt-10">{t("title")}</h2>
+          <div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="opening">{t("opening")}</Label>
@@ -226,7 +232,6 @@ export default function Page({ params }: { params: { id: string } }) {
                   name="opening"
                   value={opening}
                   onChange={(e) => setOpening(e.target.value)}
-                  className="border-gray-100"
                 />
               </div>
               <div>
@@ -236,7 +241,6 @@ export default function Page({ params }: { params: { id: string } }) {
                   name="closing"
                   value={closing}
                   onChange={(e) => setClosing(e.target.value)}
-                  className="border-gray-100"
                 />
               </div>
             </div>
@@ -255,10 +259,12 @@ export default function Page({ params }: { params: { id: string } }) {
           </div>
         </section>
         <section>
-          <h2 className="text-xl font-semibold mb-4">
-            {t("aiGeneratedCoverLetter")}
-            <span className="text-gray-400 text-xs ml-2">Beta</span>
-          </h2>
+          <div className="flex items-start gap-2 mb-3 mt-10">
+            <h2 className="text-xl font-semibold">
+              {t("aiGeneratedCoverLetter")}
+            </h2>
+            <p className="text-gray-400 text-xs">Beta</p>
+          </div>
           <SmartCoverLetterForm
             mockCoverLetter={description}
             experience={cvData?.experiences || []}
