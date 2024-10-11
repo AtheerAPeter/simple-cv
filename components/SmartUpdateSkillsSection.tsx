@@ -1,5 +1,5 @@
 import { Experience, SkillCategory } from "@/interfaces/IFormTypes";
-import { TextareaHTMLAttributes, useEffect, useState } from "react";
+import { TextareaHTMLAttributes, useState } from "react";
 import { Button } from "./ui/button";
 import { ICvPdf } from "@/interfaces/ICvPdf";
 import _ from "lodash";
@@ -21,53 +21,14 @@ export const SmartUpdateSkillsSection = (props: Props) => {
   const { user, userQuery } = useUser();
   const [aiUpdatedData, setAiUpdatedData] = useState();
   const [jobDesction, setJobDescription] = useState("");
-  const [usageCount, setUsageCount] = useState<number>(0);
   const { smartUpdateSkillsMutation } = useSmartUpdateSkills();
   const { toast } = useToast();
   const useageCountLimit = 10;
-  useEffect(() => {
-    const storedCount = localStorage.getItem("F4wD4#$f!?/wdf");
-    const storedTime = localStorage.getItem("F4wD4#$f!?/wdf_time");
-    const oneDay = 24 * 60 * 60 * 1000;
-
-    if (storedCount && storedTime) {
-      const currentTime = new Date().getTime();
-      const savedTime = JSON.parse(atob(storedTime));
-
-      if (currentTime - savedTime > oneDay) {
-        localStorage.removeItem("F4wD4#$f!?/wdf");
-        localStorage.removeItem("F4wD4#$f!?/wdf_time");
-      } else {
-        const decryptedCount = JSON.parse(atob(storedCount));
-        setUsageCount(decryptedCount);
-      }
-    }
-  }, []);
-
-  const increaseUsageCount = () => {
-    const newCount = (usageCount ?? 0) + 1;
-    setUsageCount(newCount);
-    localStorage.setItem("F4wD4#$f!?/wdf", btoa(JSON.stringify(newCount)));
-    localStorage.setItem(
-      "F4wD4#$f!?/wdf_time",
-      btoa(JSON.stringify(new Date().getTime()))
-    );
-  };
 
   const onChangeJobDescriptionInput: TextareaHTMLAttributes<HTMLTextAreaElement>["onChange"] =
     (event) => setJobDescription(event.target.value);
 
   const onSubmit = async () => {
-    if (usageCount >= useageCountLimit) {
-      toast({
-        title: t("limitReached.title"),
-        description: t("limitReached.description"),
-        duration: 3000,
-        variant: "destructive",
-      });
-      return;
-    }
-
     try {
       const response = await smartUpdateSkillsMutation.mutateAsync({
         message:
@@ -81,16 +42,28 @@ export const SmartUpdateSkillsSection = (props: Props) => {
       await userQuery.refetch();
       const result = JSON.parse(response);
       setAiUpdatedData(result);
-      increaseUsageCount();
       setJobDescription("");
       toast({
         title: t("updateSuccess.title"),
         description: t("updateSuccess.description"),
         duration: 5000,
-        className: "bg-green-500 text-white",
       });
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      if (error.response) {
+        toast({
+          title: error.response.data.error,
+          duration: 5000,
+          className: "bg-red-500",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Something went wrong",
+          duration: 5000,
+          className: "bg-red-500",
+          variant: "destructive",
+        });
+      }
     }
   };
 

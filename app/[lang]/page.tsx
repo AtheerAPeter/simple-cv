@@ -16,7 +16,7 @@ export default async function Home() {
   const session = await auth();
 
   if (session?.user) {
-    return redirect(`/${locale}/services`);
+    return redirect(`/${locale}/dashboard`);
   }
 
   return (
@@ -32,18 +32,18 @@ export default async function Home() {
                 {t("title")}
               </h1>
               <p className="text-gray-500 md:text-xl dark:text-gray-400">
-                {t("paragraph")}
+                {t("description")}
               </p>
             </div>
             <div className="w-full flex justify-center lg:justify-start space-x-4">
-              <Link href={`${locale}/services`}>
+              <Link href={`${locale}/dashboard`}>
                 <Button className="font-bold" size={"lg"}>
                   {t("button")}
                 </Button>
               </Link>
             </div>
           </div>
-          <Link href={`${locale}/services`}>
+          <Link href={`${locale}/dashboard`}>
             <InteractingCard />
           </Link>
         </div>

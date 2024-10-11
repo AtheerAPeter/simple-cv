@@ -4,7 +4,6 @@ import { useEffect, useState, useCallback } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import { PDFViewer } from "@react-pdf/renderer";
-
 import EmployerDetailsSection from "@/components/CoverLetter/EmployerDetailsSection";
 import PersonalDetails from "@/components/CoverLetter/PersonalDetailsSection";
 import SmartCoverLetterForm from "@/components/CoverLetter/SmartCoverLetterForm";
@@ -12,12 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useCoverLetterForm } from "@/hooks/useCoverLetterForm";
 import { ICvPdf } from "@/interfaces/ICvPdf";
-import {
-  placeholderDataCoverLetter,
-  placeholderDataCoverLetterDE,
-} from "@/lib/placeholderData";
 import CoverLetter1 from "@/templates/CoverLetter1";
-
 import "react-quill/dist/quill.snow.css";
 import CoverLetterPageHeader from "@/components/CoverLetter/CoverLetterPageHeader";
 import { useRouter } from "next/navigation";
@@ -25,8 +19,8 @@ import { useToast } from "@/hooks/use-toast";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import PreviewCvModal from "@/components/modals/PreviewCvModal";
 import { Button } from "@/components/ui/button";
-import { FloatingSidebarComponent } from "@/components/floating-sidebar";
-import { SessionProvider } from "next-auth/react";
+import { useDocument } from "@/hooks/useDocument";
+import { ICoverLetterResponse } from "@/interfaces/ICoverLetterPdf";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 const PDFDownloadLink = dynamic(
@@ -37,7 +31,7 @@ const PDFDownloadLink = dynamic(
   }
 );
 
-export default function Page() {
+export default function Page({ params }: { params: { id: string } }) {
   const t = useTranslations("coverLetterPage");
   const locale = useLocale();
   const [cvData, setCvData] = useState<ICvPdf>();
@@ -45,6 +39,10 @@ export default function Page() {
   const { toast } = useToast();
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [open, setOpen] = useState(false);
+  const { document, documentQuery, updateMutation } = useDocument({
+    listEnabled: false,
+    id: params.id,
+  });
 
   const {
     name,
@@ -81,57 +79,22 @@ export default function Page() {
   }, [debouncedData]);
 
   useEffect(() => {
-    const placeholder =
-      locale === "en"
-        ? placeholderDataCoverLetter
-        : placeholderDataCoverLetterDE;
+    if (document) {
+      const parsedCLData = JSON.parse(document.content) as ICoverLetterResponse;
 
-    const savedCVData = localStorage.getItem("cvData");
-    const savedCoverLetterData = localStorage.getItem("CLData");
-
-    if (savedCoverLetterData) {
-      const parsedCLData = JSON.parse(savedCoverLetterData);
-      setName(parsedCLData.name || placeholder.name);
-      setEmail(parsedCLData.email || placeholder.email);
-      setPhone(parsedCLData.phone || placeholder.phone);
-      setAddress(parsedCLData.address || placeholder.address);
-      setCompany(parsedCLData.company || placeholder.company);
-      setManager(parsedCLData.manager || placeholder.manager);
-      setPosition(parsedCLData.position || placeholder.position);
-      setCompanyAddress(
-        parsedCLData.companyAddress || placeholder.companyAddress
-      );
-      setDescription(parsedCLData.description || placeholder.paragraph);
-      setOpening(parsedCLData.opening || placeholder.opening);
-      setClosing(parsedCLData.closing || placeholder.closing);
-    } else if (savedCVData) {
-      const parsedCVData = JSON.parse(savedCVData);
-      setCvData(parsedCVData);
-      setName(parsedCVData.name);
-      setEmail(parsedCVData.email);
-      setPhone(parsedCVData.phone);
-      setAddress(parsedCVData.address);
-      setCompany(placeholder.company);
-      setManager(placeholder.manager);
-      setPosition(placeholder.position);
-      setCompanyAddress(placeholder.companyAddress);
-      setDescription(placeholder.paragraph);
-      setOpening(placeholder.opening);
-      setClosing(`${placeholder.closing} ${parsedCVData.name}`);
-    } else {
-      setName(placeholder.name);
-      setEmail(placeholder.email);
-      setPhone(placeholder.phone);
-      setAddress(placeholder.address);
-      setCompany(placeholder.company);
-      setManager(placeholder.manager);
-      setPosition(placeholder.position);
-      setCompanyAddress(placeholder.companyAddress);
-      setDescription(placeholder.paragraph);
-      setOpening(placeholder.opening);
-      setClosing(placeholder.closing);
+      setName(parsedCLData.name);
+      setEmail(parsedCLData.email);
+      setPhone(parsedCLData.phone);
+      setAddress(parsedCLData.address);
+      setCompany(parsedCLData.company);
+      setManager(parsedCLData.manager);
+      setPosition(parsedCLData.position);
+      setCompanyAddress(parsedCLData.companyAddress);
+      setDescription(parsedCLData.description);
+      setOpening(parsedCLData.opening);
+      setClosing(parsedCLData.closing);
     }
-  }, []);
+  }, [document]);
 
   const handlePersonalDetailsChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -163,10 +126,10 @@ export default function Page() {
   );
 
   const onBack = () => {
-    router.replace(`/${locale}/services`);
+    router.replace(`/${locale}/dashboard`);
   };
 
-  const saveToLocalStorage = () => {
+  const saveToLocalStorage = async () => {
     const dataToSave = {
       name,
       email,
@@ -180,7 +143,10 @@ export default function Page() {
       opening,
       closing,
     };
-    localStorage.setItem("CLData", JSON.stringify(dataToSave));
+    await updateMutation.mutateAsync({
+      content: JSON.stringify(dataToSave),
+      id: params.id,
+    });
     toast({
       title: t("clDataSaved.title"),
       description: t("clDataSaved.description"),
@@ -226,6 +192,7 @@ export default function Page() {
           onBack={onBack}
           onSave={saveToLocalStorage}
           onClearAll={clearAll}
+          isSaving={updateMutation.isPending}
         />
         <section>
           <h2 className="text-xl font-semibold mb-4">{t("personalDetails")}</h2>

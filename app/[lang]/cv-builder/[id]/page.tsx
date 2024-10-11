@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import "react-quill/dist/quill.snow.css";
 import { useToast } from "@/hooks/use-toast";
 import { useCvForm } from "@/hooks/useCvForm";
-import { placeholderData } from "@/lib/placeholderData";
 import EducationSection from "@/components/EducationSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import PreviewCvModal from "@/components/modals/PreviewCvModal";
@@ -23,13 +22,19 @@ import { ICvPdf } from "@/interfaces/ICvPdf";
 import { useSession } from "next-auth/react";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { FloatingSidebarComponent } from "@/components/floating-sidebar";
+import { useDocument } from "@/hooks/useDocument";
+import { EditableDocumentTitleComponent } from "@/components/editable-document-title";
 
-export default function Page() {
+export default function Page({ params }: { params: { id: string } }) {
   const t = useTranslations("cvBuilder");
   const locale = useLocale();
   const router = useRouter();
   const { toast } = useToast();
   const { status } = useSession();
+  const { document, documentQuery, updateMutation } = useDocument({
+    listEnabled: false,
+    id: params.id,
+  });
 
   const {
     name,
@@ -63,40 +68,25 @@ export default function Page() {
   } = useCvForm();
 
   const [open, setOpen] = useState(false);
+  const parsedContent = document?.content ? JSON.parse(document.content) : null;
 
   useEffect(() => {
-    const savedData = localStorage.getItem("cvData");
-    if (!savedData) {
-      setName(placeholderData.name);
-      setTitle(placeholderData.title);
-      setEmail(placeholderData.email);
-      setPhone(placeholderData.phone);
-      setAddress(placeholderData.address);
-      setGithub(placeholderData.github);
-      setImage(placeholderData.image);
-      setExperiences(placeholderData.experiences);
-      setEducations(placeholderData.educations);
-      setSkills(placeholderData.skills);
-      setLanguages(placeholderData.languages);
-      setHobbies(placeholderData.hobbies);
-      setProjects(placeholderData.projects);
-    } else {
-      const parsedData = JSON.parse(savedData);
-      setName(parsedData.name);
-      setTitle(parsedData.title);
-      setEmail(parsedData.email);
-      setPhone(parsedData.phone);
-      setAddress(parsedData.address);
-      setGithub(parsedData.github);
-      setExperiences(parsedData.experiences);
-      setEducations(parsedData.educations);
-      setSkills(parsedData.skills);
-      setLanguages(parsedData.languages);
-      setHobbies(parsedData.hobbies);
-      setImage(parsedData.image);
-      setProjects(parsedData.projects);
-    }
-  }, []);
+    if (!document) return;
+    const parsedData = JSON.parse(document.content);
+    setName(parsedData.name);
+    setTitle(parsedData.title);
+    setEmail(parsedData.email);
+    setPhone(parsedData.phone);
+    setAddress(parsedData.address);
+    setGithub(parsedData.github);
+    setExperiences(parsedData.experiences);
+    setEducations(parsedData.educations);
+    setSkills(parsedData.skills);
+    setLanguages(parsedData.languages);
+    setHobbies(parsedData.hobbies);
+    setImage(parsedData.image);
+    setProjects(parsedData.projects);
+  }, [document]);
 
   const handlePersonalDetailsChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -326,8 +316,8 @@ export default function Page() {
     setProjects([]);
   };
 
-  const saveToLocalStorage = () => {
-    const dataToSave = {
+  const onSaveToServer = async () => {
+    const dataToSave = JSON.stringify({
       name,
       title,
       email,
@@ -341,8 +331,15 @@ export default function Page() {
       hobbies,
       image,
       projects,
-    };
-    localStorage.setItem("cvData", JSON.stringify(dataToSave));
+    });
+    const response = await updateMutation.mutateAsync({
+      content: dataToSave,
+      id: document?.id!,
+    });
+    if (response) {
+      documentQuery.refetch();
+    }
+
     toast({
       title: t("cvDataSaved.title"),
       description: t("cvDataSaved.description"),
@@ -350,19 +347,39 @@ export default function Page() {
     });
   };
 
+  const onSaveDocumentTitle = async (newTitle: string) => {
+    const response = await updateMutation.mutateAsync({
+      id: document?.id!,
+      title: newTitle,
+    });
+    if (response) {
+      documentQuery.refetch();
+    }
+  };
+
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
       {/* <FloatingSidebarComponent /> */}
+
       {status === "authenticated" ? (
         <>
           <div className="w-full lg:w-1/2 h-screen bg-white shadow-md hidden lg:flex flex-col">
+            <div className="bg-black text-white h-16 flex items-center px-4">
+              {!!document && (
+                <EditableDocumentTitleComponent
+                  initialTitle={document?.title!}
+                  onSave={onSaveDocumentTitle}
+                />
+              )}
+            </div>
             <PDFPreview data={data} />
           </div>
           <div className="w-full lg:w-1/2 h-screen overflow-y-auto p-2 lg:p-8 bg-gray-100 text-gray-900">
             <EditorHeader
               onClearAll={clearAll}
-              onSave={saveToLocalStorage}
-              onBack={() => router.replace(`/${locale}/services`)}
+              onSave={onSaveToServer}
+              isSaving={updateMutation.isPending}
+              onBack={() => router.replace(`/${locale}/dashboard`)}
             />
             <div className="space-y-6">
               <section>

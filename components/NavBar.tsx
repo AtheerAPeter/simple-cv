@@ -11,7 +11,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { User } from "lucide-react";
@@ -23,7 +22,7 @@ export const NavBar = () => {
   const t = useTranslations("profile");
 
   return (
-    <header className="w-full py-4 mb-8">
+    <header className="w-full py-4">
       <nav className="flex justify-between items-center container mx-auto lg:px-0 px-4">
         <Link href={`/${locale}`}>
           <Logo />

@@ -33,7 +33,7 @@ export const useCoverLetterForm = () => {
       address: companyAddress,
       position,
     },
-    paragraph: description,
+    description,
     opening,
     closing,
   };

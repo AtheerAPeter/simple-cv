@@ -19,7 +19,7 @@ export const Footer = () => {
           </div>
           <nav className="flex space-x-4 text-sm justify-center lg:justify-start w-full lg:w-auto">
             <Link
-              href={`/${locale}/services`}
+              href={`/${locale}/dashboard`}
               className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
             >
               {t("common.cvBuilder")}

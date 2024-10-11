@@ -71,7 +71,7 @@
     "back": "Zurück",
     "cvDataSaved": {
       "title": "Lebenslauf-Daten gespeichert",
-      "description": "Ihre Lebenslauf-Daten wurden erfolgreich im lokalen Speicher gespeichert."
+      "description": "Ihre CV-Daten wurden erfolgreich gespeichert."
     },
     "translateTtile": "Übersetzung"
   },
@@ -183,7 +183,7 @@
     "generate": "Generieren",
     "clDataSaved": {
       "title": "Anschreiben-Daten gespeichert",
-      "description": "Ihre Anschreiben-Daten wurden erfolgreich im lokalen Speicher gesichert."
+      "description": "Ihre Anschreiben-Daten wurden erfolgreich gespeichert."
     }
   },
   "jsonDiff": {
@@ -198,5 +198,19 @@
     "logOut": "Abmelden",
     "cancel": "Abbrechen",
     "logOutConfirmTitle": "Sind Sie sicher, dass Sie sich abmelden möchten?"
+  },
+  "common": {
+    "cv": "Lebenslauf",
+    "coverLetter": "Anschreiben",
+    "create": "Erstellen",
+    "createNew": "Neues erstellen",
+    "add": "Hinzufügen",
+    "createdOn": "Erstellt am",
+    "updatedOn": "Aktualisiert am",
+    "delete": "löschen",
+    "view": "Ansicht",
+    "edit": "Bearbeiten",
+    "areYouSure": "Sind Sie sicher?",
+    "cancel": "Abbrechen"
   }
 }

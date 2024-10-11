@@ -71,7 +71,7 @@
     "back": "Back",
     "cvDataSaved": {
       "title": "CV Data Saved",
-      "description": "Your CV data has been successfully saved to local storage."
+      "description": "Your CV data has been successfully saved."
     },
     "translateTtile": "Translation"
   },
@@ -183,7 +183,7 @@
     "generate": "Generate",
     "clDataSaved": {
       "title": "Cover Letter Data Saved",
-      "description": "Your Cover Letter data has been successfully saved to local storage."
+      "description": "Your Cover Letter data has been successfully saved."
     }
   },
   "jsonDiff": {
@@ -198,5 +198,19 @@
     "logOut": "Logout",
     "cancel": "Cancel",
     "logOutConfirmTitle": "Are you sure you want to log out?"
+  },
+  "common": {
+    "cv": "CV",
+    "coverLetter": "Cover Letter",
+    "create": "Create",
+    "createNew": "Create New",
+    "add": "Add",
+    "createdOn": "Created On",
+    "updatedOn": "Updated On",
+    "delete": "Delete",
+    "view": "View",
+    "edit": "Edit",
+    "areYouSure": "Are you sure?",
+    "cancel": "Cancel"
   }
 }

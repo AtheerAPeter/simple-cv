@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
     marginTop: 3,
   },
-  paragraph: {
+  description: {
     fontSize: 10,
     marginBottom: 5,
   },
@@ -46,14 +46,14 @@ export const renderHtmlContent = (htmlContent: string) => {
         );
       } else if (element.type === "p") {
         return (
-          <Text key={index} style={styles.paragraph}>
+          <Text key={index} style={styles.description}>
             {element.props.children}
           </Text>
         );
       }
     } else if (typeof element === "string") {
       return (
-        <Text key={index} style={styles.paragraph}>
+        <Text key={index} style={styles.description}>
           {element}
         </Text>
       );

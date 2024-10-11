@@ -1,7 +1,7 @@
 "use client";
-import "../../globals.css";
 import { Toaster } from "@/components/ui/toaster";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { queryClientRoot } from "@/lib/queryClient";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { Nunito } from "next/font/google";
 
 const nunito = Nunito({
@@ -16,18 +16,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-      },
-    },
-  });
-
   return (
     <html lang="en">
       <body className={`${nunito.className} antialiased`}>
-        <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={queryClientRoot}>
           <Toaster />
           {children}
         </QueryClientProvider>
