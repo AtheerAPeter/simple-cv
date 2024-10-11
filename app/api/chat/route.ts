@@ -2,21 +2,38 @@ import { auth } from "@/auth";
 import { db } from "@/drizzle/db";
 import { users } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
+import { z } from "zod";
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+
+const requestSchema = z.object({
+  message: z.string(),
+  mode: z.enum(["text", "json"]),
+});
 
 export const POST = auth(async function POST(request) {
   if (!request.auth?.user) {
     return new Response("Unauthorized", { status: 401 });
   }
   try {
-    if (!request || !request.json) {
-      throw new Error("Invalid request object");
+    const body = await request.json();
+    const validationResult = requestSchema.safeParse(body);
+    if (validationResult.error) {
+      return new Response(
+        JSON.stringify({ error: validationResult.error.message }),
+        { status: 400 }
+      );
     }
-    const { message, mode } = await request.json();
-    if (!message) {
-      throw new Error("Invalid request object");
+    // check for limit
+    if ((request.auth?.user as any)?.usage >= 10) {
+      return new Response(
+        JSON.stringify({
+          error: "You have reached your limit of 10 requests",
+        }),
+        { status: 400 }
+      );
     }
+
     const apiKey = process.env.NEXTGEMINI_API_KEY;
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({
@@ -27,13 +44,16 @@ export const POST = auth(async function POST(request) {
       topP: 0.95,
       topK: 64,
       maxOutputTokens: 8192,
-      responseMimeType: mode === "json" ? "application/json" : "text/plain",
+      responseMimeType:
+        validationResult.data.mode === "json"
+          ? "application/json"
+          : "text/plain",
     };
     const chatSession = model.startChat({
       generationConfig,
       history: [],
     });
-    const result = await chatSession.sendMessage(message);
+    const result = await chatSession.sendMessage(validationResult.data.message);
     const response = await db
       .update(users)
       .set({
