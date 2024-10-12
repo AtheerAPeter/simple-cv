@@ -51,11 +51,14 @@
       "createYourCv": "Erstellen Sie Ihren Lebenslauf",
       "updatedCv": "KI aktualisierter Lebenslauf",
       "copyPasteJobDescription": "Stellenbeschreibung kopieren/einfügen"
+    },
+    "showcaseSection": {
+      "title": "Service Einblicke"
     }
   },
   "cvBuilder": {
     "previewCV": "Lebenslauf Vorschau",
-    "personalDetails": "Persönliche Daten",
+    "personalDetails": "Persönliche Angaben",
     "experience": "Berufserfahrung",
     "education": "Abschlüsse und Ausbildung",
     "skills": "Fähigkeiten",
@@ -199,6 +202,7 @@
     "cancel": "Abbrechen",
     "logOutConfirmTitle": "Sind Sie sicher, dass Sie sich abmelden möchten?"
   },
+
   "common": {
     "cv": "Lebenslauf",
     "coverLetter": "Anschreiben",

@@ -233,23 +233,27 @@ export function JsonDiffComponentComponent({
                             onCheckedChange={() =>
                               handleCheckboxChange(diff.path.join("."))
                             }
-                            className="mt-1"
+                            className="mt-1 flex-shrink-0"
                           />
-                          <div className="flex-grow">
+                          <div className="flex-grow min-w-0">
                             <div className="flex items-center gap-2 mb-2">
                               {getIcon(diff.type)}
-                              <p className="font-semibold">
+                              <p className="font-semibold truncate">
                                 {diff.displayPath}
                               </p>
                             </div>
                             {diff.type !== "added" && (
-                              <div className="bg-red-100 p-3 mt-2">
-                                {renderValue(diff.oldValue)}
+                              <div className="bg-red-100 p-3 mt-2 overflow-x-auto rounded-lg">
+                                <pre className="whitespace-pre-wrap break-words">
+                                  {renderValue(diff.oldValue)}
+                                </pre>
                               </div>
                             )}
                             {diff.type !== "removed" && (
-                              <div className="bg-green-100 p-3 mt-2">
-                                {renderValue(diff.newValue)}
+                              <div className="bg-green-100 p-3 mt-2 overflow-x-auto rounded-lg">
+                                <pre className="whitespace-pre-wrap break-words">
+                                  {renderValue(diff.newValue)}
+                                </pre>
                               </div>
                             )}
                           </div>

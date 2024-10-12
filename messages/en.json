@@ -51,6 +51,9 @@
       "createYourCv": "Create your CV",
       "updatedCv": "AI Updated CV",
       "copyPasteJobDescription": "Copy/Paste Job Description"
+    },
+    "showcaseSection": {
+      "title": "Service Insights"
     }
   },
   "cvBuilder": {
@@ -199,6 +202,7 @@
     "cancel": "Cancel",
     "logOutConfirmTitle": "Are you sure you want to log out?"
   },
+
   "common": {
     "cv": "CV",
     "coverLetter": "Cover Letter",

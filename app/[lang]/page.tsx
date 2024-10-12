@@ -2,6 +2,7 @@ import { auth, signIn } from "@/auth";
 import Footer from "@/components/Footer";
 import InteractingCard from "@/components/InteractingCard";
 import MockSteps from "@/components/landingPage/MockSteps";
+import ShowcaseList from "@/components/landingPage/ShowcaseSection/ShowcaseList";
 import { NavBarServer } from "@/components/NavbarServer";
 import { Button } from "@/components/ui/button";
 import { FileText, Zap, Star, Bot } from "lucide-react";
@@ -53,11 +54,17 @@ export default async function Home() {
           </Link>
         </div>
       </section>
-      <section className="py-10 hidden lg:block">
+      <section className="py-16 hidden lg:block">
         <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">
           {t("mockSection.howItWorks")}
         </h2>
         <MockSteps />
+      </section>
+      <section className="py-16">
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">
+          {t("showcaseSection.title")}
+        </h2>
+        <ShowcaseList />
       </section>
       <section
         id="features"
