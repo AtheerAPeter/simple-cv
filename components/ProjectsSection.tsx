@@ -20,7 +20,7 @@ const ProjectsSection = (props: Props) => {
   return (
     <>
       {projects?.map((pro, index) => (
-        <div key={index} className="mb-4 p-4 bg-white">
+        <div key={index} className="mb-4 p-4 border border-input">
           <div className="flex justify-between items-center mb-2">
             <h3 className="text-lg font-medium">
               {t("project")} {index + 1}
@@ -43,7 +43,6 @@ const ProjectsSection = (props: Props) => {
               onChange={(e) =>
                 handleProjectChange(index, "title", e.target.value)
               }
-              className="border-gray-100"
             />
           </div>
           <div>
@@ -55,7 +54,6 @@ const ProjectsSection = (props: Props) => {
               onChange={(e) =>
                 handleProjectChange(index, "link", e.target.value)
               }
-              className="border-gray-100"
             />
           </div>
 

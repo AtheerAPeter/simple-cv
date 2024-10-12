@@ -1,16 +1,9 @@
 "use client";
 import { Toaster } from "@/components/ui/toaster";
+import { FONT_CONFIG } from "@/lib/fontConfig";
 import { queryClientRoot } from "@/lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
-import { Nunito } from "next/font/google";
-
-const nunito = Nunito({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  display: "swap",
-  variable: "--font-nunito",
-});
 
 export default function RootLayout({
   children,
@@ -18,7 +11,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={`${nunito.className} antialiased`}>
+    <div className={`${FONT_CONFIG.className} antialiased`}>
       <SessionProvider>
         <QueryClientProvider client={queryClientRoot}>
           <Toaster />

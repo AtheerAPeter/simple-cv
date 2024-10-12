@@ -23,7 +23,6 @@ import { useSession } from "next-auth/react";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { FloatingSidebarComponent } from "@/components/floating-sidebar";
 import { useDocument } from "@/hooks/useDocument";
-import { EditableDocumentTitleComponent } from "@/components/editable-document-title";
 
 export default function Page({ params }: { params: { id: string } }) {
   const t = useTranslations("cvBuilder");
@@ -68,7 +67,6 @@ export default function Page({ params }: { params: { id: string } }) {
   } = useCvForm();
 
   const [open, setOpen] = useState(false);
-  const parsedContent = document?.content ? JSON.parse(document.content) : null;
 
   useEffect(() => {
     if (!document) return;
@@ -347,34 +345,18 @@ export default function Page({ params }: { params: { id: string } }) {
     });
   };
 
-  const onSaveDocumentTitle = async (newTitle: string) => {
-    const response = await updateMutation.mutateAsync({
-      id: document?.id!,
-      title: newTitle,
-    });
-    if (response) {
-      documentQuery.refetch();
-    }
-  };
-
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
-      {/* <FloatingSidebarComponent /> */}
-
+      <FloatingSidebarComponent
+        documentTitle={document?.title!}
+        documentId={document?.id!}
+      />
       {status === "authenticated" ? (
         <>
           <div className="w-full lg:w-1/2 h-screen bg-white shadow-md hidden lg:flex flex-col">
-            <div className="bg-black text-white h-16 flex items-center px-4">
-              {!!document && (
-                <EditableDocumentTitleComponent
-                  initialTitle={document?.title!}
-                  onSave={onSaveDocumentTitle}
-                />
-              )}
-            </div>
             <PDFPreview data={data} />
           </div>
-          <div className="w-full lg:w-1/2 h-screen overflow-y-auto p-2 lg:p-8 bg-gray-100 text-gray-900">
+          <div className="w-full lg:w-1/2 h-screen overflow-y-auto p-2 lg:p-8">
             <EditorHeader
               onClearAll={clearAll}
               onSave={onSaveToServer}
@@ -383,7 +365,7 @@ export default function Page({ params }: { params: { id: string } }) {
             />
             <div className="space-y-6">
               <section>
-                <h2 className="text-xl font-semibold mb-4">
+                <h2 className="text-xl font-semibold mb-3 mt-10">
                   {t("personalDetails")}
                 </h2>
                 <PersonalDetails
@@ -397,9 +379,8 @@ export default function Page({ params }: { params: { id: string } }) {
                   toast={toast}
                 />
               </section>
-
               <section>
-                <h2 className="text-xl font-semibold mb-4">
+                <h2 className="text-xl font-semibold mb-3 mt-10">
                   {t("experience")}
                 </h2>
                 <ExperienceSection
@@ -410,7 +391,10 @@ export default function Page({ params }: { params: { id: string } }) {
                 />
               </section>
               <section>
-                <h2 className="text-xl font-semibold mb-4">{t("education")}</h2>
+                <h2 className="text-xl font-semibold mb-3 mt-10">
+                  {t("education")}
+                </h2>
+
                 <EducationSection
                   educations={educations}
                   handleEducationChange={handleEducationChange}
@@ -419,11 +403,14 @@ export default function Page({ params }: { params: { id: string } }) {
                 />
               </section>
               <section>
-                <h2 className="text-xl font-semibold mb-4">{t("skills")}</h2>
+                <h2 className="text-xl font-semibold mb-3 mt-10">
+                  {t("skills")}
+                </h2>
+
                 <SkillsSection skills={skills} setSkills={setSkills} />
               </section>
               <section>
-                <div className="flex items-start gap-2 mb-4">
+                <div className="flex items-start gap-2 mb-3 mt-10">
                   <h2 className="text-xl font-semibold">
                     {t("jobDescription")}
                   </h2>
@@ -437,13 +424,17 @@ export default function Page({ params }: { params: { id: string } }) {
                 />
               </section>
               <section>
-                <h2 className="text-xl font-semibold mb-4">
+                <h2 className="text-xl font-semibold mb-3 mt-10">
                   {t("translateTtile")}
                 </h2>
+
                 <TranslateSection cvData={data} onTranslate={onSetData} />
               </section>
               <section>
-                <h2 className="text-xl font-semibold mb-4">{t("projects")}</h2>
+                <h2 className="text-xl font-semibold mb-3 mt-10">
+                  {t("projects")}
+                </h2>
+
                 <ProjectsSection
                   projects={projects}
                   handleProjectChange={handleProjectChange}
@@ -452,7 +443,10 @@ export default function Page({ params }: { params: { id: string } }) {
                 />
               </section>
               <section>
-                <h2 className="text-xl font-semibold mb-4">{t("languages")}</h2>
+                <h2 className="text-xl font-semibold mb-3 mt-10">
+                  {t("languages")}
+                </h2>
+
                 <LanguagesSection
                   languages={languages}
                   addLanguage={addLanguage}
@@ -461,7 +455,10 @@ export default function Page({ params }: { params: { id: string } }) {
                 />
               </section>
               <section>
-                <h2 className="text-xl font-semibold mb-4">{t("hobbies")}</h2>
+                <h2 className="text-xl font-semibold mb-3 mt-10">
+                  {t("hobbies")}
+                </h2>
+
                 <HobbiesSection
                   hobbies={hobbies}
                   currentHobby={currentHobby}

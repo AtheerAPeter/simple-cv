@@ -20,7 +20,6 @@ export default function SkillItemInput(props: Props) {
         value={currentSkill}
         onChange={(e) => setCurrentSkill(e.target.value)}
         placeholder="Add a skill"
-        className="border-gray-100"
       />
       <Button size={"icon"} type="button" onClick={onAddSkill}>
         <PlusCircle size={20} />

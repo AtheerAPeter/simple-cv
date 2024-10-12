@@ -12,6 +12,7 @@ import { LanguageSwitcherComponent } from "./language-switcher";
 import Template5 from "@/templates/Template5";
 import Template6 from "@/templates/Template6";
 import { GradientPicker } from "./GradientPicker";
+import { motion } from "framer-motion";
 
 interface Props {
   onClearAll: () => void;
@@ -70,29 +71,35 @@ export function EditorHeader(props: Props) {
         </div>
       </header>
 
-      <main className="mb-4 p-4 bg-white">
+      <main>
         <div className="flex justify-end mb-4">
           <GradientPicker background={color} setBackground={setColor} />
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4 lg:px-0">
           {Object.keys(templates).map((t, index) => (
-            <Card
+            <motion.div
               key={index}
-              className={`cursor-pointer transition-all rounded-sm  ${
-                t === template ? "ring-2 ring-black" : "ring-0"
-              }`}
-              onClick={() => setTemplate(t as Templates)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: index * 0.2 }}
             >
-              <CardContent className="p-1">
-                <Image
-                  alt={t}
-                  src={`/templates/${index + 1}.png`}
-                  width={100}
-                  height={141}
-                  className="w-full h-auto"
-                />
-              </CardContent>
-            </Card>
+              <Card
+                className={`cursor-pointer transition-all rounded-sm  ${
+                  t === template ? "ring-2 ring-black" : "ring-0"
+                }`}
+                onClick={() => setTemplate(t as Templates)}
+              >
+                <CardContent className="p-1">
+                  <Image
+                    alt={t}
+                    src={`/templates/${index + 1}.png`}
+                    width={100}
+                    height={141}
+                    className="w-full h-auto"
+                  />
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
       </main>

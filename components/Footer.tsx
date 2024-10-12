@@ -13,24 +13,8 @@ export const Footer = () => {
         <div className="flex flex-wrap items-center justify-between">
           <div className="flex items-center space-x-4 mb-6 lg:mb-0">
             <Logo />
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {new Date().getFullYear()} Smart CV
-            </p>
           </div>
-          <nav className="flex space-x-4 text-sm justify-center lg:justify-start w-full lg:w-auto">
-            <Link
-              href={`/${locale}/dashboard`}
-              className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-            >
-              {t("common.cvBuilder")}
-            </Link>
-            <Link
-              href="#features"
-              className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-            >
-              {t("features.title")}
-            </Link>
-          </nav>
+
           <div className="flex space-x-4 text-sm items-center w-full lg:w-auto justify-center lg:justify-start mt-4 lg:mt-0">
             <Link
               href="https://github.com/AtheerAPeter"

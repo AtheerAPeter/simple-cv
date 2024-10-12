@@ -1,15 +1,8 @@
 import "../globals.css";
-import { Nunito } from "next/font/google";
 import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { Analytics } from "@vercel/analytics/react";
-
-const nunito = Nunito({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  display: "swap",
-  variable: "--font-nunito",
-});
+import { FONT_CONFIG } from "@/lib/fontConfig";
 
 export default async function RootLayout({
   children,
@@ -20,8 +13,8 @@ export default async function RootLayout({
 }>) {
   const messages = await getMessages();
   return (
-    <html lang={params.locale} className={nunito.className}>
-      <body className="antialiased font-nunito">
+    <html lang={params.locale} className={FONT_CONFIG.className}>
+      <body className="antialiased font-montserrat">
         <NextIntlClientProvider messages={messages}>
           <Analytics />
           {children}

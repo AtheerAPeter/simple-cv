@@ -22,7 +22,7 @@ const EducationSection = (props: Props) => {
   return (
     <>
       {educations?.map((edu, index) => (
-        <div key={index} className="mb-4 p-4 bg-white">
+        <div key={index} className="mb-4 p-4 border border-input">
           <div className="flex justify-between items-center mb-2">
             <h3 className="text-lg font-medium">
               {t("title")} {index + 1}
@@ -43,7 +43,6 @@ const EducationSection = (props: Props) => {
                 name="degree"
                 value={edu.degree}
                 onChange={(e) => handleEducationChange(index, e)}
-                className="border-gray-100"
               />
             </div>
             <div>
@@ -53,7 +52,6 @@ const EducationSection = (props: Props) => {
                 name="university"
                 value={edu.university}
                 onChange={(e) => handleEducationChange(index, e)}
-                className="border-gray-100"
               />
             </div>
             <div>
@@ -65,7 +63,6 @@ const EducationSection = (props: Props) => {
                 placeholder="MM/YYYY"
                 value={edu.startDate}
                 onChange={(e) => handleEducationChange(index, e)}
-                className="border-gray-100"
               />
             </div>
             <div>
@@ -77,7 +74,6 @@ const EducationSection = (props: Props) => {
                 placeholder="MM/YYYY"
                 value={edu.endDate}
                 onChange={(e) => handleEducationChange(index, e)}
-                className="border-gray-100"
               />
             </div>
           </div>

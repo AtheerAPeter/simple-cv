@@ -211,6 +211,8 @@
     "view": "Ansicht",
     "edit": "Bearbeiten",
     "areYouSure": "Sind Sie sicher?",
-    "cancel": "Abbrechen"
+    "cancel": "Abbrechen",
+    "myDocuments": "Meine Dokumente",
+    "duplicate": "Duplizieren"
   }
 }
