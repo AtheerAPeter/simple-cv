@@ -16,7 +16,6 @@ import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 
 function Page() {
-  const t2 = useTranslations("profile");
   const locale = useLocale();
   const { session, sessionQuery } = useCachedSession();
   const router = useRouter();
