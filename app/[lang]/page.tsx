@@ -1,4 +1,4 @@
-import { auth } from "@/auth";
+import { auth, signIn } from "@/auth";
 import Footer from "@/components/Footer";
 import InteractingCard from "@/components/InteractingCard";
 import MockSteps from "@/components/landingPage/MockSteps";
@@ -36,11 +36,16 @@ export default async function Home() {
               </p>
             </div>
             <div className="w-full flex justify-center lg:justify-start space-x-4">
-              <Link href={`${locale}/dashboard`}>
+              <form
+                action={async () => {
+                  "use server";
+                  await signIn("google");
+                }}
+              >
                 <Button className="font-bold" size={"lg"}>
                   {t("button")}
                 </Button>
-              </Link>
+              </form>
             </div>
           </div>
           <Link href={`${locale}/dashboard`}>
