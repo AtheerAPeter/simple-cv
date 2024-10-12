@@ -44,7 +44,7 @@ export const NavBarServer = () => {
                   </AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
+              <DropdownMenuContent align="end" className="shadow-none">
                 <DropdownMenuItem>
                   <User className="mr-2 h-4 w-4" />
                   <Link className="flex-1" href={`/${locale}/profile`}>

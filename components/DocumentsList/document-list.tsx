@@ -10,12 +10,14 @@ import { documents } from "@/drizzle/schema";
 import { Plus } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import DocumentItem from "./document-item";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Props {
   onCreateNew: (type: "CV" | "Cover Letter") => void;
   onDelete: (id: string) => void;
   documents?: (typeof documents.$inferSelect)[];
   isCreating: boolean;
+  onDuplicate: (doc: typeof documents.$inferSelect) => void;
 }
 
 export function DocumentList(props: Props) {
@@ -32,7 +34,7 @@ export function DocumentList(props: Props) {
               {t("createNew")}
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent>
+          <DropdownMenuContent className="shadow-none">
             <DropdownMenuItem
               className="cursor-pointer"
               onSelect={() => props.onCreateNew("CV")}
@@ -48,17 +50,31 @@ export function DocumentList(props: Props) {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className="space-y-4">
-        {props.documents?.map((doc) => (
-          <DocumentItem
-            onCopy={() => {}}
-            key={doc.id}
-            doc={doc}
-            locale={locale}
-            onDelete={props.onDelete}
-          />
-        ))}
-      </div>
+      <AnimatePresence>
+        <motion.div
+          className="space-y-4"
+          initial={{ opacity: 0, scale: 0.8, y: 10 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.8, y: 10 }}
+          transition={{ duration: 0.2 }}
+        >
+          {props.documents?.map((doc, index) => (
+            <motion.div
+              key={doc.id}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <DocumentItem
+                onCopy={props.onDuplicate}
+                doc={doc}
+                locale={locale}
+                onDelete={props.onDelete}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }

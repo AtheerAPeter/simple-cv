@@ -16,11 +16,13 @@ import {
 import { User } from "lucide-react";
 import { LoadingSpinner } from "./ui/LoadingSpinner";
 import { useCachedSession } from "@/hooks/useCachedSession";
+import { useRouter } from "next/navigation";
 
 export const NavBar = () => {
   const locale = useLocale();
   const { session, sessionQuery } = useCachedSession();
   const t = useTranslations("profile");
+  const router = useRouter();
 
   return (
     <header className="w-full py-4">
@@ -45,12 +47,13 @@ export const NavBar = () => {
                   </AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem>
+              <DropdownMenuContent align="end" className="shadow-none">
+                <DropdownMenuItem
+                  onSelect={() => router.push(`/${locale}/profile`)}
+                >
                   <User className="mr-2 h-4 w-4" />
-                  <Link className="flex-1" href={`/${locale}/profile`}>
-                    {t("profile")}
-                  </Link>
+
+                  {t("profile")}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

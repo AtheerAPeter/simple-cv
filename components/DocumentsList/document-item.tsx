@@ -20,12 +20,14 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Separator } from "../ui/separator";
+import CVIcon from "../icons/CVIcon";
+import CoverLetterIcon from "../icons/CoverLetterIcon";
 
 interface Props {
   doc: typeof documents.$inferSelect;
   locale: string;
   onDelete: (id: string) => void;
-  onCopy: (id: string) => void;
+  onCopy: (doc: typeof documents.$inferSelect) => void;
 }
 
 export default function DocumentItem(props: Props) {
@@ -33,11 +35,7 @@ export default function DocumentItem(props: Props) {
   return (
     <div className="flex items-center hover:bg-muted/50 py-2 justify-between">
       <div className="flex items-center">
-        {props.doc.type === "cv" ? (
-          <FileText fill="black" stroke="white" className="h-12 w-12" />
-        ) : (
-          <FileEdit fill="black" stroke="white" className="h-12 w-12" />
-        )}
+        {props.doc.type === "cv" ? <CVIcon /> : <CoverLetterIcon />}
 
         <div className="ml-3">
           <div className="flex items-center gap-2">
@@ -69,12 +67,11 @@ export default function DocumentItem(props: Props) {
             <EllipsisVertical className="h-4 w-4 mr-1" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={() => props.onCopy(props.doc.id)}>
+        <DropdownMenuContent align="end" className="shadow-none">
+          <DropdownMenuItem onClick={() => props.onCopy(props.doc)}>
             <Copy className="mr-2 h-4 w-4" />
             <span>{t("duplicate")}</span>
           </DropdownMenuItem>
-          <Separator />
           <DropdownMenuItem onClick={() => props.onDelete(props.doc.id)}>
             <Trash2 className="mr-2 h-4 w-4 text-red-500" />
             <span className="text-red-500">{t("delete")}</span>

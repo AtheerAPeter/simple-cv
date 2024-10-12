@@ -2,11 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, File, Plus, Send } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { X, File } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { documents } from "@/drizzle/schema";
 import { useDocument } from "@/hooks/useDocument";
 import Link from "next/link";
 import { EditableDocumentTitleComponent } from "./editable-document-title";
