@@ -7,7 +7,7 @@ import useTemplateStore from "@/stores/templateStore";
 import { templates } from "./EditorHeader";
 import { useTranslations } from "next-intl";
 import ReactPDF, { usePDF } from "@react-pdf/renderer";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, DownloadIcon } from "lucide-react";
 
 pdfjs.GlobalWorkerOptions.workerSrc =
   "https://unpkg.com/pdfjs-dist@4.4.168/build/pdf.worker.mjs";
@@ -31,16 +31,19 @@ export function PdfDownloadButton({
   };
 
   return (
-    <Button onClick={handleDownload} disabled={!instance.url}>
-      Download PDF
-    </Button>
+    <button
+      className="rounded-full bg-black p-4 text-white absolute bottom-4 right-4 hover:scale-105 transition-all"
+      onClick={handleDownload}
+      disabled={!instance.url}
+    >
+      <DownloadIcon className="h-4 w-4" />
+    </button>
   );
 }
 
 export default function PDFPreview({ data }: Props) {
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState(1);
-
   const template = useTemplateStore((state) => state.template);
   const { color } = useTemplateStore();
   const t = useTranslations("templateTranslation");
@@ -60,8 +63,6 @@ export default function PDFPreview({ data }: Props) {
   const [instance, updateInstance] = usePDF({
     document: templates[template](data, color, titles),
   });
-
-  console.log(instance.url);
 
   useEffect(() => {
     updateInstance(templates[template](data, color, titles));
@@ -84,32 +85,12 @@ export default function PDFPreview({ data }: Props) {
   }
 
   return (
-    <div className="space-y-4 lg:space-y-0 p-2 lg:p-0 h-full">
-      {instance.url ? (
-        <div className="h-full overflow-auto">
-          <Document
-            file={instance.url}
-            onLoadSuccess={onDocumentLoadSuccess}
-            loading={<LoadingSpinner />}
-            className={"border w-full"}
-          >
-            <Page
-              pageNumber={pageNumber}
-              renderTextLayer={false}
-              renderAnnotationLayer={false}
-            />
-          </Document>
-        </div>
-      ) : (
-        <div className="h-full w-full flex items-center justify-center">
-          <LoadingSpinner />
-        </div>
-      )}
-      <div className="flex justify-between items-center mb-4">
-        <div>
+    <div className="h-screen shadow-lg overflow-auto relative">
+      <div className="flex justify-evenly items-center mt-4 mb-2">
+        <div className="flex items-center space-x-2">
           <Button
-            size={"icon"}
-            variant={"ghost"}
+            size="icon"
+            variant="ghost"
             onClick={() => setPageNumber(pageNumber - 1)}
             disabled={pageNumber <= 1}
           >
@@ -117,8 +98,8 @@ export default function PDFPreview({ data }: Props) {
           </Button>
           <span>{pageNumber}</span>
           <Button
-            size={"icon"}
-            variant={"ghost"}
+            size="icon"
+            variant="ghost"
             onClick={() => setPageNumber(pageNumber + 1)}
             disabled={pageNumber >= numPages}
           >
@@ -126,6 +107,25 @@ export default function PDFPreview({ data }: Props) {
           </Button>
         </div>
         <PdfDownloadButton instance={instance} />
+      </div>
+      <div className="flex justify-center mt-4">
+        {instance.url ? (
+          <Document
+            file={instance.url}
+            onLoadSuccess={onDocumentLoadSuccess}
+            loading={<LoadingSpinner />}
+            className="h-full border rounded-lg overflow-hidden"
+          >
+            <Page
+              pageNumber={pageNumber}
+              renderTextLayer={false}
+              renderAnnotationLayer={false}
+              scale={0.9}
+            />
+          </Document>
+        ) : (
+          <LoadingSpinner />
+        )}
       </div>
     </div>
   );
