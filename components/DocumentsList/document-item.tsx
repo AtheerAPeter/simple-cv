@@ -1,12 +1,5 @@
-import {
-  FileText,
-  FileEdit,
-  Trash2,
-  EllipsisVertical,
-  Copy,
-} from "lucide-react";
+import { Trash2, EllipsisVertical, Copy } from "lucide-react";
 import React from "react";
-
 import { Button } from "../ui/button";
 import { documents } from "@/drizzle/schema";
 import { format } from "date-fns";
@@ -19,7 +12,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { Separator } from "../ui/separator";
 import CVIcon from "../icons/CVIcon";
 import CoverLetterIcon from "../icons/CoverLetterIcon";
 
