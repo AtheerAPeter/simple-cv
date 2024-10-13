@@ -36,3 +36,19 @@ export interface ITitles {
   address: string;
   github: string;
 }
+
+export interface IContent {
+  name: string;
+  title: string;
+  email: string;
+  phone: string;
+  address: string;
+  github: string;
+  experiences: Experience[];
+  educations: Education[];
+  skills: SkillCategory[];
+  languages: Language[];
+  hobbies: string[];
+  image: string;
+  projects: Project[];
+}

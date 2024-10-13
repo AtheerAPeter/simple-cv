@@ -190,7 +190,8 @@
     "clDataSaved": {
       "title": "Cover Letter Data Saved",
       "description": "Your Cover Letter data has been successfully saved."
-    }
+    },
+    "selectCV": "Select a CV to generate a cover letter from"
   },
   "jsonDiff": {
     "plsSelect": "Please select the changes you want to apply to your CV below",

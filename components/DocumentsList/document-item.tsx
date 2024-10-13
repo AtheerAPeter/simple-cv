@@ -61,15 +61,15 @@ export default function DocumentItem(props: Props) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="shadow-none">
-          <DropdownMenuItem onClick={() => props.onCopy(props.doc)}>
-            <Copy className="mr-2 h-4 w-4" />
-            <span>{t("duplicate")}</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => props.onShare(props.doc.id)}>
+          <DropdownMenuItem onSelect={() => props.onShare(props.doc.id)}>
             <Share2 className="mr-2 h-4 w-4" />
             <span>{t("share")}</span>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => props.onDelete(props.doc.id)}>
+          <DropdownMenuItem onSelect={() => props.onCopy(props.doc)}>
+            <Copy className="mr-2 h-4 w-4" />
+            <span>{t("duplicate")}</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => props.onDelete(props.doc.id)}>
             <Trash2 className="mr-2 h-4 w-4 text-red-500" />
             <span className="text-red-500">{t("delete")}</span>
           </DropdownMenuItem>

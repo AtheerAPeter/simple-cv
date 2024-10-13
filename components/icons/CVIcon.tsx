@@ -1,6 +1,7 @@
-const CVIcon = () => {
+const CVIcon = (props: { className?: string }) => {
   return (
     <svg
+      className={props.className}
       width="40"
       height="40"
       viewBox="0 0 800 800"

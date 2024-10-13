@@ -190,7 +190,8 @@
     "clDataSaved": {
       "title": "Anschreiben-Daten gespeichert",
       "description": "Ihre Anschreiben-Daten wurden erfolgreich gespeichert."
-    }
+    },
+    "selectCV": "Wählen Sie einen Lebenslauf aus, um ein Anschreiben zu generieren"
   },
   "jsonDiff": {
     "plsSelect": "Bitte wählen Sie unten die Änderungen aus, die Sie auf Ihren Lebenslauf anwenden möchten",

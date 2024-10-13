@@ -1,10 +1,9 @@
 "use client";
 
 import { DocumentList } from "@/components/DocumentsList/document-list";
-import { Button } from "@/components/ui/button";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { documents } from "@/drizzle/schema";
-import { toast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { useCachedSession } from "@/hooks/useCachedSession";
 import { useDocument } from "@/hooks/useDocument";
 import {
@@ -12,13 +11,13 @@ import {
   placeholderDataCoverLetter,
   placeholderDataCoverLetterDE,
 } from "@/lib/placeholderData";
-import { signIn } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 
 function Page() {
   const locale = useLocale();
   const { session, sessionQuery } = useCachedSession();
+  const { toast } = useToast();
   const router = useRouter();
   const { list, listQuery, createMutation, deleteMutation } = useDocument({
     listEnabled: sessionQuery.isSuccess && !!session?.data?.user,

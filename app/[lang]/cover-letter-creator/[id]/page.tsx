@@ -10,7 +10,6 @@ import SmartCoverLetterForm from "@/components/CoverLetter/SmartCoverLetterForm"
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useCoverLetterForm } from "@/hooks/useCoverLetterForm";
-import { ICvPdf } from "@/interfaces/ICvPdf";
 import CoverLetter1 from "@/templates/CoverLetter1";
 import "react-quill/dist/quill.snow.css";
 import CoverLetterPageHeader from "@/components/CoverLetter/CoverLetterPageHeader";
@@ -22,6 +21,19 @@ import { Button } from "@/components/ui/button";
 import { useDocument } from "@/hooks/useDocument";
 import { ICoverLetterResponse } from "@/interfaces/ICoverLetterPdf";
 import { FloatingSidebarComponent } from "@/components/floating-sidebar";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { File, FileX2 } from "lucide-react";
+import { documents } from "@/drizzle/schema";
+import CVIcon from "@/components/icons/CVIcon";
+import { IContent } from "@/interfaces/ICvPdf";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 const PDFDownloadLink = dynamic(
@@ -35,15 +47,16 @@ const PDFDownloadLink = dynamic(
 export default function Page({ params }: { params: { id: string } }) {
   const t = useTranslations("coverLetterPage");
   const locale = useLocale();
-  const [cvData, setCvData] = useState<ICvPdf>();
   const router = useRouter();
   const { toast } = useToast();
   const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const [selectedCv, setSelectedCv] = useState<typeof documents.$inferSelect>();
   const [open, setOpen] = useState(false);
-  const { document, documentQuery, updateMutation } = useDocument({
-    listEnabled: false,
-    id: params.id,
-  });
+  const { document, documentQuery, updateMutation, list, listQuery } =
+    useDocument({
+      listEnabled: true,
+      id: params.id,
+    });
 
   const {
     name,
@@ -170,6 +183,10 @@ export default function Page({ params }: { params: { id: string } }) {
     setDate("");
   };
 
+  const onSelectCv = (id: string) => {
+    setSelectedCv(list?.filter((d) => d.id === id)[0]);
+  };
+
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
       <FloatingSidebarComponent
@@ -265,12 +282,38 @@ export default function Page({ params }: { params: { id: string } }) {
             </h2>
             <p className="text-gray-400 text-xs">Beta</p>
           </div>
-          <SmartCoverLetterForm
-            mockCoverLetter={description}
-            experience={cvData?.experiences || []}
-            skills={cvData?.skills || []}
-            onGenerate={setDescription}
-          />
+          {!!document && !!list && (
+            <div>
+              <Select onValueChange={onSelectCv} value={selectedCv?.id}>
+                <SelectTrigger className="w-full mb-2">
+                  <SelectValue placeholder={t("selectCV")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {list
+                      .filter((d) => d.type === "cv")
+                      .map((doc) => (
+                        <SelectItem key={doc.id} value={doc.id}>
+                          <div className="flex items-center gap-1">
+                            <CVIcon className="mr-2 h-4 w-4" />
+                            {doc.title}
+                          </div>
+                        </SelectItem>
+                      ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              <SmartCoverLetterForm
+                disabled={!selectedCv}
+                mockCoverLetter={description}
+                experience={
+                  JSON.parse(selectedCv?.content || "[]")?.experiences
+                }
+                skills={JSON.parse(selectedCv?.content || "[]")?.skills}
+                onGenerate={setDescription}
+              />
+            </div>
+          )}
         </section>
       </div>
       <PreviewCvModal

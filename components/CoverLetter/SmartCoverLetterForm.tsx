@@ -4,12 +4,14 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { Experience, SkillCategory } from "@/interfaces/IFormTypes";
 import { useTranslations } from "next-intl";
+import { documents } from "@/drizzle/schema";
 
 interface Props {
   mockCoverLetter: string;
-  experience: Experience[];
-  skills: SkillCategory[];
+  experience?: Experience[];
+  skills?: SkillCategory[];
   onGenerate: (value: string) => void;
+  disabled: boolean;
 }
 
 const SmartCoverLetterForm = (props: Props) => {
@@ -48,7 +50,11 @@ const SmartCoverLetterForm = (props: Props) => {
         <Button
           onClick={onSubmit}
           isLoading={AIMutataion.isPending}
-          disabled={jobDesction.trim().length < 20 || AIMutataion.isPending}
+          disabled={
+            jobDesction.trim().length < 20 ||
+            AIMutataion.isPending ||
+            props.disabled
+          }
           className="mr-2"
         >
           {t("generate")}
