@@ -5,6 +5,7 @@ export const useShadredDocument = (id: string) => {
   const { data: document, ...documentQuery } = useQuery({
     queryKey: HttpClient.DocumentAPi.getSharedDocument.key(id),
     queryFn: HttpClient.DocumentAPi.getSharedDocument.exec,
+    retry: false,
   });
 
   return {
