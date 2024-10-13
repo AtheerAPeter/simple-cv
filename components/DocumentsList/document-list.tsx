@@ -18,6 +18,7 @@ interface Props {
   documents?: (typeof documents.$inferSelect)[];
   isCreating: boolean;
   onDuplicate: (doc: typeof documents.$inferSelect) => void;
+  onShare: (id: string) => void;
 }
 
 export function DocumentList(props: Props) {
@@ -70,6 +71,7 @@ export function DocumentList(props: Props) {
                 doc={doc}
                 locale={locale}
                 onDelete={props.onDelete}
+                onShare={props.onShare}
               />
             </motion.div>
           ))}

@@ -1,4 +1,4 @@
-import { Trash2, EllipsisVertical, Copy } from "lucide-react";
+import { Trash2, EllipsisVertical, Copy, Share2 } from "lucide-react";
 import React from "react";
 import { Button } from "../ui/button";
 import { documents } from "@/drizzle/schema";
@@ -20,6 +20,7 @@ interface Props {
   locale: string;
   onDelete: (id: string) => void;
   onCopy: (doc: typeof documents.$inferSelect) => void;
+  onShare: (id: string) => void;
 }
 
 export default function DocumentItem(props: Props) {
@@ -63,6 +64,10 @@ export default function DocumentItem(props: Props) {
           <DropdownMenuItem onClick={() => props.onCopy(props.doc)}>
             <Copy className="mr-2 h-4 w-4" />
             <span>{t("duplicate")}</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => props.onShare(props.doc.id)}>
+            <Share2 className="mr-2 h-4 w-4" />
+            <span>{t("share")}</span>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => props.onDelete(props.doc.id)}>
             <Trash2 className="mr-2 h-4 w-4 text-red-500" />

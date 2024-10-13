@@ -4,6 +4,7 @@ import { DocumentList } from "@/components/DocumentsList/document-list";
 import { Button } from "@/components/ui/button";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { documents } from "@/drizzle/schema";
+import { toast } from "@/hooks/use-toast";
 import { useCachedSession } from "@/hooks/useCachedSession";
 import { useDocument } from "@/hooks/useDocument";
 import {
@@ -24,9 +25,7 @@ function Page() {
   });
 
   const localizedHref = (path: string) => `/${locale}${path}`;
-  const onSignin = () => {
-    signIn("google");
-  };
+  const t = useTranslations("cvBuilder");
 
   const onCreateNew = async (type: "CV" | "Cover Letter") => {
     if (type === "CV") {
@@ -73,6 +72,22 @@ function Page() {
     }
   };
 
+  const onShare = (id: string) => {
+    const domain = window.location.origin;
+    const shareUrl = `${domain}/${locale}/share/${id}?template=${"simple"}&color=${"000000"}`;
+    navigator.clipboard
+      .writeText(shareUrl)
+      .then(() => {
+        toast({
+          title: t("shareUrlCopied.title"),
+          duration: 3000,
+        });
+      })
+      .catch((error) => {
+        console.error("Failed to copy to clipboard: ", error);
+      });
+  };
+
   if (sessionQuery.isLoading) {
     return (
       <div className="flex items-center justify-center h-screen w-screen">
@@ -89,6 +104,7 @@ function Page() {
         onDelete={onDeleteDocument}
         isCreating={createMutation.isPending}
         onDuplicate={onDuplicate}
+        onShare={onShare}
       />
     </div>
   );
