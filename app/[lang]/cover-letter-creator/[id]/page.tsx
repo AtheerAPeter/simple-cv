@@ -26,14 +26,11 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { File, FileX2 } from "lucide-react";
 import { documents } from "@/drizzle/schema";
 import CVIcon from "@/components/icons/CVIcon";
-import { IContent } from "@/interfaces/ICvPdf";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 const PDFDownloadLink = dynamic(

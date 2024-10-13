@@ -28,7 +28,6 @@ export default function RootLayout({
               <Analytics />
               {children}
               {/* </NextIntlClientProvider> */}
-              <Footer />
             </div>
           </SessionProvider>
         </QueryClientProvider>
