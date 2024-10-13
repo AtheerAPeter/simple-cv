@@ -6,47 +6,39 @@ import { ICvPdf } from "@/interfaces/ICvPdf";
 import useTemplateStore from "@/stores/templateStore";
 import { templates } from "./EditorHeader";
 import { useTranslations } from "next-intl";
-import { usePDF } from "@react-pdf/renderer";
+import ReactPDF, { usePDF } from "@react-pdf/renderer";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-// Set up the worker for pdf.js
-pdfjs.GlobalWorkerOptions.workerSrc = "../public/pdf.worker.mjs";
+pdfjs.GlobalWorkerOptions.workerSrc =
+  "https://unpkg.com/pdfjs-dist@4.4.168/build/pdf.worker.mjs";
 
 interface Props {
   data: ICvPdf;
 }
 
-// export function PdfDownloadButton({ data }: Props) {
-//   const template = useTemplateStore((state) => state.template);
-//   const { color } = useTemplateStore();
-//   const t = useTranslations("templateTranslation");
-//   const titles = {
-//     experience: t("experience"),
-//     education: t("education"),
-//     skills: t("skills"),
-//     projects: t("projects"),
-//     languages: t("languages"),
-//     hobbies: t("hobbies"),
-//     email: t("email"),
-//     phone: t("phone"),
-//     address: t("address"),
-//     github: t("github"),
-//   };
+export function PdfDownloadButton({
+  instance,
+}: {
+  instance: ReactPDF.UsePDFInstance;
+}) {
+  const handleDownload = () => {
+    if (instance.url) {
+      const link = document.createElement("a");
+      link.href = instance.url;
+      link.download = "cv.pdf";
+      link.click();
+    }
+  };
 
-//   const handleDownload = async () => {
-//     const blob = await templates[template](data, color, titles).toBlob();
-//     const url = URL.createObjectURL(blob);
-//     const link = document.createElement("a");
-//     link.href = url;
-//     link.download = "cv.pdf";
-//     link.click();
-//     URL.revokeObjectURL(url);
-//   };
-
-//   return <Button onClick={handleDownload}>Download PDF</Button>;
-// }
+  return (
+    <Button onClick={handleDownload} disabled={!instance.url}>
+      Download PDF
+    </Button>
+  );
+}
 
 export default function PDFPreview({ data }: Props) {
-  const [numPages, setNumPages] = useState<number>(1);
+  const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState(1);
 
   const template = useTemplateStore((state) => state.template);
@@ -65,42 +57,41 @@ export default function PDFPreview({ data }: Props) {
     github: t("github"),
   };
 
-  const [instance] = usePDF({
+  const [instance, updateInstance] = usePDF({
     document: templates[template](data, color, titles),
   });
+
+  console.log(instance.url);
+
+  useEffect(() => {
+    updateInstance(templates[template](data, color, titles));
+  }, [data, template, color, updateInstance]);
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
     setNumPages(numPages);
   }
 
+  if (instance.loading) {
+    return (
+      <div className="h-full w-full flex items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (instance.error) {
+    return <div>Error generating PDF: {instance.error}</div>;
+  }
+
   return (
     <div className="space-y-4 lg:space-y-0 p-2 lg:p-0 h-full">
-      <div className="flex justify-between items-center mb-4">
-        <div>
-          <Button
-            onClick={() => setPageNumber(pageNumber - 1)}
-            disabled={pageNumber <= 1}
-          >
-            Previous
-          </Button>
-          <Button
-            onClick={() => setPageNumber(pageNumber + 1)}
-            disabled={pageNumber >= numPages}
-          >
-            Next
-          </Button>
-          <span>
-            Page {pageNumber} of {numPages}
-          </span>
-        </div>
-        {/* <PdfDownloadButton data={data} /> */}
-      </div>
       {instance.url ? (
         <div className="h-full overflow-auto">
           <Document
             file={instance.url}
             onLoadSuccess={onDocumentLoadSuccess}
             loading={<LoadingSpinner />}
+            className={"border w-full"}
           >
             <Page
               pageNumber={pageNumber}
@@ -114,6 +105,28 @@ export default function PDFPreview({ data }: Props) {
           <LoadingSpinner />
         </div>
       )}
+      <div className="flex justify-between items-center mb-4">
+        <div>
+          <Button
+            size={"icon"}
+            variant={"ghost"}
+            onClick={() => setPageNumber(pageNumber - 1)}
+            disabled={pageNumber <= 1}
+          >
+            <ChevronLeft />
+          </Button>
+          <span>{pageNumber}</span>
+          <Button
+            size={"icon"}
+            variant={"ghost"}
+            onClick={() => setPageNumber(pageNumber + 1)}
+            disabled={pageNumber >= numPages}
+          >
+            <ChevronRight />
+          </Button>
+        </div>
+        <PdfDownloadButton instance={instance} />
+      </div>
     </div>
   );
 }
