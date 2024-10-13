@@ -1,72 +1,56 @@
-"use client";
-import dynamic from "next/dynamic";
-import { useState, useEffect, useCallback } from "react";
-import { debounce } from "lodash";
+import { useState, useEffect } from "react";
+import { Document, Page, pdfjs } from "react-pdf";
 import { Button } from "./ui/button";
 import { LoadingSpinner } from "./ui/LoadingSpinner";
 import { ICvPdf } from "@/interfaces/ICvPdf";
 import useTemplateStore from "@/stores/templateStore";
 import { templates } from "./EditorHeader";
 import { useTranslations } from "next-intl";
+import { usePDF } from "@react-pdf/renderer";
 
-const PDFViewer = dynamic(
-  () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="w-full h-full flex justify-center items-center">
-        <LoadingSpinner />
-      </div>
-    ),
-  }
-);
-
-const PDFDownloadLink = dynamic(
-  () => import("@react-pdf/renderer").then((mod) => mod.PDFDownloadLink),
-  {
-    ssr: false,
-    loading: () => <p>Loading download link...</p>,
-  }
-);
+// Set up the worker for pdf.js
+pdfjs.GlobalWorkerOptions.workerSrc = "../public/pdf.worker.mjs";
 
 interface Props {
   data: ICvPdf;
 }
 
-export function PdfDownloadButton({ data }: Props) {
-  const template = useTemplateStore((state) => state.template);
-  const { color } = useTemplateStore();
-  const t = useTranslations("templateTranslation");
-  const titles = {
-    experience: t("experience"),
-    education: t("education"),
-    skills: t("skills"),
-    projects: t("projects"),
-    languages: t("languages"),
-    hobbies: t("hobbies"),
-    email: t("email"),
-    phone: t("phone"),
-    address: t("address"),
-    github: t("github"),
-  };
+// export function PdfDownloadButton({ data }: Props) {
+//   const template = useTemplateStore((state) => state.template);
+//   const { color } = useTemplateStore();
+//   const t = useTranslations("templateTranslation");
+//   const titles = {
+//     experience: t("experience"),
+//     education: t("education"),
+//     skills: t("skills"),
+//     projects: t("projects"),
+//     languages: t("languages"),
+//     hobbies: t("hobbies"),
+//     email: t("email"),
+//     phone: t("phone"),
+//     address: t("address"),
+//     github: t("github"),
+//   };
 
-  return (
-    <PDFDownloadLink
-      document={templates[template](data, color, titles)}
-      fileName="cv.pdf"
-    >
-      {({ blob, url, loading, error }) => (
-        <Button disabled={loading}>
-          {loading ? "Generating PDF..." : "Download PDF"}
-        </Button>
-      )}
-    </PDFDownloadLink>
-  );
-}
+//   const handleDownload = async () => {
+//     const blob = await templates[template](data, color, titles).toBlob();
+//     const url = URL.createObjectURL(blob);
+//     const link = document.createElement("a");
+//     link.href = url;
+//     link.download = "cv.pdf";
+//     link.click();
+//     URL.revokeObjectURL(url);
+//   };
+
+//   return <Button onClick={handleDownload}>Download PDF</Button>;
+// }
 
 export default function PDFPreview({ data }: Props) {
-  const [isDataLoaded, setIsDataLoaded] = useState(false);
+  const [numPages, setNumPages] = useState<number>(1);
+  const [pageNumber, setPageNumber] = useState(1);
 
+  const template = useTemplateStore((state) => state.template);
+  const { color } = useTemplateStore();
   const t = useTranslations("templateTranslation");
   const titles = {
     experience: t("experience"),
@@ -80,36 +64,50 @@ export default function PDFPreview({ data }: Props) {
     address: t("address"),
     github: t("github"),
   };
-  const template = useTemplateStore((state) => state.template);
-  const [debouncedData, setDebouncedData] = useState(data);
-  const { color } = useTemplateStore();
-  const debouncedSetData = useCallback(
-    debounce((newData: ICvPdf) => {
-      setDebouncedData(newData);
-    }, 500),
-    []
-  );
 
-  useEffect(() => {
-    debouncedSetData(data);
-  }, [data, debouncedSetData]);
+  const [instance] = usePDF({
+    document: templates[template](data, color, titles),
+  });
 
-  useEffect(() => {
-    if (debouncedData.personalDetails.name) {
-      setIsDataLoaded(true);
-    }
-  }, [debouncedData]);
+  function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
+    setNumPages(numPages);
+  }
 
   return (
     <div className="space-y-4 lg:space-y-0 p-2 lg:p-0 h-full">
-      <div className="flex justify-end lg:hidden">
-        <PdfDownloadButton data={debouncedData} />
+      <div className="flex justify-between items-center mb-4">
+        <div>
+          <Button
+            onClick={() => setPageNumber(pageNumber - 1)}
+            disabled={pageNumber <= 1}
+          >
+            Previous
+          </Button>
+          <Button
+            onClick={() => setPageNumber(pageNumber + 1)}
+            disabled={pageNumber >= numPages}
+          >
+            Next
+          </Button>
+          <span>
+            Page {pageNumber} of {numPages}
+          </span>
+        </div>
+        {/* <PdfDownloadButton data={data} /> */}
       </div>
-      {isDataLoaded ? (
-        <div className="h-full">
-          <PDFViewer showToolbar={true} width="100%" height="100%">
-            {templates[template](debouncedData, color, titles)}
-          </PDFViewer>
+      {instance.url ? (
+        <div className="h-full overflow-auto">
+          <Document
+            file={instance.url}
+            onLoadSuccess={onDocumentLoadSuccess}
+            loading={<LoadingSpinner />}
+          >
+            <Page
+              pageNumber={pageNumber}
+              renderTextLayer={false}
+              renderAnnotationLayer={false}
+            />
+          </Document>
         </div>
       ) : (
         <div className="h-full w-full flex items-center justify-center">
