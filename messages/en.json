@@ -76,7 +76,10 @@
       "title": "CV Data Saved",
       "description": "Your CV data has been successfully saved."
     },
-    "translateTtile": "Translation"
+    "translateTtile": "Translation",
+    "shareUrlCopied": {
+      "title": "Link copied to clipboard"
+    }
   },
   "personalDetailsSection": {
     "name": "Name",

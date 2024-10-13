@@ -76,7 +76,10 @@
       "title": "Lebenslauf-Daten gespeichert",
       "description": "Ihre CV-Daten wurden erfolgreich gespeichert."
     },
-    "translateTtile": "Übersetzung"
+    "translateTtile": "Übersetzung",
+    "shareUrlCopied": {
+      "title": "Link in die Zwischenablage kopiert"
+    }
   },
   "personalDetailsSection": {
     "name": "Name",

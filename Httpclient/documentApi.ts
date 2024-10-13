@@ -9,6 +9,10 @@ import { Axios } from "axios";
 
 const listDocuemntsKey = () => ["userDocuments"];
 const showKey = (id?: string): [string, string?] => ["singleDocument", id];
+const showSharedKey = (id?: string): [string, string?] => [
+  "singleSharedDocument",
+  id,
+];
 
 export const documentApi = (request: Axios) => ({
   create: async (inputs: ICreateDocumentInput) => {
@@ -56,5 +60,17 @@ export const documentApi = (request: Axios) => ({
   delete: async (id: string) => {
     const response = await request.delete(`/document/delete/${id}`);
     return response.data;
+  },
+
+  getSharedDocument: {
+    exec: async (context: QueryFunctionContext<ReturnType<typeof showKey>>) => {
+      const [, id] = context.queryKey;
+      const response = await request.get<typeof documents.$inferSelect>(
+        `/document/getShared/${id}`
+      );
+
+      return response.data;
+    },
+    key: showSharedKey,
   },
 });

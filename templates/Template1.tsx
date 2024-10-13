@@ -136,7 +136,7 @@ export default function Template1({ data, accentColor, titles }: Props) {
         <View style={styles.header} wrap={false}>
           <View wrap={false}>
             <View style={styles.titleImageContainer}>
-              {data.personalDetails.image && (
+              {data.personalDetails?.image && (
                 <Image
                   src={data.personalDetails.image}
                   style={{ ...styles.profileImage, objectFit: "cover" }}
@@ -145,9 +145,9 @@ export default function Template1({ data, accentColor, titles }: Props) {
             </View>
           </View>
           <View style={styles.contactInfo} wrap={false}>
-            <Text style={styles.name}>{data.personalDetails.name}</Text>
-            <Text style={styles.title}>{data.personalDetails.title}</Text>
-            {data.personalDetails.email && (
+            <Text style={styles.name}>{data.personalDetails?.name}</Text>
+            <Text style={styles.title}>{data.personalDetails?.title}</Text>
+            {data.personalDetails?.email && (
               <View style={{ flexDirection: "row", gap: 4 }} wrap={false}>
                 <Text style={{ fontWeight: "bold" }}>{titles.email}</Text>{" "}
                 <Text style={{ fontWeight: "normal" }}>
@@ -155,7 +155,7 @@ export default function Template1({ data, accentColor, titles }: Props) {
                 </Text>
               </View>
             )}
-            {data.personalDetails.phone && (
+            {data.personalDetails?.phone && (
               <View style={{ flexDirection: "row", gap: 4 }} wrap={false}>
                 <Text style={{ fontWeight: "bold" }}>{titles.phone}</Text>{" "}
                 <Text style={{ fontWeight: "normal" }}>
@@ -163,7 +163,7 @@ export default function Template1({ data, accentColor, titles }: Props) {
                 </Text>
               </View>
             )}
-            {data.personalDetails.address && (
+            {data.personalDetails?.address && (
               <View style={{ flexDirection: "row", gap: 4 }} wrap={false}>
                 <Text style={{ fontWeight: "bold" }}>{titles.address}</Text>{" "}
                 <Text style={{ fontWeight: "normal" }}>
@@ -171,7 +171,7 @@ export default function Template1({ data, accentColor, titles }: Props) {
                 </Text>
               </View>
             )}
-            {data.personalDetails.github && (
+            {data.personalDetails?.github && (
               <View style={{ flexDirection: "row", gap: 4 }} wrap={false}>
                 <Text style={{ fontWeight: "bold" }}>{titles.github}</Text>{" "}
                 <Text style={{ fontWeight: "normal" }}>
@@ -182,7 +182,7 @@ export default function Template1({ data, accentColor, titles }: Props) {
           </View>
         </View>
 
-        {data.experiences.length > 0 && (
+        {data.experiences?.length > 0 && (
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{titles.experience}</Text>
             {data.experiences.map((exp, index) => (
@@ -202,7 +202,7 @@ export default function Template1({ data, accentColor, titles }: Props) {
           </View>
         )}
 
-        {data.educations.length > 0 && (
+        {data.educations?.length > 0 && (
           <View style={styles.section} wrap={false}>
             <Text style={styles.sectionTitle}>{titles.education}</Text>
             {data.educations.map((edu, index) => (
@@ -216,7 +216,7 @@ export default function Template1({ data, accentColor, titles }: Props) {
           </View>
         )}
 
-        {data.skills.length > 0 && (
+        {data.skills?.length > 0 && (
           <View style={styles.section} wrap={false}>
             <Text style={styles.sectionTitle}>{titles.skills}</Text>
             {data.skills.map((category, index) => (
@@ -254,7 +254,7 @@ export default function Template1({ data, accentColor, titles }: Props) {
           </View>
         )}
 
-        {data.languages.length > 0 && (
+        {data.languages?.length > 0 && (
           <View style={styles.section} wrap={false}>
             <Text style={styles.sectionTitle}>{titles.languages}</Text>
             {data.languages.map((lang, index) => (
@@ -266,7 +266,7 @@ export default function Template1({ data, accentColor, titles }: Props) {
           </View>
         )}
 
-        {data.hobbies.length > 0 && (
+        {data.hobbies?.length > 0 && (
           <View style={styles.section} wrap={false}>
             <Text style={styles.sectionTitle}>{titles.hobbies}</Text>
             <Text style={styles.hobbies}>{data.hobbies.join(" | ")}</Text>

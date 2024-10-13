@@ -345,6 +345,24 @@ export default function Page({ params }: { params: { id: string } }) {
     });
   };
 
+  const onShare = (template: string, color: string) => {
+    const domain = window.location.origin;
+    const shareUrl = `${domain}/${locale}/share/${
+      document?.id
+    }?template=${template}&color=${color.replace("#", "")}`;
+    navigator.clipboard
+      .writeText(shareUrl)
+      .then(() => {
+        toast({
+          title: t("shareUrlCopied.title"),
+          duration: 3000,
+        });
+      })
+      .catch((error) => {
+        console.error("Failed to copy to clipboard: ", error);
+      });
+  };
+
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
       <FloatingSidebarComponent
@@ -362,6 +380,7 @@ export default function Page({ params }: { params: { id: string } }) {
               onSave={onSaveToServer}
               isSaving={updateMutation.isPending}
               onBack={() => router.replace(`/${locale}/dashboard`)}
+              onShare={onShare}
             />
             <div className="space-y-6">
               <section>

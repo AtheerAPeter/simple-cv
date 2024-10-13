@@ -6,7 +6,7 @@ import Template1 from "@/templates/Template1";
 import Template2 from "@/templates/Template2";
 import Template3 from "@/templates/Template3";
 import Template4 from "@/templates/Template4";
-import { ArrowLeftIcon, SaveIcon, TrashIcon } from "lucide-react";
+import { ArrowLeftIcon, SaveIcon, Share2, TrashIcon } from "lucide-react";
 import Image from "next/image";
 import { LanguageSwitcherComponent } from "./language-switcher";
 import Template5 from "@/templates/Template5";
@@ -19,6 +19,7 @@ interface Props {
   onSave: () => void;
   onBack: () => void;
   isSaving: boolean;
+  onShare: (template: string, color: string) => void;
 }
 
 export const templates = {
@@ -57,6 +58,14 @@ export function EditorHeader(props: Props) {
           <Button variant="outline" size="icon" onClick={props.onClearAll}>
             <TrashIcon className="h-4 w-4" />
             <span className="sr-only">Clear</span>
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => props.onShare(template, color)}
+          >
+            <Share2 className="h-4 w-4" />
+            <span className="sr-only">Share</span>
           </Button>
           <Button
             isLoading={props.isSaving}
