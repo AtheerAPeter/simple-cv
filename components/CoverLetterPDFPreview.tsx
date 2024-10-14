@@ -45,26 +45,23 @@ function PdfDownloadButton({
 export default function CoverLetterPDFPreview({ data }: Props) {
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState(1);
-  const [scale, setScale] = useState(0.8);
+  const [scale, setScale] = useState(0.65);
   const containerRef = useRef<HTMLDivElement>(null);
   const [instance, updateInstance] = usePDF({
     document: <CoverLetter1 data={data} />,
   });
 
   useEffect(() => {
-    updateInstance(<CoverLetter1 data={data} />);
-  }, [data, updateInstance]);
-
-  useEffect(() => {
     const updateScale = () => {
       if (containerRef.current) {
         const containerWidth = containerRef.current.clientWidth;
+
         if (containerWidth > 1000) {
-          setScale(0.8);
+          setScale(0.65);
         } else if (containerWidth > 630) {
-          setScale(0.7);
-        } else if (containerWidth > 420) {
           setScale(0.6);
+        } else if (containerWidth > 420) {
+          setScale(0.55);
         } else if (containerWidth > 300) {
           setScale(0.5);
         }

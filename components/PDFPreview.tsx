@@ -35,6 +35,7 @@ function PdfDownloadButton({
 
   return (
     <Button
+      size={"sm"}
       onClick={handleDownload}
       disabled={!instance.url}
       className="flex items-center gap-2"
@@ -48,7 +49,7 @@ function PdfDownloadButton({
 export default function PDFPreview(props: Props) {
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState(1);
-  const [scale, setScale] = useState(0.75);
+  const [scale, setScale] = useState(0.65);
   const containerRef = useRef<HTMLDivElement>(null);
   const template = useTemplateStore((state) => state.template);
   const { color } = useTemplateStore();
@@ -87,12 +88,13 @@ export default function PDFPreview(props: Props) {
     const updateScale = () => {
       if (containerRef.current) {
         const containerWidth = containerRef.current.clientWidth;
+
         if (containerWidth > 1000) {
-          setScale(0.75);
+          setScale(0.65);
         } else if (containerWidth > 630) {
-          setScale(0.7);
-        } else if (containerWidth > 420) {
           setScale(0.6);
+        } else if (containerWidth > 420) {
+          setScale(0.55);
         } else if (containerWidth > 300) {
           setScale(0.5);
         }
@@ -122,7 +124,7 @@ export default function PDFPreview(props: Props) {
 
   return (
     <div className="h-full w-full overflow-auto relative" ref={containerRef}>
-      <div className="flex justify-center items-center gap-2 mb-1">
+      <div className="flex justify-center items-center gap-2 my-2">
         <div className="flex items-center space-x-2">
           <Button
             size="icon"
@@ -142,6 +144,7 @@ export default function PDFPreview(props: Props) {
             <ChevronRight />
           </Button>
         </div>
+        <PdfDownloadButton instance={instance} />
       </div>
       <div className="flex justify-center items-center">
         {instance.url ? (
@@ -160,9 +163,6 @@ export default function PDFPreview(props: Props) {
         ) : (
           <LoadingSpinner />
         )}
-      </div>
-      <div className="flex items-center justify-center mt-4">
-        <PdfDownloadButton instance={instance} />
       </div>
     </div>
   );
