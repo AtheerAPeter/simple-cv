@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, File } from "lucide-react";
+import { X, File, FileText } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useDocument } from "@/hooks/useDocument";
 import Link from "next/link";
@@ -93,7 +93,7 @@ export function FloatingSidebarComponent(props: Props) {
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              className="absolute bottom-16 left-0 lg:right-0 lg:left-auto bg-background rounded-lg shadow-lg p-4 w-72"
+              className="absolute bottom-16 left-0 lg:right-0 lg:left-auto bg-background rounded-lg border shadow-xl p-4 w-72"
               initial={{ opacity: 0, scale: 0.8, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: 10 }}
@@ -120,7 +120,11 @@ export function FloatingSidebarComponent(props: Props) {
                       >
                         <button className="flex items-center space-x-2 w-full p-2 rounded-md hover:bg-muted text-left text-sm">
                           <div className="h-4 w-4">
-                            <File className="h-4 w-4" />
+                            {file.type === "cv" ? (
+                              <File className="h-4 w-4" />
+                            ) : (
+                              <FileText className="h-4 w-4" />
+                            )}
                           </div>
                           <span className="truncate">{file.title}</span>
                         </button>

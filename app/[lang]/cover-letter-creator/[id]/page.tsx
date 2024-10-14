@@ -15,7 +15,6 @@ import "react-quill/dist/quill.snow.css";
 import CoverLetterPageHeader from "@/components/CoverLetter/CoverLetterPageHeader";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import PreviewCvModal from "@/components/modals/PreviewCvModal";
 import { Button } from "@/components/ui/button";
 import { useDocument } from "@/hooks/useDocument";
@@ -31,6 +30,7 @@ import {
 } from "@/components/ui/select";
 import { documents } from "@/drizzle/schema";
 import CVIcon from "@/components/icons/CVIcon";
+import CoverLetterPDFPreview from "@/components/CoverLetterPDFPreview";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 const PDFDownloadLink = dynamic(
@@ -192,15 +192,7 @@ export default function Page({ params }: { params: { id: string } }) {
       />
       <div className="w-full lg:w-1/2 h-screen bg-white shadow-md hidden lg:flex flex-col">
         <div className="h-full">
-          {isDataLoaded ? (
-            <PDFViewer width="100%" height="100%">
-              <CoverLetter1 data={debouncedData} />
-            </PDFViewer>
-          ) : (
-            <div className="w-full h-full flex justify-center items-center">
-              <LoadingSpinner />
-            </div>
-          )}
+          <CoverLetterPDFPreview data={debouncedData} />
         </div>
       </div>
       <div className="w-full lg:w-1/2 h-screen overflow-y-auto p-2 lg:p-8">
