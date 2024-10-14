@@ -43,6 +43,8 @@ function PdfDownloadButton({
 }
 
 export default function CoverLetterPDFPreview({ data }: Props) {
+  console.log(data);
+
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(0.65);
@@ -50,6 +52,10 @@ export default function CoverLetterPDFPreview({ data }: Props) {
   const [instance, updateInstance] = usePDF({
     document: <CoverLetter1 data={data} />,
   });
+
+  useEffect(() => {
+    updateInstance(<CoverLetter1 data={data} />);
+  }, [data, updateInstance]);
 
   useEffect(() => {
     const updateScale = () => {
@@ -91,7 +97,7 @@ export default function CoverLetterPDFPreview({ data }: Props) {
 
   return (
     <div className="h-screen shadow-lg overflow-auto relative">
-      <div className="flex justify-evenly items-center mt-4 mb-2">
+      <div className="flex justify-evenly items-center mt-4 my-4">
         <div className="flex items-center space-x-2">
           <Button
             size="icon"
@@ -111,6 +117,7 @@ export default function CoverLetterPDFPreview({ data }: Props) {
             <ChevronRight />
           </Button>
         </div>
+        <PdfDownloadButton instance={instance} />
       </div>
       <div className="flex justify-center mt-4">
         {instance.url ? (
@@ -129,9 +136,6 @@ export default function CoverLetterPDFPreview({ data }: Props) {
         ) : (
           <LoadingSpinner />
         )}
-      </div>
-      <div className="flex items-center justify-center mt-4">
-        <PdfDownloadButton instance={instance} />
       </div>
     </div>
   );
