@@ -1,4 +1,4 @@
-import { Templates } from "@/components/EditorHeader";
+import { Templates } from "@/templates";
 import { create } from "zustand";
 
 interface TemplateState {

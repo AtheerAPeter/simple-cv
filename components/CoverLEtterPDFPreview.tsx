@@ -2,20 +2,17 @@ import { useState, useEffect, useRef } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { Button } from "./ui/button";
 import { LoadingSpinner } from "./ui/LoadingSpinner";
-import { ICvPdf } from "@/interfaces/ICvPdf";
-import useTemplateStore from "@/stores/templateStore";
-import { useTranslations } from "next-intl";
 import ReactPDF, { usePDF } from "@react-pdf/renderer";
 import { ChevronLeft, ChevronRight, DownloadIcon } from "lucide-react";
-import { Templates, templates } from "@/templates";
+import { ICoverLetterPdf } from "@/interfaces/ICoverLetterPdf";
+import CoverLetter1 from "@/templates/CoverLetter1";
+import { useTranslations } from "next-intl";
 
 pdfjs.GlobalWorkerOptions.workerSrc =
   "https://unpkg.com/pdfjs-dist@4.4.168/build/pdf.worker.mjs";
 
 interface Props {
-  data: ICvPdf;
-  template?: Templates;
-  color?: string;
+  data: ICoverLetterPdf;
 }
 
 function PdfDownloadButton({
@@ -28,7 +25,7 @@ function PdfDownloadButton({
     if (instance.url) {
       const link = document.createElement("a");
       link.href = instance.url;
-      link.download = "cv.pdf";
+      link.download = "CoverLetter.pdf";
       link.click();
     }
   };
@@ -45,50 +42,25 @@ function PdfDownloadButton({
   );
 }
 
-export default function PDFPreview(props: Props) {
+export default function CoverLetterPDFPreview({ data }: Props) {
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState(1);
-  const [scale, setScale] = useState(0.75);
+  const [scale, setScale] = useState(0.8);
   const containerRef = useRef<HTMLDivElement>(null);
-  const template = useTemplateStore((state) => state.template);
-  const { color } = useTemplateStore();
-  const t = useTranslations("templateTranslation");
-  const titles = {
-    experience: t("experience"),
-    education: t("education"),
-    skills: t("skills"),
-    projects: t("projects"),
-    languages: t("languages"),
-    hobbies: t("hobbies"),
-    email: t("email"),
-    phone: t("phone"),
-    address: t("address"),
-    github: t("github"),
-  };
-
   const [instance, updateInstance] = usePDF({
-    document: templates[props.template ?? template](props.data, color, titles),
+    document: <CoverLetter1 data={data} />,
   });
 
   useEffect(() => {
-    updateInstance(
-      templates[props.template ?? template](props.data, color, titles)
-    );
-  }, [
-    props.data,
-    template,
-    color,
-    updateInstance,
-    props.template,
-    props.color,
-  ]);
+    updateInstance(<CoverLetter1 data={data} />);
+  }, [data, updateInstance]);
 
   useEffect(() => {
     const updateScale = () => {
       if (containerRef.current) {
         const containerWidth = containerRef.current.clientWidth;
         if (containerWidth > 1000) {
-          setScale(0.75);
+          setScale(0.8);
         } else if (containerWidth > 630) {
           setScale(0.7);
         } else if (containerWidth > 420) {
@@ -121,8 +93,8 @@ export default function PDFPreview(props: Props) {
   }
 
   return (
-    <div className="h-full w-full overflow-auto relative" ref={containerRef}>
-      <div className="flex justify-center items-center gap-2 mb-1">
+    <div className="h-screen shadow-lg overflow-auto relative">
+      <div className="flex justify-evenly items-center mt-4 mb-2">
         <div className="flex items-center space-x-2">
           <Button
             size="icon"
@@ -143,7 +115,7 @@ export default function PDFPreview(props: Props) {
           </Button>
         </div>
       </div>
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center mt-4">
         {instance.url ? (
           <Document
             file={instance.url}

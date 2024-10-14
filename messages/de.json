@@ -155,7 +155,8 @@
     "skills": "Fähigkeiten",
     "projects": "Projekte",
     "languages": "Sprachen",
-    "hobbies": "Hobbys"
+    "hobbies": "Hobbys",
+    "download": "Herunterladen"
   },
   "services": {
     "title": "Bewerbungen beschleunigen mit KI Lebenslauf Ersteller",
@@ -222,6 +223,8 @@
     "cancel": "Abbrechen",
     "myDocuments": "Meine Dokumente",
     "duplicate": "Duplizieren",
-    "share": "Teilen"
+    "share": "Teilen",
+    "clear": "Löschen",
+    "save": "Speichern"
   }
 }

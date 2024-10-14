@@ -155,7 +155,8 @@
     "skills": "Skills",
     "projects": "Projects",
     "languages": "Languages",
-    "hobbies": "Hobbies"
+    "hobbies": "Hobbies",
+    "download": "Download"
   },
   "services": {
     "title": "Accelerate Your Job Applications with AI Powered CV Creator",
@@ -222,6 +223,8 @@
     "cancel": "Cancel",
     "myDocuments": "My Documents",
     "duplicate": "Duplicate",
-    "share": "Share"
+    "share": "Share",
+    "clear": "Clear",
+    "save": "Save"
   }
 }

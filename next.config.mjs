@@ -7,6 +7,10 @@ const nextConfig = {
   images: {
     domains: ["i.ibb.co"],
   },
+  webpack: (config) => {
+    config.resolve.alias.canvas = false;
+    return config;
+  },
 };
 
 export default withNextIntl(nextConfig);
