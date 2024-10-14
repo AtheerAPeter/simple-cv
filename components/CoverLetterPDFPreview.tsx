@@ -97,7 +97,7 @@ export default function CoverLetterPDFPreview({ data }: Props) {
 
   return (
     <div className="h-screen shadow-lg overflow-auto relative">
-      <div className="flex justify-evenly items-center mt-4 my-4">
+      <div className="flex justify-center items-center mt-4 my-4">
         <div className="flex items-center space-x-2">
           <Button
             size="icon"
