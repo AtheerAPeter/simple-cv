@@ -20,7 +20,7 @@ export const users = pgTable("user", {
   email: text("email").unique(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
-  usage: integer("usage").default(0),
+  usage: integer("usage").default(5),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({

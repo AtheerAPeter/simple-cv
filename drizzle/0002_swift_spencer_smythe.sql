@@ -1,0 +1,1 @@
+ALTER TABLE "user" ALTER COLUMN "usage" SET DEFAULT 5;

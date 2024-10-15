@@ -7,7 +7,6 @@ import {
   ArrowDownToLine,
   ChevronLeft,
   ChevronRight,
-  DownloadIcon,
   ZoomIn,
   ZoomOut,
 } from "lucide-react";
@@ -55,7 +54,7 @@ function PdfDownloadButton({
 export default function CoverLetterPDFPreview(props: Props) {
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState(1);
-  const [scale, setScale] = useState(0.8);
+  const [scale, setScale] = useState(0.75);
   const containerRef = useRef<HTMLDivElement>(null);
   const [instance, updateInstance] = usePDF({
     document: <CoverLetter1 data={props.data} />,
@@ -71,7 +70,7 @@ export default function CoverLetterPDFPreview(props: Props) {
         const containerWidth = containerRef.current.clientWidth;
 
         if (containerWidth > 1000) {
-          setScale(0.8);
+          setScale(0.75);
         } else if (containerWidth > 630) {
           setScale(0.7);
         } else if (containerWidth > 420) {

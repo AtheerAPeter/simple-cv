@@ -73,4 +73,30 @@ export const documentApi = (request: Axios) => ({
     },
     key: showSharedKey,
   },
+  uploadImage: async (imageFile: File, name?: string, expiration?: number) => {
+    const formData = new FormData();
+    formData.append("image", imageFile);
+
+    if (name) {
+      formData.append("name", name);
+    }
+
+    if (expiration) {
+      formData.append("expiration", expiration.toString());
+    }
+
+    const response = await request.post(
+      `https://api.imgbb.com/1/upload?expiration=${60 * 60 * 24 * 7 * 2}&key=${
+        process.env.NEXTIMAGEBB_API_KEY
+      }`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    return response.data;
+  },
 });

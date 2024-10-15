@@ -1,5 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useUploadImage } from "@/hooks/useUploadImage";
 import { useTranslations } from "next-intl";
 
 interface Props {
@@ -25,6 +26,21 @@ const PersonalDetails = (props: Props) => {
     toast,
   } = props;
   const t = useTranslations("personalDetailsSection");
+  const { uploadImageMutation } = useUploadImage();
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const fileSize = e.target.files[0].size;
+      if (fileSize > 1048576) {
+        toast({
+          title: "File is too big",
+          description: "Please select a file smaller than 1MB.",
+          duration: 2000,
+        });
+      } else {
+        handlePersonalDetailsChange(e);
+      }
+    }
+  };
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -89,20 +105,7 @@ const PersonalDetails = (props: Props) => {
             id="profilePhoto"
             name="profilePhoto"
             type="file"
-            onChange={(e) => {
-              if (e.target.files && e.target.files[0]) {
-                const fileSize = e.target.files[0].size;
-                if (fileSize > 1048576) {
-                  toast({
-                    title: "File is too big",
-                    description: "Please select a file smaller than 1MB.",
-                    duration: 2000,
-                  });
-                } else {
-                  handlePersonalDetailsChange(e);
-                }
-              }
-            }}
+            onChange={onFileChange}
           />
         </div>
       </div>

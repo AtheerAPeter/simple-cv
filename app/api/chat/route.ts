@@ -27,7 +27,7 @@ export const POST = auth(async function POST(request) {
       );
     }
 
-    if ((request.auth?.user as any)?.usage >= USAGE_LIMIT) {
+    if ((request.auth?.user as any)?.usage <= 0) {
       return new Response(
         JSON.stringify({
           error: `You have reached the usage limit.`,
@@ -59,7 +59,7 @@ export const POST = auth(async function POST(request) {
     const response = await db
       .update(users)
       .set({
-        usage: (request.auth?.user as any)?.usage + 1,
+        usage: (request.auth?.user as any)?.usage - 1,
       })
       .where(eq(users.id, request.auth?.user?.id!))
       .returning({

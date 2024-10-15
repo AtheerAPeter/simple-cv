@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { documents } from "@/drizzle/schema";
-import { Plus } from "lucide-react";
+import { Inbox, Plus } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import DocumentItem from "./document-item";
 import { motion, AnimatePresence } from "framer-motion";
@@ -50,6 +50,11 @@ export function DocumentList(props: Props) {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+      </div>
+      <div className="flex items-center justify-center">
+        {props.documents?.length === 0 && (
+          <Inbox className="h-1/4 w-1/4 text-gray-200" />
+        )}
       </div>
       <AnimatePresence>
         <motion.div
