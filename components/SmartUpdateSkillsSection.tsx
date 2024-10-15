@@ -23,7 +23,6 @@ export const SmartUpdateSkillsSection = (props: Props) => {
   const [jobDesction, setJobDescription] = useState("");
   const { smartUpdateSkillsMutation } = useSmartUpdateSkills();
   const { toast } = useToast();
-  const useageCountLimit = 10;
 
   const onChangeJobDescriptionInput: TextareaHTMLAttributes<HTMLTextAreaElement>["onChange"] =
     (event) => setJobDescription(event.target.value);
@@ -86,9 +85,6 @@ export const SmartUpdateSkillsSection = (props: Props) => {
         >
           {t("updateButton")}
         </Button>
-        <span>
-          {t("usageLimit")}: {useageCountLimit}/{user?.usage}
-        </span>
       </div>
       {!!aiUpdatedData && (
         <JsonDiffComponentComponent

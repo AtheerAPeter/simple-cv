@@ -69,7 +69,7 @@ export default function ShowcaseItem(props: Props) {
         <div className={cn("h-full flex flex-col gap-4")}>
           <div
             className={cn(
-              "border border-muted-foreground/20 overflow-hidden h-1/2 lg:h-full w-[90%] bg-white relative",
+              "overflow-hidden h-1/2 lg:h-full w-[90%] bg-white relative",
               {
                 "rounded-r-full self-start": props.side === "left",
                 "rounded-l-full self-end": props.side === "right",

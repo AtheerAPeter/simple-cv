@@ -26,7 +26,12 @@ export function EditorHeader(props: Props) {
     <TooltipProvider>
       <div className="container mx-auto">
         <header className="flex justify-between mb-8">
-          <Button variant="outline" size="icon" onClick={props.onBack}>
+          <Button
+            className="rounded-full"
+            variant="outline"
+            size="icon"
+            onClick={props.onBack}
+          >
             <ArrowLeftIcon className="h-4 w-4" />
           </Button>
           <div className="flex items-center space-x-4">
@@ -35,7 +40,7 @@ export function EditorHeader(props: Props) {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-                    className="rounded-none rounded-l-lg"
+                    className="rounded-none rounded-l-full"
                     variant="outline"
                     size="icon"
                     onClick={props.onClearAll}
@@ -67,7 +72,7 @@ export function EditorHeader(props: Props) {
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-                    className="rounded-none rounded-r-lg"
+                    className="rounded-none rounded-r-full"
                     isLoading={props.isSaving}
                     disabled={props.isSaving}
                     variant="outline"

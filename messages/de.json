@@ -79,7 +79,8 @@
     "translateTtile": "Übersetzung",
     "shareUrlCopied": {
       "title": "Link in die Zwischenablage kopiert"
-    }
+    },
+    "documentError": "Sie haben die maximale Anzahl von Dokumenten erreicht."
   },
   "personalDetailsSection": {
     "name": "Name",
@@ -225,6 +226,7 @@
     "duplicate": "Duplizieren",
     "share": "Teilen",
     "clear": "Löschen",
-    "save": "Speichern"
+    "save": "Speichern",
+    "preview": "Vorschau"
   }
 }

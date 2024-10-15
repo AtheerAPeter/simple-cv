@@ -79,7 +79,8 @@
     "translateTtile": "Translation",
     "shareUrlCopied": {
       "title": "Link copied to clipboard"
-    }
+    },
+    "documentError": "You have reached the maximum number of documents."
   },
   "personalDetailsSection": {
     "name": "Name",
@@ -225,6 +226,7 @@
     "duplicate": "Duplicate",
     "share": "Share",
     "clear": "Clear",
-    "save": "Save"
+    "save": "Save",
+    "preview": "Preview"
   }
 }

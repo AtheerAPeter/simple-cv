@@ -1,6 +1,13 @@
-import { ArrowLeftIcon, TrashIcon, SaveIcon } from "lucide-react";
+import { ArrowLeftIcon, SaveIcon, CircleX } from "lucide-react";
 import { LanguageSwitcherComponent } from "../language-switcher";
 import { Button } from "../ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip";
+import { useTranslations } from "next-intl";
 
 interface Props {
   onBack: () => void;
@@ -10,31 +17,61 @@ interface Props {
 }
 
 const CoverLetterPageHeader = (props: Props) => {
+  const t = useTranslations("common");
   return (
-    <div className="container mx-auto">
-      <header className="flex justify-between mb-8">
-        <Button variant="outline" size="icon" onClick={props.onBack}>
-          <ArrowLeftIcon className="h-4 w-4" />
-        </Button>
-        <div className="flex items-center space-x-4">
-          <LanguageSwitcherComponent />
-          <Button variant="outline" size="icon" onClick={props.onClearAll}>
-            <TrashIcon className="h-4 w-4" />
-            <span className="sr-only">Clear</span>
-          </Button>
+    <TooltipProvider>
+      <div className="container mx-auto">
+        <header className="flex justify-between mb-8">
           <Button
-            isLoading={props.isSaving}
-            disabled={props.isSaving}
             variant="outline"
+            className="rounded-full"
             size="icon"
-            onClick={props.onSave}
+            onClick={props.onBack}
           >
-            <SaveIcon className="h-4 w-4" />
-            <span className="sr-only">Save</span>
+            <ArrowLeftIcon className="h-4 w-4" />
           </Button>
-        </div>
-      </header>
-    </div>
+          <div className="flex items-center space-x-4">
+            <LanguageSwitcherComponent />
+            <div>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    className="rounded-none rounded-l-full"
+                    variant="outline"
+                    size="icon"
+                    onClick={props.onClearAll}
+                  >
+                    <CircleX className="h-4 w-4" />
+                    <span className="sr-only">{t("clear")}</span>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{t("clear")}</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    className="rounded-none rounded-r-full"
+                    isLoading={props.isSaving}
+                    disabled={props.isSaving}
+                    variant="outline"
+                    size="icon"
+                    onClick={props.onSave}
+                  >
+                    <SaveIcon className="h-4 w-4" />
+                    <span className="sr-only">{t("save")}</span>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>{t("save")}</p>
+                </TooltipContent>
+              </Tooltip>
+            </div>
+          </div>
+        </header>
+      </div>
+    </TooltipProvider>
   );
 };
 

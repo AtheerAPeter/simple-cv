@@ -2,12 +2,14 @@ import { auth } from "@/auth";
 import { db } from "@/drizzle/db";
 import { documents } from "@/drizzle/schema";
 import { z } from "zod";
+import { count, eq } from "drizzle-orm";
 
 const updateSchema = z.object({
   documentTitle: z.string(),
   content: z.string(),
   type: z.enum(["cv", "cl"]),
 });
+const MAX_DOCUMENTS = 6;
 
 export const POST = auth(async function POST(request) {
   if (!request.auth?.user) {
@@ -19,6 +21,18 @@ export const POST = auth(async function POST(request) {
     if (!result.success) {
       return new Response("Invalid request body", { status: 400 });
     }
+    const userId = request.auth.user.id;
+    const userDocuments = await db
+      .select({ count: count(documents.id) })
+      .from(documents)
+      .where(eq(documents.userId, userId!));
+
+    if (userDocuments[0].count >= MAX_DOCUMENTS) {
+      return new Response("You have reached the maximum number of documents", {
+        status: 400,
+      });
+    }
+
     const document = await db
       .insert(documents)
       .values({

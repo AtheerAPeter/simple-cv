@@ -4,6 +4,8 @@ import { users } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 
+const USAGE_LIMIT = 5;
+
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const requestSchema = z.object({
@@ -24,11 +26,11 @@ export const POST = auth(async function POST(request) {
         { status: 400 }
       );
     }
-    // check for limit
-    if ((request.auth?.user as any)?.usage >= 10) {
+
+    if ((request.auth?.user as any)?.usage >= USAGE_LIMIT) {
       return new Response(
         JSON.stringify({
-          error: "You have reached your limit of 10 requests",
+          error: `You have reached the usage limit.`,
         }),
         { status: 400 }
       );

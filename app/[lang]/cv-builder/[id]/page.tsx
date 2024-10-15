@@ -371,9 +371,6 @@ export default function Page({ params }: { params: { id: string } }) {
       />
       {status === "authenticated" ? (
         <>
-          <div className="w-full lg:w-1/3 h-screen bg-white hidden lg:flex flex-col">
-            <PDFPreview data={data} />
-          </div>
           <div className="w-full lg:w-2/3 h-screen overflow-y-auto p-2 lg:p-8">
             <EditorHeader
               onClearAll={clearAll}
@@ -487,6 +484,9 @@ export default function Page({ params }: { params: { id: string } }) {
                 />
               </section>
             </div>
+          </div>
+          <div className="w-full lg:w-1/3 hidden lg:flex flex-col">
+            <PDFPreview data={data} />
           </div>
         </>
       ) : status === "loading" ? (

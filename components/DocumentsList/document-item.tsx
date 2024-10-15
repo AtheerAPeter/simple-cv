@@ -25,6 +25,7 @@ interface Props {
 
 export default function DocumentItem(props: Props) {
   const t = useTranslations("common");
+
   return (
     <div className="flex items-center hover:bg-muted/50 py-2 justify-between">
       <div className="flex items-center">

@@ -27,29 +27,43 @@ function Page() {
   const t = useTranslations("cvBuilder");
 
   const onCreateNew = async (type: "CV" | "Cover Letter") => {
-    if (type === "CV") {
-      const response = await createMutation.mutateAsync({
-        documentTitle: crypto.randomUUID().slice(0, 8),
-        content: JSON.stringify(placeholderData),
-        type: "cv",
-      });
-      if (response) {
-        router.push(localizedHref(`/cv-builder/${response.id}`));
+    try {
+      let response;
+      if (type === "CV") {
+        response = await createMutation.mutateAsync({
+          documentTitle: crypto.randomUUID().slice(0, 8),
+          content: JSON.stringify(placeholderData),
+          type: "cv",
+        });
+      } else if (type === "Cover Letter") {
+        response = await createMutation.mutateAsync({
+          documentTitle: crypto.randomUUID().slice(0, 8),
+          content: JSON.stringify(
+            locale === "en"
+              ? placeholderDataCoverLetter
+              : placeholderDataCoverLetterDE
+          ),
+          type: "cl",
+        });
       }
-    }
-    if (type === "Cover Letter") {
-      const response = await createMutation.mutateAsync({
-        documentTitle: crypto.randomUUID().slice(0, 8),
-        content: JSON.stringify(
-          locale === "en"
-            ? placeholderDataCoverLetter
-            : placeholderDataCoverLetterDE
-        ),
-        type: "cl",
-      });
+
       if (response) {
-        router.push(localizedHref(`/cover-letter-creator/${response.id}`));
+        const path = type === "CV" ? "cv-builder" : "cover-letter-creator";
+        router.push(localizedHref(`/${path}/${response.id}`));
       }
+    } catch (error: any) {
+      if (error.response && error.response.status === 400) {
+        toast({
+          title: t("documentError"),
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Error",
+          variant: "destructive",
+        });
+      }
+      console.error("Error creating document:", error);
     }
   };
 
