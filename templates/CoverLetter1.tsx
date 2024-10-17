@@ -48,7 +48,7 @@ export default function CoverLetter1({ data, accentColor }: Props) {
     },
     date: {
       fontSize: 10,
-      marginBottom: 20,
+      marginBottom: 10,
     },
     recipient: {
       fontSize: 10,
@@ -77,16 +77,16 @@ export default function CoverLetter1({ data, accentColor }: Props) {
       marginBottom: 5,
     },
     recipientCompany: {
-      fontSize: 11,
+      fontSize: 10,
     },
     recipientAddress: {
       fontSize: 10,
     },
     description: {
-      fontSize: 11,
+      fontSize: 10,
       lineHeight: 1.6,
       textAlign: "justify",
-      marginBottom: 15,
+      marginBottom: 3,
     },
   });
 
