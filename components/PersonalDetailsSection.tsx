@@ -1,7 +1,9 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useUploadImage } from "@/hooks/useUploadImage";
+import { Trash2Icon } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { Button } from "./ui/button";
 
 interface Props {
   name: string;
@@ -12,6 +14,8 @@ interface Props {
   github: string;
   handlePersonalDetailsChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   toast: any;
+  isUploadingImage: boolean;
+  onClearProfilePhoto: () => void;
 }
 
 const PersonalDetails = (props: Props) => {
@@ -26,7 +30,6 @@ const PersonalDetails = (props: Props) => {
     toast,
   } = props;
   const t = useTranslations("personalDetailsSection");
-  const { uploadImageMutation } = useUploadImage();
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const fileSize = e.target.files[0].size;
@@ -101,12 +104,23 @@ const PersonalDetails = (props: Props) => {
         </div>
         <div>
           <Label htmlFor="profilePhoto">{t("profilePhoto")}</Label>
-          <Input
-            id="profilePhoto"
-            name="profilePhoto"
-            type="file"
-            onChange={onFileChange}
-          />
+          <div className="flex items-center gap-2">
+            <Input
+              className="cursor-pointer"
+              disabled={props.isUploadingImage}
+              id="profilePhoto"
+              name="profilePhoto"
+              type="file"
+              onChange={onFileChange}
+            />
+            <Button
+              variant={"ghost"}
+              size={"icon"}
+              onClick={props.onClearProfilePhoto}
+            >
+              <Trash2Icon className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </div>
     </div>
