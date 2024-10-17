@@ -4,6 +4,7 @@ import {
   ICreateDocumentInput,
   IUpdateDocumentInput,
 } from "@/interfaces/IDocument";
+import { IImgbbResponse } from "@/interfaces/IImgbb";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import { Axios } from "axios";
 
@@ -73,22 +74,12 @@ export const documentApi = (request: Axios) => ({
     },
     key: showSharedKey,
   },
-  uploadImage: async (imageFile: File, name?: string, expiration?: number) => {
+  uploadImage: async (imageFile: File) => {
     const formData = new FormData();
     formData.append("image", imageFile);
 
-    if (name) {
-      formData.append("name", name);
-    }
-
-    if (expiration) {
-      formData.append("expiration", expiration.toString());
-    }
-
-    const response = await request.post(
-      `https://api.imgbb.com/1/upload?expiration=${60 * 60 * 24 * 7 * 2}&key=${
-        process.env.NEXTIMAGEBB_API_KEY
-      }`,
+    const response = await request.post<IImgbbResponse>(
+      `/upload-image`,
       formData,
       {
         headers: {
@@ -97,6 +88,6 @@ export const documentApi = (request: Axios) => ({
       }
     );
 
-    return response.data;
+    return response.data.data;
   },
 });

@@ -23,6 +23,7 @@ import { useSession } from "next-auth/react";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { FloatingSidebarComponent } from "@/components/floating-sidebar";
 import { useDocument } from "@/hooks/useDocument";
+import { useUploadImage } from "@/hooks/useUploadImage";
 
 export default function Page({ params }: { params: { id: string } }) {
   const t = useTranslations("cvBuilder");
@@ -65,6 +66,7 @@ export default function Page({ params }: { params: { id: string } }) {
     projects,
     setProjects,
   } = useCvForm();
+  const { uploadImageMutation } = useUploadImage();
 
   const [open, setOpen] = useState(false);
 
@@ -87,7 +89,7 @@ export default function Page({ params }: { params: { id: string } }) {
   }, [document]);
 
   const handlePersonalDetailsChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value, files } = e.target;
       switch (name) {
         case "name":
@@ -110,12 +112,19 @@ export default function Page({ params }: { params: { id: string } }) {
           break;
         case "profilePhoto":
           if (files && files[0]) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-              const base64String = e.target?.result;
-              setImage(base64String);
-            };
-            reader.readAsDataURL(files[0]);
+            try {
+              const response = await uploadImageMutation.mutateAsync(files[0]);
+              if (response && response.image.url) {
+                setImage(response.image.url);
+              }
+            } catch (error) {
+              console.error("Error uploading image:", error);
+              toast({
+                title: "Error uploading image",
+                description: "Please try again",
+                duration: 3000,
+              });
+            }
           }
           break;
         default:
@@ -363,6 +372,10 @@ export default function Page({ params }: { params: { id: string } }) {
       });
   };
 
+  const clearProfilePhoto = () => {
+    setImage(null);
+  };
+
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
       <FloatingSidebarComponent
@@ -393,6 +406,8 @@ export default function Page({ params }: { params: { id: string } }) {
                   github={github}
                   handlePersonalDetailsChange={handlePersonalDetailsChange}
                   toast={toast}
+                  isUploadingImage={uploadImageMutation.isPending}
+                  onClearProfilePhoto={clearProfilePhoto}
                 />
               </section>
               <section>
