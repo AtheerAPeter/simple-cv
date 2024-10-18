@@ -22,7 +22,7 @@ export default async function Home() {
 
   return (
     <main className="flex-1">
-      <section className="w-full container mx-auto h-auto md:px-10 lg:px-0">
+      <section className="w-full container mx-auto h-auto md:px-10">
         <SessionProvider>
           <NavBarServer />
         </SessionProvider>
