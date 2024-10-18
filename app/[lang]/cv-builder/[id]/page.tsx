@@ -2,7 +2,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import "react-quill/dist/quill.snow.css";
-import { useToast } from "@/hooks/use-toast";
 import { useCvForm } from "@/hooks/useCvForm";
 import EducationSection from "@/components/EducationSection";
 import ExperienceSection from "@/components/ExperienceSection";
@@ -24,12 +23,12 @@ import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { FloatingSidebarComponent } from "@/components/floating-sidebar";
 import { useDocument } from "@/hooks/useDocument";
 import { useUploadImage } from "@/hooks/useUploadImage";
+import { toast } from "react-toastify";
 
 export default function Page({ params }: { params: { id: string } }) {
   const t = useTranslations("cvBuilder");
   const locale = useLocale();
   const router = useRouter();
-  const { toast } = useToast();
   const { status } = useSession();
   const { document, documentQuery, updateMutation } = useDocument({
     listEnabled: false,
@@ -112,19 +111,21 @@ export default function Page({ params }: { params: { id: string } }) {
           break;
         case "profilePhoto":
           if (files && files[0]) {
-            try {
-              const response = await uploadImageMutation.mutateAsync(files[0]);
-              if (response && response.image.url) {
-                setImage(response.image.url);
+            await toast.promise(
+              (async () => {
+                const response = await uploadImageMutation.mutateAsync(
+                  files[0]
+                );
+                if (response && response.image.url) {
+                  setImage(response.image.url);
+                }
+              })(),
+              {
+                pending: t("toasts.uploadingImage"),
+                success: t("toasts.imageUploaded"),
+                error: t("toasts.imageUploadError"),
               }
-            } catch (error) {
-              console.error("Error uploading image:", error);
-              toast({
-                title: "Error uploading image",
-                description: "Please try again",
-                duration: 3000,
-              });
-            }
+            );
           }
           break;
         default:
@@ -339,19 +340,23 @@ export default function Page({ params }: { params: { id: string } }) {
       image,
       projects,
     });
-    const response = await updateMutation.mutateAsync({
-      content: dataToSave,
-      id: document?.id!,
-    });
-    if (response) {
-      documentQuery.refetch();
-    }
 
-    toast({
-      title: t("cvDataSaved.title"),
-      description: t("cvDataSaved.description"),
-      duration: 3000,
-    });
+    await toast.promise(
+      async () => {
+        const response = await updateMutation.mutateAsync({
+          content: dataToSave,
+          id: document?.id!,
+        });
+        if (response) {
+          documentQuery.refetch();
+        }
+      },
+      {
+        pending: t("cvDataSaved.cvDataSaving"),
+        success: t("cvDataSaved.title"),
+        error: t("cvDataSaved.cvDataSaveError"),
+      }
+    );
   };
 
   const onShare = (template: string, color: string) => {
@@ -362,10 +367,7 @@ export default function Page({ params }: { params: { id: string } }) {
     navigator.clipboard
       .writeText(shareUrl)
       .then(() => {
-        toast({
-          title: t("shareUrlCopied.title"),
-          duration: 3000,
-        });
+        toast.success(t("shareUrlCopied.title"));
       })
       .catch((error) => {
         console.error("Failed to copy to clipboard: ", error);

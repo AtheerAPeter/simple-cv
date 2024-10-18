@@ -74,13 +74,29 @@
     "back": "Back",
     "cvDataSaved": {
       "title": "CV Data Saved",
-      "description": "Your CV data has been successfully saved."
+      "cvDataSaving": "Saving...",
+      "cvDataSaveError": "Error saving data"
     },
     "translateTtile": "Translation",
     "shareUrlCopied": {
       "title": "Link copied to clipboard"
     },
-    "documentError": "You have reached the maximum number of documents."
+    "documentError": "You have reached the maximum number of documents.",
+    "toasts": {
+      "pleaseWait": "Please wait...",
+      "documentCreated": "Document created successfully!",
+      "documentCreationError": "Error creating document!",
+      "deletingDocument": "Deleting document...",
+      "documentDeleted": "Document deleted successfully!",
+      "documentDeletionError": "Error deleting document!",
+      "duplicatingDocument": "Duplicating document...",
+      "documentDuplicated": "Document duplicated successfully!",
+      "documentDuplicationError": "Error duplicating document!",
+      "clipboardError": "Failed to copy to clipboard",
+      "uploadingImage": "Uploading image...",
+      "imageUploaded": "Image uploaded successfully",
+      "imageUploadError": "Error uploading image"
+    }
   },
   "personalDetailsSection": {
     "name": "Name",
@@ -191,7 +207,8 @@
     "generate": "Generate",
     "clDataSaved": {
       "title": "Cover Letter Data Saved",
-      "description": "Your Cover Letter data has been successfully saved."
+      "saving": "Saving...",
+      "error": "Error saving cover letter data"
     },
     "selectCV": "Select a CV to generate a cover letter from"
   },
@@ -227,6 +244,9 @@
     "share": "Share",
     "clear": "Clear",
     "save": "Save",
-    "preview": "Preview"
+    "preview": "Preview",
+    "loading": "Loading...",
+    "success": "Success",
+    "error": "Error occurred"
   }
 }

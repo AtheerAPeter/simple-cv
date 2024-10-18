@@ -3,7 +3,6 @@
 import { DocumentList } from "@/components/DocumentsList/document-list";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
 import { documents } from "@/drizzle/schema";
-import { useToast } from "@/hooks/use-toast";
 import { useCachedSession } from "@/hooks/useCachedSession";
 import { useDocument } from "@/hooks/useDocument";
 import {
@@ -13,11 +12,11 @@ import {
 } from "@/lib/placeholderData";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 function Page() {
   const locale = useLocale();
   const { session, sessionQuery } = useCachedSession();
-  const { toast } = useToast();
   const router = useRouter();
   const { list, listQuery, createMutation, deleteMutation } = useDocument({
     listEnabled: sessionQuery.isSuccess && !!session?.data?.user,
@@ -30,21 +29,35 @@ function Page() {
     try {
       let response;
       if (type === "CV") {
-        response = await createMutation.mutateAsync({
-          documentTitle: crypto.randomUUID().slice(0, 8),
-          content: JSON.stringify(placeholderData),
-          type: "cv",
-        });
+        response = await toast.promise(
+          createMutation.mutateAsync({
+            documentTitle: crypto.randomUUID().slice(0, 8),
+            content: JSON.stringify(placeholderData),
+            type: "cv",
+          }),
+          {
+            pending: t("toasts.pleaseWait"),
+            success: t("toasts.documentCreated"),
+            error: t("toasts.documentCreationError"),
+          }
+        );
       } else if (type === "Cover Letter") {
-        response = await createMutation.mutateAsync({
-          documentTitle: crypto.randomUUID().slice(0, 8),
-          content: JSON.stringify(
-            locale === "en"
-              ? placeholderDataCoverLetter
-              : placeholderDataCoverLetterDE
-          ),
-          type: "cl",
-        });
+        response = await toast.promise(
+          createMutation.mutateAsync({
+            documentTitle: crypto.randomUUID().slice(0, 8),
+            content: JSON.stringify(
+              locale === "en"
+                ? placeholderDataCoverLetter
+                : placeholderDataCoverLetterDE
+            ),
+            type: "cl",
+          }),
+          {
+            pending: t("toasts.pleaseWait"),
+            success: t("toasts.documentCreated"),
+            error: t("toasts.documentCreationError"),
+          }
+        );
       }
 
       if (response) {
@@ -52,36 +65,44 @@ function Page() {
         router.push(localizedHref(`/${path}/${response.id}`));
       }
     } catch (error: any) {
-      if (error.response && error.response.status === 400) {
-        toast({
-          title: t("documentError"),
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Error",
-          variant: "destructive",
-        });
-      }
       console.error("Error creating document:", error);
     }
   };
 
   const onDeleteDocument = async (id: string) => {
-    const response = await deleteMutation.mutateAsync(id);
-    if (response) {
-      listQuery.refetch();
+    try {
+      const response = await toast.promise(deleteMutation.mutateAsync(id), {
+        pending: t("toasts.deletingDocument"),
+        success: t("toasts.documentDeleted"),
+        error: t("toasts.documentDeletionError"),
+      });
+      if (response) {
+        listQuery.refetch();
+      }
+    } catch (error) {
+      console.error("Error deleting document:", error);
     }
   };
 
   const onDuplicate = async (doc: typeof documents.$inferSelect) => {
-    const response = await createMutation.mutateAsync({
-      documentTitle: doc.title + "-copy",
-      content: doc.content,
-      type: doc.type,
-    });
-    if (response) {
-      listQuery.refetch();
+    try {
+      const response = await toast.promise(
+        createMutation.mutateAsync({
+          documentTitle: doc.title + "-copy",
+          content: doc.content,
+          type: doc.type,
+        }),
+        {
+          pending: t("toasts.duplicatingDocument"),
+          success: t("toasts.documentDuplicated"),
+          error: t("toasts.documentDuplicationError"),
+        }
+      );
+      if (response) {
+        listQuery.refetch();
+      }
+    } catch (error) {
+      console.error("Error duplicating document:", error);
     }
   };
 
@@ -91,9 +112,8 @@ function Page() {
     navigator.clipboard
       .writeText(shareUrl)
       .then(() => {
-        toast({
-          title: t("shareUrlCopied.title"),
-          duration: 3000,
+        toast.success(t("shareUrlCopied.title"), {
+          autoClose: 3000,
         });
       })
       .catch((error) => {

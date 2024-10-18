@@ -74,13 +74,29 @@
     "back": "Zurück",
     "cvDataSaved": {
       "title": "Lebenslauf-Daten gespeichert",
-      "description": "Ihre CV-Daten wurden erfolgreich gespeichert."
+      "cvDataSaving": "Speichern...",
+      "cvDataSaveError": "Fehler beim Speichern der Daten"
     },
     "translateTtile": "Übersetzung",
     "shareUrlCopied": {
       "title": "Link in die Zwischenablage kopiert"
     },
-    "documentError": "Sie haben die maximale Anzahl von Dokumenten erreicht."
+    "documentError": "Sie haben die maximale Anzahl von Dokumenten erreicht.",
+    "toasts": {
+      "pleaseWait": "Bitte warten...",
+      "documentCreated": "Dokument erfolgreich erstellt!",
+      "documentCreationError": "Fehler beim Erstellen des Dokuments!",
+      "deletingDocument": "Dokument wird gelöscht...",
+      "documentDeleted": "Dokument erfolgreich gelöscht!",
+      "documentDeletionError": "Fehler beim Löschen des Dokuments!",
+      "duplicatingDocument": "Dokument wird dupliziert...",
+      "documentDuplicated": "Dokument erfolgreich dupliziert!",
+      "documentDuplicationError": "Fehler beim Duplizieren des Dokuments!",
+      "clipboardError": "Fehler beim Kopieren in die Zwischenablage",
+      "uploadingImage": "Bild wird hochgeladen...",
+      "imageUploaded": "Bild erfolgreich hochgeladen",
+      "imageUploadError": "Fehler beim Hochladen des Bildes"
+    }
   },
   "personalDetailsSection": {
     "name": "Name",
@@ -191,7 +207,8 @@
     "generate": "Generieren",
     "clDataSaved": {
       "title": "Anschreiben-Daten gespeichert",
-      "description": "Ihre Anschreiben-Daten wurden erfolgreich gespeichert."
+      "saving": "Wird gespeichert...",
+      "error": "Fehler beim Speichern der Anschreiben-Daten"
     },
     "selectCV": "Wählen Sie einen Lebenslauf aus, um ein Anschreiben zu generieren"
   },
@@ -227,6 +244,9 @@
     "share": "Teilen",
     "clear": "Löschen",
     "save": "Speichern",
-    "preview": "Vorschau"
+    "preview": "Vorschau",
+    "loading": "Wird geladen...",
+    "success": "Erfolgreich",
+    "error": "Ein Fehler ist aufgetreten"
   }
 }

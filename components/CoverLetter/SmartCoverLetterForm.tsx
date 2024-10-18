@@ -5,7 +5,8 @@ import { Button } from "../ui/button";
 import { Experience, SkillCategory } from "@/interfaces/IFormTypes";
 import { useTranslations } from "next-intl";
 import { useUser } from "@/hooks/useUser";
-import { useToast } from "@/hooks/use-toast";
+import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 interface Props {
   mockCoverLetter: string;
@@ -18,10 +19,10 @@ interface Props {
 const SmartCoverLetterForm = (props: Props) => {
   const t = useTranslations("coverLetterPage");
   const t2 = useTranslations("smartUpdateSkillsSection");
+  const t3 = useTranslations("common");
   const [jobDesction, setJobDescription] = useState("");
   const { AIMutataion } = useAI();
   const { user, userQuery } = useUser();
-  const { toast } = useToast();
   const prompt = `based on this job description ${jobDesction}, i want you to write me a cover letter similar to this ${
     props.mockCoverLetter
   } without opening or closing phrases, which better matches the job description given and skills and experiences which are experience: ${JSON.stringify(
@@ -36,33 +37,30 @@ const SmartCoverLetterForm = (props: Props) => {
 
   const onSubmit = async () => {
     try {
-      const response = await AIMutataion.mutateAsync({
-        message: prompt,
-        mode: "text",
-      });
+      const response = await toast.promise(
+        AIMutataion.mutateAsync({
+          message: prompt,
+          mode: "text",
+        }),
+        {
+          pending: t3("loading"),
+          success: t3("success"),
+          error: {
+            render({ data }: { data: any | AxiosError }) {
+              if (data?.response) {
+                return data.response.data.error;
+              } else {
+                return t3("error");
+              }
+            },
+          },
+        }
+      );
+
       await userQuery.refetch();
       props.onGenerate(response);
-
-      toast({
-        title: t2("updateSuccess.description"),
-        duration: 5000,
-      });
     } catch (error: any) {
-      if (error.response) {
-        toast({
-          title: error.response.data.error,
-          duration: 5000,
-          className: "bg-red-500",
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Something went wrong",
-          duration: 5000,
-          className: "bg-red-500",
-          variant: "destructive",
-        });
-      }
+      console.log(error);
     }
   };
 

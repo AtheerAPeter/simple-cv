@@ -1,10 +1,11 @@
 "use client";
-import { useMessages } from "next-intl";
 import { Analytics } from "@vercel/analytics/react";
 import { FONT_CONFIG } from "@/lib/fontConfig";
 import { SessionProvider } from "next-auth/react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClientRoot } from "@/lib/queryClient";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function RootLayout({
   children,
@@ -19,6 +20,7 @@ export default function RootLayout({
         <QueryClientProvider client={queryClientRoot}>
           <SessionProvider>
             <div className="h-screen flex flex-col justify-between">
+              <ToastContainer position="top-center" />
               <Analytics />
               {children}
             </div>

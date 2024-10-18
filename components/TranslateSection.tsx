@@ -12,7 +12,8 @@ import {
 } from "./ui/select";
 import { useTranslations } from "next-intl";
 import { useUser } from "@/hooks/useUser";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
 
 interface Props {
   cvData: ICvPdf;
@@ -23,46 +24,42 @@ const availableLanguages = ["English", "Deutsch"];
 
 export const TranslateSection = (props: Props) => {
   const t = useTranslations("translateSection");
-  const t2 = useTranslations("smartUpdateSkillsSection");
+  const t3 = useTranslations("common");
   const { AIMutataion } = useAI();
   const [selectedLanguage, setSelectedLanguage] = useState<string>("");
   const { userQuery } = useUser();
-  const { toast } = useToast();
 
   const onSubmit = async () => {
     if (!selectedLanguage) return;
 
     try {
-      const response = await AIMutataion.mutateAsync({
-        message: `translate the values of this cv json to ${selectedLanguage}: ${JSON.stringify(
-          _.omit(props.cvData, "personalDetails")
-        )}`,
-        mode: "json",
-      });
+      const response = await toast.promise(
+        AIMutataion.mutateAsync({
+          message: `translate the values of this cv json to ${selectedLanguage}: ${JSON.stringify(
+            _.omit(props.cvData, "personalDetails")
+          )}`,
+          mode: "json",
+        }),
+        {
+          pending: t3("loading"),
+          success: t3("success"),
+          error: {
+            render({ data }: { data: any | AxiosError }) {
+              if (data?.response) {
+                return data.response.data.error;
+              } else {
+                return t3("error");
+              }
+            },
+          },
+        }
+      );
+
       await userQuery.refetch();
       const result = JSON.parse(response);
       props.onTranslate(result);
-
-      toast({
-        title: t2("updateSuccess.description"),
-        duration: 5000,
-      });
     } catch (error: any) {
-      if (error.response) {
-        toast({
-          title: error.response.data.error,
-          duration: 5000,
-          className: "bg-red-500",
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Something went wrong",
-          duration: 5000,
-          className: "bg-red-500",
-          variant: "destructive",
-        });
-      }
+      console.log(error);
     }
   };
 

@@ -14,7 +14,6 @@ import CoverLetter1 from "@/templates/CoverLetter1";
 import "react-quill/dist/quill.snow.css";
 import CoverLetterPageHeader from "@/components/CoverLetter/CoverLetterPageHeader";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/hooks/use-toast";
 import PreviewCvModal from "@/components/modals/PreviewCvModal";
 import { Button } from "@/components/ui/button";
 import { useDocument } from "@/hooks/useDocument";
@@ -31,6 +30,7 @@ import {
 import { documents } from "@/drizzle/schema";
 import CVIcon from "@/components/icons/CVIcon";
 import CoverLetterPDFPreview from "@/components/CoverLetterPDFPreview";
+import { toast } from "react-toastify";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 const PDFDownloadLink = dynamic(
@@ -45,8 +45,6 @@ export default function Page({ params }: { params: { id: string } }) {
   const t = useTranslations("coverLetterPage");
   const locale = useLocale();
   const router = useRouter();
-  const { toast } = useToast();
-  const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [selectedCv, setSelectedCv] = useState<typeof documents.$inferSelect>();
   const [open, setOpen] = useState(false);
   const { document, documentQuery, updateMutation, list, listQuery } =
@@ -84,26 +82,29 @@ export default function Page({ params }: { params: { id: string } }) {
   } = useCoverLetterForm();
 
   useEffect(() => {
-    if (debouncedData.personalDetails.name) {
-      setIsDataLoaded(true);
-    }
-  }, [debouncedData]);
+    console.log("before", document);
 
-  useEffect(() => {
-    if (document) {
-      const parsedCLData = JSON.parse(document.content) as ICoverLetterResponse;
+    if (document && document.content) {
+      try {
+        const parsedCLData = JSON.parse(
+          document.content
+        ) as ICoverLetterResponse;
+        console.log("parsed", parsedCLData);
 
-      setName(parsedCLData.name);
-      setEmail(parsedCLData.email);
-      setPhone(parsedCLData.phone);
-      setAddress(parsedCLData.address);
-      setCompany(parsedCLData.company);
-      setManager(parsedCLData.manager);
-      setPosition(parsedCLData.position);
-      setCompanyAddress(parsedCLData.companyAddress);
-      setDescription(parsedCLData.description);
-      setOpening(parsedCLData.opening);
-      setClosing(parsedCLData.closing);
+        setName(parsedCLData.name || "");
+        setEmail(parsedCLData.email || "");
+        setPhone(parsedCLData.phone || "");
+        setAddress(parsedCLData.address || "");
+        setCompany(parsedCLData.company || "");
+        setManager(parsedCLData.manager || "");
+        setPosition(parsedCLData.position || "");
+        setCompanyAddress(parsedCLData.companyAddress || "");
+        setDescription(parsedCLData.description || "");
+        setOpening(parsedCLData.opening || "");
+        setClosing(parsedCLData.closing || "");
+      } catch (error) {
+        console.error("Error parsing document content:", error);
+      }
     }
   }, [document]);
 
@@ -154,15 +155,20 @@ export default function Page({ params }: { params: { id: string } }) {
       opening,
       closing,
     };
-    await updateMutation.mutateAsync({
-      content: JSON.stringify(dataToSave),
-      id: params.id,
-    });
-    toast({
-      title: t("clDataSaved.title"),
-      description: t("clDataSaved.description"),
-      duration: 3000,
-    });
+
+    await toast.promise(
+      async () => {
+        await updateMutation.mutateAsync({
+          content: JSON.stringify(dataToSave),
+          id: params.id,
+        });
+      },
+      {
+        pending: t("clDataSaved.saving"),
+        success: t("clDataSaved.title"),
+        error: t("clDataSaved.error"),
+      }
+    );
   };
 
   const clearAll = () => {
