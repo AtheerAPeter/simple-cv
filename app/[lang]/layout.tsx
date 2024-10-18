@@ -3,6 +3,7 @@ import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { Analytics } from "@vercel/analytics/react";
 import { FONT_CONFIG } from "@/lib/fontConfig";
+import { ScrollToTopButtonComponent } from "@/components/scroll-to-top-button";
 
 export default async function RootLayout({
   children,
@@ -18,6 +19,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <Analytics />
           {children}
+          <ScrollToTopButtonComponent />
         </NextIntlClientProvider>
       </body>
     </html>
