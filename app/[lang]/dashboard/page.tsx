@@ -1,10 +1,10 @@
 "use client";
 
 import { DocumentList } from "@/components/DocumentsList/document-list";
-import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { documents } from "@/drizzle/schema";
-import { useCachedSession } from "@/hooks/useCachedSession";
-import { useDocument } from "@/hooks/useDocument";
+import useCachedSession from "@/hooks/useCachedSession";
+import useDocument from "@/hooks/useDocument";
 import {
   placeholderData,
   placeholderDataCoverLetter,

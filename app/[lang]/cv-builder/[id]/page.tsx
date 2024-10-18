@@ -2,7 +2,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import "react-quill/dist/quill.snow.css";
-import { useCvForm } from "@/hooks/useCvForm";
+import useCvForm from "@/hooks/useCvForm";
 import EducationSection from "@/components/EducationSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import PreviewCvModal from "@/components/modals/PreviewCvModal";
@@ -12,17 +12,17 @@ import PDFPreview from "@/components/PDFPreview";
 import LanguagesSection from "@/components/LanguagesSection";
 import HobbiesSection from "@/components/HobbiesSection";
 import ProjectsSection from "@/components/ProjectsSection";
-import { SmartUpdateSkillsSection } from "@/components/SmartUpdateSkillsSection";
-import { EditorHeader } from "@/components/EditorHeader";
+import SmartUpdateSkillsSection from "@/components/SmartUpdateSkillsSection";
+import EditorHeader from "@/components/EditorHeader";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { TranslateSection } from "@/components/TranslateSection";
+import TranslateSection from "@/components/TranslateSection";
 import { ICvPdf } from "@/interfaces/ICvPdf";
 import { useSession } from "next-auth/react";
-import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
-import { FloatingSidebarComponent } from "@/components/floating-sidebar";
-import { useDocument } from "@/hooks/useDocument";
-import { useUploadImage } from "@/hooks/useUploadImage";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import FloatingSidebarComponent from "@/components/floating-sidebar";
+import useDocument from "@/hooks/useDocument";
+import useUploadImage from "@/hooks/useUploadImage";
 import { toast } from "react-toastify";
 
 export default function Page({ params }: { params: { id: string } }) {

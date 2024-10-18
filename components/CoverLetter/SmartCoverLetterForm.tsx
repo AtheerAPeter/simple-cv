@@ -1,10 +1,10 @@
-import { useAI } from "@/hooks/useAI";
+import useAI from "@/hooks/useAI";
 import { MagicalTextarea } from "../magical-textarea";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Experience, SkillCategory } from "@/interfaces/IFormTypes";
 import { useTranslations } from "next-intl";
-import { useUser } from "@/hooks/useUser";
+import useUser from "@/hooks/useUser";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 
@@ -18,7 +18,6 @@ interface Props {
 
 const SmartCoverLetterForm = (props: Props) => {
   const t = useTranslations("coverLetterPage");
-  const t2 = useTranslations("smartUpdateSkillsSection");
   const t3 = useTranslations("common");
   const [jobDesction, setJobDescription] = useState("");
   const { AIMutataion } = useAI();

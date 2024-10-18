@@ -17,7 +17,7 @@ interface Props {
   addLanguage: () => void;
 }
 
-const LanguagesSection = (props: Props) => {
+export default function LanguagesSection(props: Props) {
   const t = useTranslations("languagesSection");
   const { languages, handleLanguageChange, removeLanguage, addLanguage } =
     props;
@@ -64,6 +64,4 @@ const LanguagesSection = (props: Props) => {
       </Button>
     </>
   );
-};
-
-export default LanguagesSection;
+}

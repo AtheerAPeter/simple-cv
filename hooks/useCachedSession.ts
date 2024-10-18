@@ -1,7 +1,7 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 
-export const useCachedSession = () => {
+export default function useCachedSession() {
   const { data, status } = useSession();
 
   const { data: session, ...sessionQuery } = useQuery({
@@ -15,4 +15,4 @@ export const useCachedSession = () => {
   });
 
   return { session, sessionQuery };
-};
+}

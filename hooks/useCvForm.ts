@@ -7,7 +7,7 @@ import {
 } from "@/interfaces/IFormTypes";
 import { useState } from "react";
 
-export const useCvForm = () => {
+export default function useCvForm() {
   const [name, setName] = useState("");
   const [title, setTitle] = useState("");
   const [email, setEmail] = useState("");
@@ -60,4 +60,4 @@ export const useCvForm = () => {
     projects,
     setProjects,
   };
-};
+}

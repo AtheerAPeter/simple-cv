@@ -14,8 +14,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { User } from "lucide-react";
-import { LoadingSpinner } from "./ui/LoadingSpinner";
-import { useCachedSession } from "@/hooks/useCachedSession";
+import LoadingSpinner from "./ui/LoadingSpinner";
+import useCachedSession from "@/hooks/useCachedSession";
 import { useRouter } from "next/navigation";
 
 export const NavBar = () => {

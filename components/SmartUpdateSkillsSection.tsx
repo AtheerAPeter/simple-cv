@@ -3,11 +3,11 @@ import { TextareaHTMLAttributes, useState } from "react";
 import { Button } from "./ui/button";
 import { ICvPdf } from "@/interfaces/ICvPdf";
 import _ from "lodash";
-import { useSmartUpdateSkills } from "@/hooks/useSmartUpdateSkills";
+import useSmartUpdateSkills from "@/hooks/useSmartUpdateSkills";
 import { MagicalTextarea } from "./magical-textarea";
 import { JsonDiffComponentComponent } from "./json-diff-component";
 import { useTranslations } from "next-intl";
-import { useUser } from "@/hooks/useUser";
+import useUser from "@/hooks/useUser";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 
@@ -17,7 +17,7 @@ interface Props {
   setExperiences: React.Dispatch<React.SetStateAction<Experience[]>>;
   cvData: ICvPdf;
 }
-export const SmartUpdateSkillsSection = (props: Props) => {
+export default function SmartUpdateSkillsSection(props: Props) {
   const t = useTranslations("smartUpdateSkillsSection");
   const t2 = useTranslations("common");
   const { user, userQuery } = useUser();
@@ -100,4 +100,4 @@ export const SmartUpdateSkillsSection = (props: Props) => {
       )}
     </div>
   );
-};
+}

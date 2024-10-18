@@ -13,7 +13,7 @@ interface Props {
   removeProject: (index: number) => void;
   addProject: () => void;
 }
-const ProjectsSection = (props: Props) => {
+export default function ProjectsSection(props: Props) {
   const t = useTranslations("projectsSection");
   const { handleProjectChange, projects, removeProject, addProject } = props;
 
@@ -83,6 +83,4 @@ const ProjectsSection = (props: Props) => {
       </Button>
     </>
   );
-};
-
-export default ProjectsSection;
+}

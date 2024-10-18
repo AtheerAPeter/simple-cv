@@ -2,7 +2,7 @@ import { ICoverLetterPdf } from "@/interfaces/ICoverLetterPdf";
 import { useCallback, useEffect, useState } from "react";
 import { debounce } from "lodash";
 
-export const useCoverLetterForm = () => {
+export default function useCoverLetterForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -78,4 +78,4 @@ export const useCoverLetterForm = () => {
     closing,
     setClosing,
   };
-};
+}

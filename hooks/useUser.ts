@@ -1,7 +1,7 @@
 import { HttpClient } from "@/Httpclient";
 import { useQuery } from "@tanstack/react-query";
 
-export const useUser = () => {
+export default function useUser() {
   const { data: user, ...userQuery } = useQuery({
     queryKey: ["user"],
     queryFn: async () => {
@@ -12,4 +12,4 @@ export const useUser = () => {
   });
 
   return { user, userQuery };
-};
+}

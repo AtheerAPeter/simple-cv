@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, File, FileText } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useDocument } from "@/hooks/useDocument";
+import useDocument from "@/hooks/useDocument";
 import Link from "next/link";
 import { EditableDocumentTitleComponent } from "./editable-document-title";
 
@@ -13,7 +13,7 @@ interface Props {
   documentId?: string;
 }
 
-export function FloatingSidebarComponent(props: Props) {
+export default function DocumentList(props: Props) {
   const { list, listQuery, updateMutation } = useDocument({
     listEnabled: true,
   });

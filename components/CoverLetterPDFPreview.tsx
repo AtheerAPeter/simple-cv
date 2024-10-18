@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { Button } from "./ui/button";
-import { LoadingSpinner } from "./ui/LoadingSpinner";
+import LoadingSpinner from "./ui/LoadingSpinner";
 import ReactPDF, { usePDF } from "@react-pdf/renderer";
 import {
   ArrowDownToLine,

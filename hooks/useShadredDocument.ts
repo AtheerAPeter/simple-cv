@@ -1,7 +1,7 @@
 import { HttpClient } from "@/Httpclient";
 import { useQuery } from "@tanstack/react-query";
 
-export const useShadredDocument = (id: string) => {
+export default function useShadredDocument(id: string) {
   const { data: document, ...documentQuery } = useQuery({
     queryKey: HttpClient.DocumentAPi.getSharedDocument.key(id),
     queryFn: HttpClient.DocumentAPi.getSharedDocument.exec,
@@ -12,4 +12,4 @@ export const useShadredDocument = (id: string) => {
     document,
     documentQuery,
   };
-};
+}

@@ -19,7 +19,7 @@ interface Props {
   onShare: (template: string, color: string) => void;
 }
 
-export function EditorHeader(props: Props) {
+export default function EditorHeader(props: Props) {
   const { color, setColor, template, setTemplate } = useTemplateStore();
   const t = useTranslations("common");
   return (

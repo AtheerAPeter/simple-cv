@@ -18,8 +18,8 @@ import {
 import { useTranslations } from "next-intl";
 import { ChevronRight, LogOutIcon } from "lucide-react";
 import { queryClientRoot } from "@/lib/queryClient";
-import { useCachedSession } from "@/hooks/useCachedSession";
-import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
+import useCachedSession from "@/hooks/useCachedSession";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { Separator } from "@/components/ui/separator";
 
 export default function page() {

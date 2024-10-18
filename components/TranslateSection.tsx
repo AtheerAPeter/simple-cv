@@ -1,6 +1,6 @@
 import { ICvPdf } from "@/interfaces/ICvPdf";
 import { Button } from "./ui/button";
-import { useAI } from "@/hooks/useAI";
+import useAI from "@/hooks/useAI";
 import _ from "lodash";
 import { useState } from "react";
 import {
@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "./ui/select";
 import { useTranslations } from "next-intl";
-import { useUser } from "@/hooks/useUser";
+import useUser from "@/hooks/useUser";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 
@@ -22,7 +22,7 @@ interface Props {
 
 const availableLanguages = ["English", "Deutsch"];
 
-export const TranslateSection = (props: Props) => {
+export default function TranslateSection(props: Props) {
   const t = useTranslations("translateSection");
   const t3 = useTranslations("common");
   const { AIMutataion } = useAI();
@@ -88,4 +88,4 @@ export const TranslateSection = (props: Props) => {
       </div>
     </div>
   );
-};
+}

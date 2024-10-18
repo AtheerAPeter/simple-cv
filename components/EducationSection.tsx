@@ -15,7 +15,7 @@ interface Props {
   addEducation: () => void;
 }
 
-const EducationSection = (props: Props) => {
+export default function EducationSection(props: Props) {
   const t = useTranslations("educationSection");
   const { educations, handleEducationChange, removeEducation, addEducation } =
     props;
@@ -84,6 +84,4 @@ const EducationSection = (props: Props) => {
       </Button>
     </>
   );
-};
-
-export default EducationSection;
+}

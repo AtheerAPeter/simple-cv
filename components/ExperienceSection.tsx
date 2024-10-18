@@ -15,7 +15,7 @@ interface Props {
   addExperience: () => void;
 }
 
-const ExperienceSection = (props: Props) => {
+export default function ExperienceSection(props: Props) {
   const t = useTranslations("experienceSection");
   const {
     experiences,
@@ -116,6 +116,4 @@ const ExperienceSection = (props: Props) => {
       </Button>
     </>
   );
-};
-
-export default ExperienceSection;
+}

@@ -12,7 +12,7 @@ interface Props {
   removeHobby: (index: number) => void;
 }
 
-const HobbiesSection = (props: Props) => {
+export default function HobbiesSection(props: Props) {
   const t = useTranslations("hobbiesSection");
   const { hobbies, currentHobby, setCurrentHobby, addHobby, removeHobby } =
     props;
@@ -40,6 +40,4 @@ const HobbiesSection = (props: Props) => {
       </div>
     </div>
   );
-};
-
-export default HobbiesSection;
+}

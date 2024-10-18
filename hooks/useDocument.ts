@@ -7,7 +7,7 @@ interface Props {
   listEnabled?: boolean;
 }
 
-export const useDocument = (props?: Props) => {
+export default function useDocument(props?: Props) {
   const createMutation = useMutation({
     mutationFn: HttpClient.DocumentAPi.create,
   });
@@ -41,4 +41,4 @@ export const useDocument = (props?: Props) => {
     updateMutation,
     deleteMutation,
   };
-};
+}

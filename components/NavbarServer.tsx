@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { User } from "lucide-react";
-import { LoadingSpinner } from "./ui/LoadingSpinner";
+import LoadingSpinner from "./ui/LoadingSpinner";
 
 export const NavBarServer = () => {
   const locale = useLocale();

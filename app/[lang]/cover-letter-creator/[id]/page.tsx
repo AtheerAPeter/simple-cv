@@ -9,16 +9,16 @@ import PersonalDetails from "@/components/CoverLetter/PersonalDetailsSection";
 import SmartCoverLetterForm from "@/components/CoverLetter/SmartCoverLetterForm";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useCoverLetterForm } from "@/hooks/useCoverLetterForm";
+import useCoverLetterForm from "@/hooks/useCoverLetterForm";
 import CoverLetter1 from "@/templates/CoverLetter1";
 import "react-quill/dist/quill.snow.css";
 import CoverLetterPageHeader from "@/components/CoverLetter/CoverLetterPageHeader";
 import { useRouter } from "next/navigation";
 import PreviewCvModal from "@/components/modals/PreviewCvModal";
 import { Button } from "@/components/ui/button";
-import { useDocument } from "@/hooks/useDocument";
+import useDocument from "@/hooks/useDocument";
 import { ICoverLetterResponse } from "@/interfaces/ICoverLetterPdf";
-import { FloatingSidebarComponent } from "@/components/floating-sidebar";
+import FloatingSidebarComponent from "@/components/floating-sidebar";
 import {
   Select,
   SelectContent,

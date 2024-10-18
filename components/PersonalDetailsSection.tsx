@@ -18,7 +18,7 @@ interface Props {
   onClearProfilePhoto: () => void;
 }
 
-const PersonalDetails = (props: Props) => {
+export default function PersonalDetails(props: Props) {
   const {
     name,
     title,
@@ -125,6 +125,4 @@ const PersonalDetails = (props: Props) => {
       </div>
     </div>
   );
-};
-
-export default PersonalDetails;
+}

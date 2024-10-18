@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { Button } from "./ui/button";
-import { LoadingSpinner } from "./ui/LoadingSpinner";
+import LoadingSpinner from "./ui/LoadingSpinner";
 import { ICvPdf } from "@/interfaces/ICvPdf";
 import useTemplateStore from "@/stores/templateStore";
 import { useTranslations } from "next-intl";
