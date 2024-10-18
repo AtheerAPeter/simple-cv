@@ -20,7 +20,7 @@ const CoverLetterPageHeader = (props: Props) => {
   const t = useTranslations("common");
   return (
     <TooltipProvider>
-      <div className="container mx-auto">
+      <div>
         <header className="flex justify-between mb-8">
           <Button
             variant="outline"
