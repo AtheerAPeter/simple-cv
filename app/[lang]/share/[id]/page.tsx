@@ -1,8 +1,8 @@
 "use client";
 import { NavBar } from "@/components/NavBar";
 import PDFPreview from "@/components/PDFPreview";
-import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
-import { useShadredDocument } from "@/hooks/useShadredDocument";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import useShadredDocument from "@/hooks/useShadredDocument";
 import { Templates, templates } from "@/templates";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
