@@ -27,7 +27,7 @@ export default function ExperienceSection(props: Props) {
   return (
     <>
       {experiences?.map((exp, index) => (
-        <div key={index} className="mb-4 p-4 border border-input">
+        <div key={index} className="mb-4 p-4">
           <div className="flex justify-between items-center mb-2">
             <h3 className="text-lg font-medium">
               {t("title")} {index + 1}

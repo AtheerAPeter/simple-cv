@@ -65,8 +65,9 @@ export default function Template1({ data, accentColor, titles }: Props) {
       fontWeight: "bold",
       marginBottom: 5,
       borderBottomWidth: 1,
-      borderBottomColor: "#000",
+      borderBottomColor: accentColor,
       paddingBottom: 2,
+      color: accentColor,
     },
     experienceItem: {
       marginBottom: 8,

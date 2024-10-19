@@ -43,7 +43,7 @@ function PdfDownloadButton({
       size={"sm"}
       onClick={handleDownload}
       disabled={!instance.url}
-      className="flex items-center gap-2 rounded-full bg-white text-black hover:bg-gray-200 hover:text-black"
+      className="flex items-center gap-2 rounded-full bg-white text-black hover:bg-gray-200 hover:text-black h-6"
     >
       <ArrowDownToLine className="h-4 w-4" />
       <p>{t("download")}</p>
@@ -54,7 +54,7 @@ function PdfDownloadButton({
 export default function CoverLetterPDFPreview(props: Props) {
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState(1);
-  const [scale, setScale] = useState(0.75);
+  const [scale, setScale] = useState(0.9);
   const containerRef = useRef<HTMLDivElement>(null);
   const [instance, updateInstance] = usePDF({
     document: <CoverLetter1 data={props.data} />,
@@ -70,7 +70,7 @@ export default function CoverLetterPDFPreview(props: Props) {
         const containerWidth = containerRef.current.clientWidth;
 
         if (containerWidth > 1000) {
-          setScale(0.75);
+          setScale(0.9);
         } else if (containerWidth > 630) {
           setScale(0.7);
         } else if (containerWidth > 420) {
@@ -117,7 +117,7 @@ export default function CoverLetterPDFPreview(props: Props) {
             onClick={zoomOut}
             size={"icon"}
             variant={"ghost"}
-            className="rounded-full bg-white text-black hover:bg-gray-200 hover:text-black"
+            className="rounded-full bg-white text-black hover:bg-gray-200 hover:text-black h-6 w-6"
           >
             <ZoomOut className="h-4 w-4" />
           </Button>
@@ -125,7 +125,7 @@ export default function CoverLetterPDFPreview(props: Props) {
             onClick={zoomIn}
             size={"icon"}
             variant={"ghost"}
-            className="rounded-full bg-white text-black hover:bg-gray-200 hover:text-black"
+            className="rounded-full bg-white text-black hover:bg-gray-200 hover:text-black h-6 w-6"
           >
             <ZoomIn className="h-4 w-4" />
           </Button>
@@ -134,7 +134,7 @@ export default function CoverLetterPDFPreview(props: Props) {
             variant="ghost"
             onClick={() => setPageNumber(pageNumber - 1)}
             disabled={pageNumber <= 1}
-            className="rounded-full bg-white text-black hover:bg-gray-200 hover:text-black"
+            className="rounded-full bg-white text-black hover:bg-gray-200 hover:text-black h-6 w-6"
           >
             <ChevronLeft />
           </Button>
@@ -142,7 +142,7 @@ export default function CoverLetterPDFPreview(props: Props) {
             {pageNumber}
           </span>
           <Button
-            className="rounded-full bg-white text-black hover:bg-gray-200 hover:text-black"
+            className="rounded-full bg-white text-black hover:bg-gray-200 hover:text-black h-6 w-6"
             size="icon"
             variant="ghost"
             onClick={() => setPageNumber(pageNumber + 1)}
@@ -162,7 +162,7 @@ export default function CoverLetterPDFPreview(props: Props) {
           instance={instance}
         />
       </div>
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center">
         {instance.url ? (
           <Document
             file={instance.url}

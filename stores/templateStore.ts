@@ -11,7 +11,7 @@ interface TemplateState {
 const useTemplateStore = create<TemplateState>((set) => ({
   template: "simple",
   setTemplate: (template: Templates) => set({ template }),
-  color: "#f4a300",
+  color: "#10b981",
   setColor: (color: string) => set({ color }),
 }));
 

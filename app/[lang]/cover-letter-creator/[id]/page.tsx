@@ -196,8 +196,10 @@ export default function Page({ params }: { params: { id: string } }) {
         documentTitle={document?.title!}
         documentId={document?.id!}
       />
-
-      <div className="w-full lg:w-2/3 h-screen overflow-y-auto p-2 lg:p-8">
+      <div className="w-full lg:w-1/2 h-screen bg-slate-400 hidden lg:flex flex-col">
+        <CoverLetterPDFPreview data={debouncedData} />
+      </div>
+      <div className="w-full lg:w-1/2 h-screen overflow-y-auto p-2 lg:p-8">
         <CoverLetterPageHeader
           onBack={onBack}
           onSave={saveToLocalStorage}
@@ -307,9 +309,7 @@ export default function Page({ params }: { params: { id: string } }) {
           )}
         </section>
       </div>
-      <div className="w-full lg:w-1/3 h-screen bg-white hidden lg:flex flex-col">
-        <CoverLetterPDFPreview data={debouncedData} />
-      </div>
+
       <PreviewCvModal
         children={
           <div>

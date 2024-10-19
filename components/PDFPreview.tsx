@@ -10,7 +10,6 @@ import {
   ArrowDownToLine,
   ChevronLeft,
   ChevronRight,
-  DownloadIcon,
   ZoomIn,
   ZoomOut,
 } from "lucide-react";
@@ -48,7 +47,7 @@ function PdfDownloadButton({
       size={"sm"}
       onClick={handleDownload}
       disabled={!instance.url}
-      className="flex items-center gap-2 rounded-full bg-white text-black hover:bg-gray-200 hover:text-black"
+      className="flex items-center gap-2 rounded-full bg-white text-black hover:bg-gray-200 hover:text-black h-6"
     >
       <ArrowDownToLine className="h-4 w-4" />
       <p>{t("download")}</p>
@@ -59,7 +58,7 @@ function PdfDownloadButton({
 export default function PDFPreview(props: Props) {
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState(1);
-  const [scale, setScale] = useState(0.7);
+  const [scale, setScale] = useState(0.9);
   const containerRef = useRef<HTMLDivElement>(null);
   const template = useTemplateStore((state) => state.template);
   const { color } = useTemplateStore();
@@ -103,13 +102,13 @@ export default function PDFPreview(props: Props) {
         const minDimension = Math.min(containerWidth, containerHeight);
 
         if (minDimension > 1000) {
-          setScale(0.7);
+          setScale(0.9);
         } else if (minDimension > 800) {
-          setScale(0.65);
+          setScale(0.7);
         } else if (minDimension > 600) {
           setScale(0.6);
         } else if (minDimension > 400) {
-          setScale(0.6);
+          setScale(0.5);
         } else {
         }
       }
@@ -154,7 +153,7 @@ export default function PDFPreview(props: Props) {
             onClick={zoomOut}
             size={"icon"}
             variant={"ghost"}
-            className="rounded-full bg-white text-black hover:bg-gray-200 hover:text-black"
+            className="rounded-full bg-white text-black hover:bg-gray-200 hover:text-black h-6 w-6"
           >
             <ZoomOut className="h-4 w-4" />
           </Button>
@@ -162,7 +161,7 @@ export default function PDFPreview(props: Props) {
             onClick={zoomIn}
             size={"icon"}
             variant={"ghost"}
-            className="rounded-full bg-white text-black hover:bg-gray-200 hover:text-black"
+            className="rounded-full bg-white text-black hover:bg-gray-200 hover:text-black h-6 w-6"
           >
             <ZoomIn className="h-4 w-4" />
           </Button>
@@ -171,7 +170,7 @@ export default function PDFPreview(props: Props) {
             variant="ghost"
             onClick={() => setPageNumber(pageNumber - 1)}
             disabled={pageNumber <= 1}
-            className="rounded-full bg-white text-black hover:bg-gray-200 hover:text-black"
+            className="rounded-full bg-white text-black hover:bg-gray-200 hover:text-black h-6 w-6"
           >
             <ChevronLeft />
           </Button>
@@ -179,7 +178,7 @@ export default function PDFPreview(props: Props) {
             {pageNumber}
           </span>
           <Button
-            className="rounded-full bg-white text-black hover:bg-gray-200 hover:text-black"
+            className="rounded-full bg-white text-black hover:bg-gray-200 hover:text-black h-6 w-6"
             size="icon"
             variant="ghost"
             onClick={() => setPageNumber(pageNumber + 1)}
