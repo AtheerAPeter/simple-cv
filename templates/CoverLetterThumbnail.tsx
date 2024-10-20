@@ -23,7 +23,7 @@ export default function CoverLetterThumbnail({ data, accentColor }: Props) {
       display: flex;
       flex-direction: column;
     }
-    .header {
+    .header-cover-letter {
       margin-bottom: 4px;
       display: flex;
       flex-direction: column;
@@ -65,7 +65,7 @@ export default function CoverLetterThumbnail({ data, accentColor }: Props) {
       <style>{styles}</style>
       <div className="cover-letter-thumbnail">
         {/* Header */}
-        <div className="header">
+        <div className="header-cover-letter">
           <h1 className="name">{data.personalDetails?.name}</h1>
           <div className="contact-info">{data.personalDetails?.email}</div>
           <div className="contact-info">{data.personalDetails?.phone}</div>

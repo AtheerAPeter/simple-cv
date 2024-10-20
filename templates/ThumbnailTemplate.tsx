@@ -29,6 +29,7 @@ export default function ThumbnailTemplate({
     .header {
       display: flex;
       margin-bottom: 6px;
+      flex-direction: row;
     }
     .profile-img {
       width: 48px;
