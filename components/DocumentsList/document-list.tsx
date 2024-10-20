@@ -57,19 +57,13 @@ export function DocumentList(props: Props) {
         )}
       </div>
       <AnimatePresence>
-        <motion.div
-          className="space-y-4"
-          initial={{ opacity: 0, scale: 0.8, y: 10 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.8, y: 10 }}
-          transition={{ duration: 0.2 }}
-        >
+        <div className="grid lg:grid-cols-5 gap-5">
           {props.documents?.map((doc, index) => (
             <motion.div
               key={doc.id}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ delay: index * 0.05 }}
             >
               <DocumentItem
                 onCopy={props.onDuplicate}
@@ -80,7 +74,7 @@ export function DocumentList(props: Props) {
               />
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </AnimatePresence>
     </div>
   );

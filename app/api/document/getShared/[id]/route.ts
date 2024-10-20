@@ -3,8 +3,6 @@ import { documents } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
 
 export async function GET(request: Request, ctx: any) {
-  console.log({ request, ctx });
-
   try {
     const documentId = (ctx.params as any)?.id;
     if (!documentId) {
@@ -22,7 +20,17 @@ export async function GET(request: Request, ctx: any) {
         status: 404,
       });
     }
-    return new Response(JSON.stringify(doc));
+
+    await db
+      .update(documents)
+      .set({ views: (doc.views ?? 0) + 1 })
+      .where(eq(documents.id, documentId));
+
+    const updatedDoc = await db.query.documents.findFirst({
+      where: eq(documents.id, documentId),
+    });
+
+    return new Response(JSON.stringify(updatedDoc));
   } catch (error) {
     console.error("Error getting document:", error);
     return new Response(JSON.stringify({ error: "Failed to get document" }), {

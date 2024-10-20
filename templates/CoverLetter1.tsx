@@ -95,10 +95,12 @@ export default function CoverLetter1({ data, accentColor }: Props) {
       <Page size="A4" style={styles.page}>
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.name}>{data.personalDetails.name}</Text>
-          <Text style={styles.contactInfo}>{data.personalDetails.email}</Text>
-          <Text style={styles.contactInfo}>{data.personalDetails.phone}</Text>
-          <Text style={styles.contactInfo}>{data.personalDetails.address}</Text>
+          <Text style={styles.name}>{data.personalDetails?.name}</Text>
+          <Text style={styles.contactInfo}>{data.personalDetails?.email}</Text>
+          <Text style={styles.contactInfo}>{data.personalDetails?.phone}</Text>
+          <Text style={styles.contactInfo}>
+            {data.personalDetails?.address}
+          </Text>
         </View>
 
         {/* Date */}
@@ -106,10 +108,12 @@ export default function CoverLetter1({ data, accentColor }: Props) {
 
         {/* Recipient */}
         <View style={styles.recipient}>
-          <Text style={styles.recipientName}>{data.recipient.manager}</Text>
-          <Text style={styles.recipientCompany}>{data.recipient.company}</Text>
-          <Text style={styles.recipientAddress}>{data.recipient.address}</Text>
-          <Text style={styles.recipientAddress}>{data.recipient.position}</Text>
+          <Text style={styles.recipientName}>{data.recipient?.manager}</Text>
+          <Text style={styles.recipientCompany}>{data.recipient?.company}</Text>
+          <Text style={styles.recipientAddress}>{data.recipient?.address}</Text>
+          <Text style={styles.recipientAddress}>
+            {data.recipient?.position}
+          </Text>
         </View>
 
         {/* Content */}

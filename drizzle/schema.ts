@@ -105,6 +105,7 @@ export const documents = pgTable("document", {
   title: text("title"),
   type: documentTypeEnum("type").notNull().default("cv"),
   content: text("content").notNull(),
+  views: integer("views").notNull().default(0),
   createdAt: timestamp("createdAt", { mode: "date" }).notNull(),
   updatedAt: timestamp("updatedAt", { mode: "date" }).notNull(),
 });
