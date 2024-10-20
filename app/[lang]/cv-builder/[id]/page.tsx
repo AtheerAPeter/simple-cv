@@ -384,137 +384,121 @@ export default function Page({ params }: { params: { id: string } }) {
         documentTitle={document?.title!}
         documentId={document?.id!}
       />
-      {status === "authenticated" ? (
-        <>
-          <div className="w-full lg:w-1/2 hidden lg:flex flex-col bg-slate-400">
-            <PDFPreview data={data} />
-          </div>
-          <div className="w-full lg:w-1/2 h-screen overflow-y-auto p-2 lg:p-8">
-            <EditorHeader
-              onClearAll={clearAll}
-              onSave={onSaveToServer}
-              isSaving={updateMutation.isPending}
-              onBack={() => router.replace(`/${locale}/dashboard`)}
-              onShare={onShare}
+
+      <div className="w-full lg:w-1/2 hidden lg:flex flex-col bg-slate-400">
+        <PDFPreview data={data} />
+      </div>
+      <div className="w-full lg:w-1/2 h-screen overflow-y-auto p-2 lg:p-8">
+        <EditorHeader
+          onClearAll={clearAll}
+          onSave={onSaveToServer}
+          isSaving={updateMutation.isPending}
+          onBack={() => router.replace(`/${locale}/dashboard`)}
+          onShare={onShare}
+        />
+        <div className="space-y-6">
+          <section>
+            <h2 className="text-xl font-semibold mb-3 mt-10">
+              {t("personalDetails")}
+            </h2>
+            <PersonalDetails
+              name={name}
+              title={title}
+              email={email}
+              phone={phone}
+              address={address}
+              github={github}
+              handlePersonalDetailsChange={handlePersonalDetailsChange}
+              toast={toast}
+              isUploadingImage={uploadImageMutation.isPending}
+              onClearProfilePhoto={clearProfilePhoto}
             />
-            <div className="space-y-6">
-              <section>
-                <h2 className="text-xl font-semibold mb-3 mt-10">
-                  {t("personalDetails")}
-                </h2>
-                <PersonalDetails
-                  name={name}
-                  title={title}
-                  email={email}
-                  phone={phone}
-                  address={address}
-                  github={github}
-                  handlePersonalDetailsChange={handlePersonalDetailsChange}
-                  toast={toast}
-                  isUploadingImage={uploadImageMutation.isPending}
-                  onClearProfilePhoto={clearProfilePhoto}
-                />
-              </section>
-              <section>
-                <h2 className="text-xl font-semibold mb-3 mt-10">
-                  {t("experience")}
-                </h2>
-                <ExperienceSection
-                  experiences={experiences}
-                  handleExperienceChange={handleExperienceChange}
-                  removeExperience={removeExperience}
-                  addExperience={addExperience}
-                />
-              </section>
-              <section>
-                <h2 className="text-xl font-semibold mb-3 mt-10">
-                  {t("education")}
-                </h2>
+          </section>
+          <section>
+            <h2 className="text-xl font-semibold mb-3 mt-10">
+              {t("experience")}
+            </h2>
+            <ExperienceSection
+              experiences={experiences}
+              handleExperienceChange={handleExperienceChange}
+              removeExperience={removeExperience}
+              addExperience={addExperience}
+            />
+          </section>
+          <section>
+            <h2 className="text-xl font-semibold mb-3 mt-10">
+              {t("education")}
+            </h2>
 
-                <EducationSection
-                  educations={educations}
-                  handleEducationChange={handleEducationChange}
-                  removeEducation={removeEducation}
-                  addEducation={addEducation}
-                />
-              </section>
-              <section>
-                <h2 className="text-xl font-semibold mb-3 mt-10">
-                  {t("skills")}
-                </h2>
+            <EducationSection
+              educations={educations}
+              handleEducationChange={handleEducationChange}
+              removeEducation={removeEducation}
+              addEducation={addEducation}
+            />
+          </section>
+          <section>
+            <h2 className="text-xl font-semibold mb-3 mt-10">{t("skills")}</h2>
 
-                <SkillsSection skills={skills} setSkills={setSkills} />
-              </section>
-              <section>
-                <div className="flex items-start gap-2 mb-3 mt-10">
-                  <h2 className="text-xl font-semibold">
-                    {t("jobDescription")}
-                  </h2>
-                  <p className="text-gray-400 text-xs">{t("beta")}</p>
-                </div>
-                <SmartUpdateSkillsSection
-                  cvData={data}
-                  skills={skills}
-                  setSkills={setSkills}
-                  setExperiences={setExperiences}
-                />
-              </section>
-              <section>
-                <h2 className="text-xl font-semibold mb-3 mt-10">
-                  {t("translateTtile")}
-                </h2>
-
-                <TranslateSection cvData={data} onTranslate={onSetData} />
-              </section>
-              <section>
-                <h2 className="text-xl font-semibold mb-3 mt-10">
-                  {t("projects")}
-                </h2>
-
-                <ProjectsSection
-                  projects={projects}
-                  handleProjectChange={handleProjectChange}
-                  removeProject={removeProject}
-                  addProject={addProject}
-                />
-              </section>
-              <section>
-                <h2 className="text-xl font-semibold mb-3 mt-10">
-                  {t("languages")}
-                </h2>
-
-                <LanguagesSection
-                  languages={languages}
-                  addLanguage={addLanguage}
-                  removeLanguage={removeLanguage}
-                  handleLanguageChange={handleLanguageChange}
-                />
-              </section>
-              <section>
-                <h2 className="text-xl font-semibold mb-3 mt-10">
-                  {t("hobbies")}
-                </h2>
-
-                <HobbiesSection
-                  hobbies={hobbies}
-                  currentHobby={currentHobby}
-                  setCurrentHobby={setCurrentHobby}
-                  addHobby={addHobby}
-                  removeHobby={removeHobby}
-                />
-              </section>
+            <SkillsSection skills={skills} setSkills={setSkills} />
+          </section>
+          <section>
+            <div className="flex items-start gap-2 mb-3 mt-10">
+              <h2 className="text-xl font-semibold">{t("jobDescription")}</h2>
+              <p className="text-gray-400 text-xs">{t("beta")}</p>
             </div>
-          </div>
-        </>
-      ) : status === "loading" ? (
-        <div className="flex items-center justify-center h-screen w-screen">
-          <LoadingSpinner />
+            <SmartUpdateSkillsSection
+              cvData={data}
+              skills={skills}
+              setSkills={setSkills}
+              setExperiences={setExperiences}
+            />
+          </section>
+          <section>
+            <h2 className="text-xl font-semibold mb-3 mt-10">
+              {t("translateTtile")}
+            </h2>
+
+            <TranslateSection cvData={data} onTranslate={onSetData} />
+          </section>
+          <section>
+            <h2 className="text-xl font-semibold mb-3 mt-10">
+              {t("projects")}
+            </h2>
+
+            <ProjectsSection
+              projects={projects}
+              handleProjectChange={handleProjectChange}
+              removeProject={removeProject}
+              addProject={addProject}
+            />
+          </section>
+          <section>
+            <h2 className="text-xl font-semibold mb-3 mt-10">
+              {t("languages")}
+            </h2>
+
+            <LanguagesSection
+              languages={languages}
+              addLanguage={addLanguage}
+              removeLanguage={removeLanguage}
+              handleLanguageChange={handleLanguageChange}
+            />
+          </section>
+          <section>
+            <h2 className="text-xl font-semibold mb-3 mt-10">{t("hobbies")}</h2>
+
+            <HobbiesSection
+              hobbies={hobbies}
+              currentHobby={currentHobby}
+              setCurrentHobby={setCurrentHobby}
+              addHobby={addHobby}
+              removeHobby={removeHobby}
+            />
+          </section>
         </div>
-      ) : (
-        <div className="flex items-center justify-center h-screen w-screen">
-          <p>X</p>
-        </div>
-      )}
+      </div>
+
       <PreviewCvModal
         children={<PDFPreview data={data} />}
         open={open}

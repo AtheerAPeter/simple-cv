@@ -6,6 +6,8 @@ import { ICvPdf } from "@/interfaces/ICvPdf";
 import { useEffect } from "react";
 import CoverLetter1 from "@/templates/CoverLetter1";
 import { ICoverLetterPdf } from "@/interfaces/ICoverLetterPdf";
+import ThumbnailTemplate from "@/templates/ThumbnailTemplate";
+import CoverLetterThumbnail from "@/templates/CoverLetterThumbnail";
 
 pdfjs.GlobalWorkerOptions.workerSrc =
   "https://unpkg.com/pdfjs-dist@4.4.168/build/pdf.worker.mjs";
@@ -15,7 +17,7 @@ interface Props {
   type: "cv" | "cl";
 }
 
-export default function PDFCanva(props: Props) {
+export default function ThumbnailRenderer(props: Props) {
   const t = useTranslations("templateTranslation");
   const titles = {
     experience: t("experience"),
@@ -30,39 +32,17 @@ export default function PDFCanva(props: Props) {
     github: t("github"),
   };
 
-  const [instance, updateInstance] = usePDF({
-    document:
-      props.type === "cv" ? (
-        templates["simple"](props.data as ICvPdf, "#000000", titles)
-      ) : (
-        <CoverLetter1 data={props.data as ICoverLetterPdf} />
-      ),
-  });
-
-  useEffect(() => {
-    updateInstance(
-      props.type === "cv" ? (
-        templates["simple"](props.data as ICvPdf, "#000000", titles)
-      ) : (
-        <CoverLetter1 data={props.data as ICoverLetterPdf} />
-      )
-    );
-  }, [props.data, updateInstance]);
-
   return (
     <div>
-      <Document
-        file={instance.url}
-        className="h-full border rounded-lg overflow-hidden"
-      >
-        <Page
-          height={320}
-          className={"w-full h-full"}
-          pageNumber={1}
-          renderTextLayer={false}
-          renderAnnotationLayer={false}
+      {props.type === "cl" ? (
+        <CoverLetterThumbnail data={props.data as ICoverLetterPdf} />
+      ) : (
+        <ThumbnailTemplate
+          data={props.data as ICvPdf}
+          accentColor={"#000000"}
+          titles={titles}
         />
-      </Document>
+      )}
     </div>
   );
 }

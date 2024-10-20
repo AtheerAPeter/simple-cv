@@ -35,6 +35,7 @@ export const PUT = auth(async function PUT(request, ctx) {
       .set({
         title: updateData.title,
         content: updateData.content,
+        updatedAt: new Date(),
       })
       .where(eq(documents.id, documentId))
       .returning({
