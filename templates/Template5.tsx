@@ -148,7 +148,7 @@ export default function Template5({ data, accentColor, titles }: Props) {
           <View style={styles.contactInfo} wrap={false}>
             <Text style={styles.name}>{data.personalDetails.name}</Text>
             <Text style={styles.title}>{data.personalDetails.title}</Text>
-            {data.personalDetails.email && (
+            {data.personalDetails.email.length > 0 && (
               <View style={{ flexDirection: "row", gap: 4 }} wrap={false}>
                 <Text style={{ fontWeight: "bold" }}>{titles.email}</Text>{" "}
                 <Text style={{ fontWeight: "normal" }}>
@@ -156,7 +156,7 @@ export default function Template5({ data, accentColor, titles }: Props) {
                 </Text>
               </View>
             )}
-            {data.personalDetails.phone && (
+            {data.personalDetails.phone.length > 0 && (
               <View style={{ flexDirection: "row", gap: 4 }} wrap={false}>
                 <Text style={{ fontWeight: "bold" }}>{titles.phone}</Text>{" "}
                 <Text style={{ fontWeight: "normal" }}>
@@ -164,7 +164,7 @@ export default function Template5({ data, accentColor, titles }: Props) {
                 </Text>
               </View>
             )}
-            {data.personalDetails.address && (
+            {data.personalDetails.address.length > 0 && (
               <View style={{ flexDirection: "row", gap: 4 }} wrap={false}>
                 <Text style={{ fontWeight: "bold" }}>{titles.address}</Text>{" "}
                 <Text style={{ fontWeight: "normal" }}>
@@ -172,7 +172,7 @@ export default function Template5({ data, accentColor, titles }: Props) {
                 </Text>
               </View>
             )}
-            {data.personalDetails.github && (
+            {data.personalDetails.github.length > 0 && (
               <View style={{ flexDirection: "row", gap: 4 }} wrap={false}>
                 <Text style={{ fontWeight: "bold" }}>{titles.github}</Text>{" "}
                 <Text style={{ fontWeight: "normal" }}>

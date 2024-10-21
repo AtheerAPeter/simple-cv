@@ -137,7 +137,7 @@ export default function Template4({ data, accentColor, titles }: Props) {
               <Text style={styles.name}>{data.personalDetails.name}</Text>
               <Text style={styles.title}>{data.personalDetails.title}</Text>
             </View>
-            {data.personalDetails.address && (
+            {data.personalDetails.address.length > 0 && (
               <View style={styles.contactItem} wrap={false}>
                 <Text style={{ fontWeight: "bold" }}>{titles.address}</Text>{" "}
                 <Text style={{ fontWeight: "normal" }}>
@@ -145,7 +145,7 @@ export default function Template4({ data, accentColor, titles }: Props) {
                 </Text>
               </View>
             )}
-            {data.personalDetails.phone && (
+            {data.personalDetails.phone.length > 0 && (
               <View style={styles.contactItem} wrap={false}>
                 <Text style={{ fontWeight: "bold" }}>{titles.phone}</Text>{" "}
                 <Text style={{ fontWeight: "normal" }}>
@@ -153,7 +153,7 @@ export default function Template4({ data, accentColor, titles }: Props) {
                 </Text>
               </View>
             )}
-            {data.personalDetails.email && (
+            {data.personalDetails.email.length > 0 && (
               <View style={styles.contactItem} wrap={false}>
                 <Text style={{ fontWeight: "bold" }}>{titles.email}</Text>{" "}
                 <Text style={{ fontWeight: "normal" }}>
@@ -161,7 +161,7 @@ export default function Template4({ data, accentColor, titles }: Props) {
                 </Text>
               </View>
             )}
-            {data.personalDetails.github && (
+            {data.personalDetails.github.length > 0 && (
               <View style={styles.contactItem} wrap={false}>
                 <Text style={{ fontWeight: "bold" }}>{titles.github}</Text>{" "}
                 <Link src={data.personalDetails.github}>

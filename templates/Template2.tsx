@@ -154,7 +154,7 @@ export default function Template2({ data, accentColor, titles }: Props) {
           <View style={styles.contactInfo} wrap={false}>
             <Text style={styles.name}>{data.personalDetails.name}</Text>
             <Text style={styles.title}>{data.personalDetails.title}</Text>
-            {data.personalDetails.email && (
+            {data.personalDetails.email.length > 0 && (
               <View
                 style={{ flexDirection: "row", gap: 4, marginBottom: 5 }}
                 wrap={false}
@@ -165,7 +165,7 @@ export default function Template2({ data, accentColor, titles }: Props) {
                 </Text>
               </View>
             )}
-            {data.personalDetails.phone && (
+            {data.personalDetails.phone.length > 0 && (
               <View
                 style={{ flexDirection: "row", gap: 4, marginBottom: 5 }}
                 wrap={false}
@@ -176,7 +176,7 @@ export default function Template2({ data, accentColor, titles }: Props) {
                 </Text>
               </View>
             )}
-            {data.personalDetails.address && (
+            {data.personalDetails.address.length > 0 && (
               <View
                 style={{ flexDirection: "row", gap: 4, marginBottom: 5 }}
                 wrap={false}
@@ -187,7 +187,7 @@ export default function Template2({ data, accentColor, titles }: Props) {
                 </Text>
               </View>
             )}
-            {data.personalDetails.github && (
+            {data.personalDetails.github.length > 0 && (
               <View
                 style={{ flexDirection: "row", gap: 4, marginBottom: 5 }}
                 wrap={false}

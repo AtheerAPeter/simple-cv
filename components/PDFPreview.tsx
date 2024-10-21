@@ -84,14 +84,7 @@ export default function PDFPreview(props: Props) {
     updateInstance(
       templates[props.template ?? template](props.data, color, titles)
     );
-  }, [
-    props.data,
-    template,
-    color,
-    updateInstance,
-    props.template,
-    props.color,
-  ]);
+  }, [props.data, template, color, props.template, props.color]);
 
   useEffect(() => {
     const updateScale = () => {

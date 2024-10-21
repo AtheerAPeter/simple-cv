@@ -22,7 +22,7 @@ import FloatingSidebarComponent from "@/components/floating-sidebar";
 import useDocument from "@/hooks/useDocument";
 import useUploadImage from "@/hooks/useUploadImage";
 import { toast } from "react-toastify";
-import { debounce } from "lodash";
+// import { debounce } from "lodash";
 
 export default function Page({ params }: { params: { id: string } }) {
   const t = useTranslations("cvBuilder");
@@ -70,6 +70,7 @@ export default function Page({ params }: { params: { id: string } }) {
   useEffect(() => {
     if (!document) return;
     const parsedData = JSON.parse(document.content);
+
     setName(parsedData.name);
     setTitle(parsedData.title);
     setEmail(parsedData.email);
@@ -296,16 +297,16 @@ export default function Page({ params }: { params: { id: string } }) {
     hobbies,
     projects,
   };
-  const [debouncedData, setDebouncedData] = useState(data);
-  const debouncedSetData = useCallback(
-    debounce((newData: ICvPdf) => {
-      setDebouncedData(newData);
-    }, 500),
-    []
-  );
-  useEffect(() => {
-    debouncedSetData(data);
-  }, [data, debouncedSetData]);
+  // const [debouncedData, setDebouncedData] = useState(data);
+  // const debouncedSetData = useCallback(
+  //   debounce((newData: ICvPdf) => {
+  //     setDebouncedData(newData);
+  //   }, 500),
+  //   []
+  // );
+  // useEffect(() => {
+  //   debouncedSetData(data);
+  // }, [data, debouncedSetData]);
 
   const onSetData = (data: Partial<ICvPdf>) => {
     setExperiences(data.experiences || experiences);
@@ -394,7 +395,7 @@ export default function Page({ params }: { params: { id: string } }) {
       />
 
       <div className="w-full lg:w-1/2 hidden lg:flex flex-col bg-slate-400">
-        <PDFPreview data={debouncedData} />
+        <PDFPreview data={data} />
       </div>
       <div className="w-full lg:w-1/2 h-screen overflow-y-auto p-2 lg:p-8">
         <EditorHeader
