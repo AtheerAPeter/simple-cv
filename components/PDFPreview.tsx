@@ -198,21 +198,23 @@ export default function PDFPreview(props: Props) {
         />
       </div>
       <div className="flex justify-center items-center">
-        {instance.url ? (
+        {instance.url && (
           <Document
+            loading={<div></div>}
+            error={<div></div>}
             file={instance.url}
             onLoadSuccess={onDocumentLoadSuccess}
-            className="h-full border rounded-lg overflow-hidden"
+            className="h-full rounded-lg overflow-hidden"
           >
             <Page
+              loading={<div></div>}
+              error={<div></div>}
               pageNumber={pageNumber}
               renderTextLayer={false}
               renderAnnotationLayer={false}
               scale={props.scale ?? scale}
             />
           </Document>
-        ) : (
-          <LoadingSpinner />
         )}
       </div>
     </div>

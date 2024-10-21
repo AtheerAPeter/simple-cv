@@ -10,7 +10,7 @@ import { documents } from "@/drizzle/schema";
 import { Inbox, Plus } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import DocumentItem from "./document-item";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface Props {
   onCreateNew: (type: "CV" | "Cover Letter") => void;
@@ -56,26 +56,24 @@ export function DocumentList(props: Props) {
           <Inbox className="h-1/4 w-1/4 text-gray-200" />
         )}
       </div>
-      <AnimatePresence>
-        <div className="grid lg:grid-cols-5 gap-5">
-          {props.documents?.map((doc, index) => (
-            <motion.div
-              key={doc.id}
-              initial={{ opacity: 0, x: -10 * index }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.05 }}
-            >
-              <DocumentItem
-                onCopy={props.onDuplicate}
-                doc={doc}
-                locale={locale}
-                onDelete={props.onDelete}
-                onShare={props.onShare}
-              />
-            </motion.div>
-          ))}
-        </div>
-      </AnimatePresence>
+      <div className="grid lg:grid-cols-5 gap-5">
+        {props.documents?.map((doc, index) => (
+          <motion.div
+            key={doc.id}
+            initial={{ opacity: 0, x: -10 * index }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: index * 0.05 }}
+          >
+            <DocumentItem
+              onCopy={props.onDuplicate}
+              doc={doc}
+              locale={locale}
+              onDelete={props.onDelete}
+              onShare={props.onShare}
+            />
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
 }

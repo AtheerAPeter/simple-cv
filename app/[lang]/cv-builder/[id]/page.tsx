@@ -18,18 +18,16 @@ import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import TranslateSection from "@/components/TranslateSection";
 import { ICvPdf } from "@/interfaces/ICvPdf";
-import { useSession } from "next-auth/react";
-import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import FloatingSidebarComponent from "@/components/floating-sidebar";
 import useDocument from "@/hooks/useDocument";
 import useUploadImage from "@/hooks/useUploadImage";
 import { toast } from "react-toastify";
+import { debounce } from "lodash";
 
 export default function Page({ params }: { params: { id: string } }) {
   const t = useTranslations("cvBuilder");
   const locale = useLocale();
   const router = useRouter();
-  const { status } = useSession();
   const { document, documentQuery, updateMutation } = useDocument({
     listEnabled: false,
     id: params.id,
@@ -298,6 +296,16 @@ export default function Page({ params }: { params: { id: string } }) {
     hobbies,
     projects,
   };
+  const [debouncedData, setDebouncedData] = useState(data);
+  const debouncedSetData = useCallback(
+    debounce((newData: ICvPdf) => {
+      setDebouncedData(newData);
+    }, 500),
+    []
+  );
+  useEffect(() => {
+    debouncedSetData(data);
+  }, [data, debouncedSetData]);
 
   const onSetData = (data: Partial<ICvPdf>) => {
     setExperiences(data.experiences || experiences);
@@ -386,7 +394,7 @@ export default function Page({ params }: { params: { id: string } }) {
       />
 
       <div className="w-full lg:w-1/2 hidden lg:flex flex-col bg-slate-400">
-        <PDFPreview data={data} />
+        <PDFPreview data={debouncedData} />
       </div>
       <div className="w-full lg:w-1/2 h-screen overflow-y-auto p-2 lg:p-8">
         <EditorHeader
@@ -500,7 +508,7 @@ export default function Page({ params }: { params: { id: string } }) {
       </div>
 
       <PreviewCvModal
-        children={<PDFPreview data={data} />}
+        children={<PDFPreview data={data} scale={0.5} />}
         open={open}
         setOpen={setOpen}
       />

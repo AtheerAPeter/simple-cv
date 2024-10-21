@@ -82,15 +82,11 @@ export default function Page({ params }: { params: { id: string } }) {
   } = useCoverLetterForm();
 
   useEffect(() => {
-    console.log("before", document);
-
     if (document && document.content) {
       try {
         const parsedCLData = JSON.parse(
           document.content
         ) as ICoverLetterResponse;
-        console.log("parsed", parsedCLData);
-
         setName(parsedCLData.name || "");
         setEmail(parsedCLData.email || "");
         setPhone(parsedCLData.phone || "");
@@ -311,25 +307,7 @@ export default function Page({ params }: { params: { id: string } }) {
       </div>
 
       <PreviewCvModal
-        children={
-          <div>
-            <div className="flex justify-end lg:hidden">
-              <PDFDownloadLink
-                document={<CoverLetter1 data={debouncedData} />}
-                fileName={`${Date.now()}.pdf`}
-              >
-                {({ blob, url, loading, error }) => (
-                  <Button disabled={loading}>
-                    {loading ? "Generating PDF..." : "Download PDF"}
-                  </Button>
-                )}
-              </PDFDownloadLink>
-            </div>
-            <PDFViewer width="100%" height="100%">
-              <CoverLetter1 data={debouncedData} />
-            </PDFViewer>
-          </div>
-        }
+        children={<CoverLetterPDFPreview data={debouncedData} scale={0.5} />}
         open={open}
         setOpen={setOpen}
       />

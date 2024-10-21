@@ -10,7 +10,9 @@ interface Props {
 export default function PreviewCvModal({ open, setOpen, children }: Props) {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
-      <DrawerContent className="h-[90vh]">{children}</DrawerContent>
+      <DrawerContent className="h-[90vh] bg-slate-400">
+        {children}
+      </DrawerContent>
     </Drawer>
   );
 }
