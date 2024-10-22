@@ -3,14 +3,12 @@
 import { useEffect, useState, useCallback } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
-import { PDFViewer } from "@react-pdf/renderer";
 import EmployerDetailsSection from "@/components/CoverLetter/EmployerDetailsSection";
 import PersonalDetails from "@/components/CoverLetter/PersonalDetailsSection";
 import SmartCoverLetterForm from "@/components/CoverLetter/SmartCoverLetterForm";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useCoverLetterForm from "@/hooks/useCoverLetterForm";
-import CoverLetter1 from "@/templates/CoverLetter1";
 import "react-quill/dist/quill.snow.css";
 import CoverLetterPageHeader from "@/components/CoverLetter/CoverLetterPageHeader";
 import { useRouter } from "next/navigation";

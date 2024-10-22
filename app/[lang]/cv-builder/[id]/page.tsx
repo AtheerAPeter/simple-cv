@@ -24,6 +24,7 @@ import useUploadImage from "@/hooks/useUploadImage";
 import { toast } from "react-toastify";
 import { debounce } from "lodash";
 import { isEqual } from "lodash";
+import { AnimatePresence, motion } from "framer-motion";
 
 export default function Page({ params }: { params: { id: string } }) {
   const t = useTranslations("cvBuilder");
@@ -66,7 +67,7 @@ export default function Page({ params }: { params: { id: string } }) {
     setProjects,
   } = useCvForm();
   const { uploadImageMutation } = useUploadImage();
-
+  const [isSaved, setIsSaved] = useState(false);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -313,54 +314,25 @@ export default function Page({ params }: { params: { id: string } }) {
 
   useEffect(() => {
     const serverData: IContent = JSON.parse(document?.content || "{}");
-    const isSaved = isEqual(debouncedData, {
-      personalDetails: {
-        name: serverData.name,
-        title: serverData.title,
-        email: serverData.email,
-        phone: serverData.phone,
-        address: serverData.address,
-        github: serverData.github,
-        image: serverData.image,
-      },
-      experiences: serverData.experiences,
-      educations: serverData.educations,
-      skills: serverData.skills,
-      languages: serverData.languages,
-      hobbies: serverData.hobbies,
-      projects: serverData.projects,
-    });
-    if (!isSaved) {
-      const toastId = "saveReminder";
-      if (!toast.isActive(toastId)) {
-        toast(
-          () => (
-            <div className="flex items-center gap-2 w-full justify-center">
-              <p>{commonT("unsavedChanges")}</p>
-              <Button
-                isLoading={updateMutation.isPending}
-                disabled={updateMutation.isPending}
-                variant="secondary"
-                size={"sm"}
-                onClick={onSaveToServer}
-              >
-                {commonT("saveChanges")}
-              </Button>
-            </div>
-          ),
-          {
-            toastId: toastId,
-            autoClose: false,
-            closeOnClick: false,
-            draggable: false,
-            closeButton: false,
-            position: "bottom-left",
-          }
-        );
-      }
-    } else {
-      toast.dismiss("saveReminder");
-    }
+    setIsSaved(
+      isEqual(debouncedData, {
+        personalDetails: {
+          name: serverData.name,
+          title: serverData.title,
+          email: serverData.email,
+          phone: serverData.phone,
+          address: serverData.address,
+          github: serverData.github,
+          image: serverData.image,
+        },
+        experiences: serverData.experiences,
+        educations: serverData.educations,
+        skills: serverData.skills,
+        languages: serverData.languages,
+        hobbies: serverData.hobbies,
+        projects: serverData.projects,
+      })
+    );
   }, [debouncedData]);
 
   const onSetData = (data: Partial<ICvPdf>) => {
@@ -443,7 +415,31 @@ export default function Page({ params }: { params: { id: string } }) {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen">
+    <div className="flex flex-col lg:flex-row min-h-screen relative">
+      <AnimatePresence>
+        {!isSaved && (
+          <motion.div
+            className="fixed left-0 lg:left-4 bottom-0 lg:bottom-4 bg-white p-2 rounded-md z-50 border w-full lg:w-fit flex items-start justify-center"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="flex items-center gap-2 w-full justify-center">
+              <p>{commonT("unsavedChanges")}</p>
+              <Button
+                isLoading={updateMutation.isPending}
+                disabled={updateMutation.isPending}
+                variant="secondary"
+                size={"sm"}
+                onClick={onSaveToServer}
+              >
+                {commonT("saveChanges")}
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <FloatingSidebarComponent
         documentTitle={document?.title!}
         documentId={document?.id!}

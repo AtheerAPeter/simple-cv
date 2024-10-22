@@ -55,7 +55,7 @@ export default function DocumentList(props: Props) {
   return (
     <div
       ref={containerRef}
-      className="fixed bottom-4 left-4 z-50 lg:right-4 lg:left-auto"
+      className="fixed bottom-4 left-4 z-30 lg:right-4 lg:left-auto"
     >
       <motion.div initial={false} animate={isOpen ? "open" : "closed"}>
         <motion.button

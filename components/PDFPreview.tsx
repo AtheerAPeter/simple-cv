@@ -89,7 +89,6 @@ export default function PDFPreview(props: Props) {
     address: t("address"),
     github: t("github"),
   };
-  console.log(scale);
 
   const [instance, updateInstance] = usePDF({
     document: templates[props.template ?? template](props.data, color, titles),
