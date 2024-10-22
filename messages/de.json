@@ -62,7 +62,7 @@
     "experience": "Berufserfahrung",
     "education": "Abschlüsse und Ausbildung",
     "skills": "Fähigkeiten",
-    "jobDescription": "Stellenbeschreibung",
+    "jobDescription": "Mit KI modifizieren",
     "beta": "Beta",
     "projects": "Projekte",
     "languages": "Sprachen",
@@ -247,6 +247,9 @@
     "preview": "Vorschau",
     "loading": "Wird geladen...",
     "success": "Erfolgreich",
-    "error": "Ein Fehler ist aufgetreten"
+    "error": "Ein Fehler ist aufgetreten",
+    "templates": "Vorlagen",
+    "unsavedChanges": "Ungespeicherte Änderungen",
+    "saveChanges": "Änderungen speichern"
   }
 }

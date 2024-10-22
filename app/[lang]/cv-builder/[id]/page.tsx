@@ -17,15 +17,17 @@ import EditorHeader from "@/components/EditorHeader";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import TranslateSection from "@/components/TranslateSection";
-import { ICvPdf } from "@/interfaces/ICvPdf";
+import { IContent, ICvPdf } from "@/interfaces/ICvPdf";
 import FloatingSidebarComponent from "@/components/floating-sidebar";
 import useDocument from "@/hooks/useDocument";
 import useUploadImage from "@/hooks/useUploadImage";
 import { toast } from "react-toastify";
-// import { debounce } from "lodash";
+import { debounce } from "lodash";
+import { isEqual } from "lodash";
 
 export default function Page({ params }: { params: { id: string } }) {
   const t = useTranslations("cvBuilder");
+  const commonT = useTranslations("common");
   const locale = useLocale();
   const router = useRouter();
   const { document, documentQuery, updateMutation } = useDocument({
@@ -297,16 +299,69 @@ export default function Page({ params }: { params: { id: string } }) {
     hobbies,
     projects,
   };
-  // const [debouncedData, setDebouncedData] = useState(data);
-  // const debouncedSetData = useCallback(
-  //   debounce((newData: ICvPdf) => {
-  //     setDebouncedData(newData);
-  //   }, 500),
-  //   []
-  // );
-  // useEffect(() => {
-  //   debouncedSetData(data);
-  // }, [data, debouncedSetData]);
+
+  const [debouncedData, setDebouncedData] = useState(data);
+  const debouncedSetData = useCallback(
+    debounce((newData: ICvPdf) => {
+      setDebouncedData(newData);
+    }, 800),
+    []
+  );
+  useEffect(() => {
+    debouncedSetData(data);
+  }, [data, debouncedSetData]);
+
+  useEffect(() => {
+    const serverData: IContent = JSON.parse(document?.content || "{}");
+    const isSaved = isEqual(debouncedData, {
+      personalDetails: {
+        name: serverData.name,
+        title: serverData.title,
+        email: serverData.email,
+        phone: serverData.phone,
+        address: serverData.address,
+        github: serverData.github,
+        image: serverData.image,
+      },
+      experiences: serverData.experiences,
+      educations: serverData.educations,
+      skills: serverData.skills,
+      languages: serverData.languages,
+      hobbies: serverData.hobbies,
+      projects: serverData.projects,
+    });
+    if (!isSaved) {
+      const toastId = "saveReminder";
+      if (!toast.isActive(toastId)) {
+        toast(
+          () => (
+            <div className="flex items-center gap-2 w-full justify-center">
+              <p>{commonT("unsavedChanges")}</p>
+              <Button
+                isLoading={updateMutation.isPending}
+                disabled={updateMutation.isPending}
+                variant="secondary"
+                size={"sm"}
+                onClick={onSaveToServer}
+              >
+                {commonT("saveChanges")}
+              </Button>
+            </div>
+          ),
+          {
+            toastId: toastId,
+            autoClose: false,
+            closeOnClick: false,
+            draggable: false,
+            closeButton: false,
+            position: "bottom-left",
+          }
+        );
+      }
+    } else {
+      toast.dismiss("saveReminder");
+    }
+  }, [debouncedData]);
 
   const onSetData = (data: Partial<ICvPdf>) => {
     setExperiences(data.experiences || experiences);
@@ -394,8 +449,8 @@ export default function Page({ params }: { params: { id: string } }) {
         documentId={document?.id!}
       />
 
-      <div className="w-full lg:w-1/2 hidden lg:flex flex-col bg-slate-400">
-        <PDFPreview data={data} />
+      <div className="w-full lg:w-1/2 hidden lg:flex flex-col bg-slate-400 h-screen overflow-hidden">
+        <PDFPreview data={debouncedData} />
       </div>
       <div className="w-full lg:w-1/2 h-screen overflow-y-auto p-2 lg:p-8">
         <EditorHeader
@@ -405,7 +460,19 @@ export default function Page({ params }: { params: { id: string } }) {
           onBack={() => router.replace(`/${locale}/dashboard`)}
           onShare={onShare}
         />
-        <div className="space-y-6">
+        <div className="space-y-6 pb-10">
+          <section>
+            <div className="flex items-start gap-2 mb-3 mt-10">
+              <h2 className="text-xl font-semibold">{t("jobDescription")}</h2>
+              <p className="text-gray-400 text-xs">{t("beta")}</p>
+            </div>
+            <SmartUpdateSkillsSection
+              cvData={data}
+              skills={skills}
+              setSkills={setSkills}
+              setExperiences={setExperiences}
+            />
+          </section>
           <section>
             <h2 className="text-xl font-semibold mb-3 mt-10">
               {t("personalDetails")}
@@ -451,18 +518,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
             <SkillsSection skills={skills} setSkills={setSkills} />
           </section>
-          <section>
-            <div className="flex items-start gap-2 mb-3 mt-10">
-              <h2 className="text-xl font-semibold">{t("jobDescription")}</h2>
-              <p className="text-gray-400 text-xs">{t("beta")}</p>
-            </div>
-            <SmartUpdateSkillsSection
-              cvData={data}
-              skills={skills}
-              setSkills={setSkills}
-              setExperiences={setExperiences}
-            />
-          </section>
+
           <section>
             <h2 className="text-xl font-semibold mb-3 mt-10">
               {t("translateTtile")}

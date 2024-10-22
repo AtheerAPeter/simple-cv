@@ -10,10 +10,23 @@ import {
   ArrowDownToLine,
   ChevronLeft,
   ChevronRight,
+  Palette,
   ZoomIn,
   ZoomOut,
 } from "lucide-react";
 import { Templates, templates } from "@/templates";
+import { cn } from "@/lib/utils";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import Image from "next/image";
+
+import { GradientPicker } from "./GradientPicker";
+import { Card, CardContent, CardFooter } from "./ui/card";
 
 pdfjs.GlobalWorkerOptions.workerSrc =
   "https://unpkg.com/pdfjs-dist@4.4.168/build/pdf.worker.mjs";
@@ -23,6 +36,7 @@ interface Props {
   template?: Templates;
   color?: string;
   scale?: number;
+  className?: string;
 }
 
 function PdfDownloadButton({
@@ -75,6 +89,7 @@ export default function PDFPreview(props: Props) {
     address: t("address"),
     github: t("github"),
   };
+  console.log(scale);
 
   const [instance, updateInstance] = usePDF({
     document: templates[props.template ?? template](props.data, color, titles),
@@ -86,42 +101,8 @@ export default function PDFPreview(props: Props) {
     );
   }, [props.data, template, color, props.template, props.color]);
 
-  useEffect(() => {
-    const updateScale = () => {
-      if (containerRef.current) {
-        const containerWidth = containerRef.current.clientWidth;
-        const containerHeight = containerRef.current.clientHeight;
-
-        const minDimension = Math.min(containerWidth, containerHeight);
-
-        if (minDimension > 1000) {
-          setScale(0.9);
-        } else if (minDimension > 800) {
-          setScale(0.7);
-        } else if (minDimension > 600) {
-          setScale(0.6);
-        } else if (minDimension > 400) {
-          setScale(0.5);
-        } else {
-        }
-      }
-    };
-
-    updateScale();
-    window.addEventListener("resize", updateScale);
-    return () => window.removeEventListener("resize", updateScale);
-  }, []);
-
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
     setNumPages(numPages);
-  }
-
-  if (instance.loading) {
-    return (
-      <div className="h-full w-full flex items-center justify-center">
-        <LoadingSpinner />
-      </div>
-    );
   }
 
   const zoomIn = () => {
@@ -140,8 +121,9 @@ export default function PDFPreview(props: Props) {
       className="h-full w-full overflow-auto relative flex flex-col items-center"
       ref={containerRef}
     >
-      <div className="flex justify-center items-center gap-2 my-2 bg-black rounded-full w-fit p-1">
-        <div className="flex items-center space-x-2">
+      <div className="flex justify-center items-center gap-4 my-2 bg-black rounded-full w-fit p-1">
+        <PDFTemplatesModal />
+        <div className="flex items-center bg-white rounded-full gap-1">
           <Button
             onClick={zoomOut}
             size={"icon"}
@@ -158,6 +140,8 @@ export default function PDFPreview(props: Props) {
           >
             <ZoomIn className="h-4 w-4" />
           </Button>
+        </div>
+        <div className="flex items-center bg-white rounded-full gap-1">
           <Button
             size="icon"
             variant="ghost"
@@ -167,9 +151,7 @@ export default function PDFPreview(props: Props) {
           >
             <ChevronLeft />
           </Button>
-          <span className="text-white font-bold w-4 text-center">
-            {pageNumber}
-          </span>
+          <span className="font-bold w-4 text-center">{pageNumber}</span>
           <Button
             className="rounded-full bg-white text-black hover:bg-gray-200 hover:text-black h-6 w-6"
             size="icon"
@@ -191,13 +173,16 @@ export default function PDFPreview(props: Props) {
         />
       </div>
       <div className="flex justify-center items-center">
-        {instance.url && (
+        {instance.url && !!!instance.loading && (
           <Document
             loading={<div></div>}
             error={<div></div>}
             file={instance.url}
             onLoadSuccess={onDocumentLoadSuccess}
-            className="h-full rounded-lg overflow-hidden"
+            className={cn(
+              "h-full rounded-lg overflow-hidden",
+              props?.className
+            )}
           >
             <Page
               loading={<div></div>}
@@ -211,5 +196,57 @@ export default function PDFPreview(props: Props) {
         )}
       </div>
     </div>
+  );
+}
+
+function PDFTemplatesModal() {
+  const t = useTranslations("common");
+  const { color, setColor, template, setTemplate } = useTemplateStore();
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button
+          size={"icon"}
+          variant={"ghost"}
+          className="rounded-full bg-white text-black hover:bg-gray-200 hover:text-black h-6 w-6"
+        >
+          <Palette className="h-4 w-4" />
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>{t("templates")}</DialogTitle>
+        </DialogHeader>
+        <main>
+          <div className="flex justify-end mb-4">
+            <GradientPicker background={color} setBackground={setColor} />
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 px-4 lg:px-0">
+            {Object.keys(templates).map((t, index) => (
+              <Card
+                key={index}
+                className={`cursor-pointer transition-all rounded-sm shadow-none border p-0 overflow-hidden ${
+                  t === template && "ring-4 ring-primary"
+                }`}
+                onClick={() => setTemplate(t as Templates)}
+              >
+                <CardContent className="p-0">
+                  <Image
+                    alt={t}
+                    src={`/templates/${index + 1}.png`}
+                    width={200}
+                    height={283}
+                    className="w-full h-auto"
+                  />
+                </CardContent>
+                <CardFooter className="p-0 flex items-center justify-center">
+                  <p className="text-sm capitalize">{t}</p>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </main>
+      </DialogContent>
+    </Dialog>
   );
 }

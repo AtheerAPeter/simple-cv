@@ -112,7 +112,7 @@ export default function CoverLetterPDFPreview(props: Props) {
   return (
     <div className="h-screen overflow-auto relative flex flex-col items-center">
       <div className="flex justify-center items-center gap-2 my-2 bg-black rounded-full w-fit p-1">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center bg-white rounded-full gap-1">
           <Button
             onClick={zoomOut}
             size={"icon"}
@@ -129,6 +129,8 @@ export default function CoverLetterPDFPreview(props: Props) {
           >
             <ZoomIn className="h-4 w-4" />
           </Button>
+        </div>
+        <div className="flex items-center bg-white rounded-full gap-1">
           <Button
             size="icon"
             variant="ghost"
@@ -138,9 +140,7 @@ export default function CoverLetterPDFPreview(props: Props) {
           >
             <ChevronLeft />
           </Button>
-          <span className="text-white font-bold w-4 text-center">
-            {pageNumber}
-          </span>
+          <span className="font-bold w-4 text-center">{pageNumber}</span>
           <Button
             className="rounded-full bg-white text-black hover:bg-gray-200 hover:text-black h-6 w-6"
             size="icon"

@@ -62,7 +62,7 @@
     "experience": "Experience",
     "education": "Degrees and Education",
     "skills": "Skills",
-    "jobDescription": "Job Description",
+    "jobDescription": "Modify using AI",
     "beta": "Beta",
     "projects": "Projects",
     "languages": "Languages",
@@ -247,6 +247,9 @@
     "preview": "Preview",
     "loading": "Loading...",
     "success": "Success",
-    "error": "Error occurred"
+    "error": "Error occurred",
+    "templates": "Templates",
+    "unsavedChanges": "Unsaved changes",
+    "saveChanges": "Save changes"
   }
 }

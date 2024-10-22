@@ -89,41 +89,6 @@ export default function EditorHeader(props: Props) {
           </div>
         </div>
       </header>
-
-      <main>
-        <div className="flex justify-end mb-4">
-          <GradientPicker background={color} setBackground={setColor} />
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-4 px-4 lg:px-0">
-          {Object.keys(templates).map((t, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: index * 0.2 }}
-            >
-              <Card
-                className={`cursor-pointer transition-all rounded-sm  ${
-                  t === template
-                    ? "ring-2 ring-primary ring-offset-2"
-                    : "hover:scale-105"
-                }`}
-                onClick={() => setTemplate(t as Templates)}
-              >
-                <CardContent className="p-1">
-                  <Image
-                    alt={t}
-                    src={`/templates/${index + 1}.png`}
-                    width={100}
-                    height={141}
-                    className="w-full h-auto"
-                  />
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-      </main>
     </TooltipProvider>
   );
 }

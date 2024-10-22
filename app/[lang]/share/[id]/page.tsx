@@ -31,6 +31,7 @@ export default function Page({ params }: { params: { id: string } }) {
       ) : (
         <div>
           <PDFPreview
+            className="border"
             data={{
               personalDetails: {
                 name: d.name,
