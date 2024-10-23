@@ -4,7 +4,7 @@ import InteractingCard from "@/features/LandingPage/components/InteractingCard";
 import MockSteps from "@/features/LandingPage/components/MockSteps";
 import { NavBarServer } from "@/components/NavbarServer";
 import { Button } from "@/components/ui/button";
-import { FileText, Zap, Star, Bot } from "lucide-react";
+import { FileText, Zap, Star, Bot, Expand } from "lucide-react";
 import { SessionProvider } from "next-auth/react";
 import { getLocale, getTranslations } from "next-intl/server";
 import Link from "next/link";
@@ -26,17 +26,16 @@ export default async function LandingPage() {
         <SessionProvider>
           <NavBarServer />
         </SessionProvider>
-        <div className="flex items-center lg:space-x-8 lg:px-0 px-4 mt-8">
-          <div className="flex flex-col items-center space-y-4 justify-center h-full my-10 text-center lg:text-start flex-1 lg:pr-20">
-            <div className="space-y-2">
+        <main className="flex items-center justify-center h-screen">
+          <div className="flex flex-col items-center space-y-4 justify-center h-full text-center">
+            <div className="space-y-4">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-4xl lg:text-5xl/none">
                 {t("title")}
               </h1>
               <p className="text-gray-500 md:text-xl dark:text-gray-400">
                 {t("paragraph")}
               </p>
-            </div>
-            <div className="w-full flex justify-center lg:justify-start space-x-4">
+
               <form
                 action={async () => {
                   "use server";
@@ -49,10 +48,8 @@ export default async function LandingPage() {
               </form>
             </div>
           </div>
-          <Link href={`${locale}/dashboard`}>
-            <InteractingCard />
-          </Link>
-        </div>
+          {/* <InteractingCard /> */}
+        </main>
       </section>
       <section className="py-16 hidden lg:block">
         <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">

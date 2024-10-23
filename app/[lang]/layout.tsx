@@ -14,6 +14,13 @@ export default async function RootLayout({
   const messages = await getMessages();
   return (
     <html lang={params.locale}>
+      <head>
+        <title>Simple CV</title>
+        <meta
+          name="description"
+          content="Ai powered CV creator for tailoring your CV to better match job description"
+        />
+      </head>
       <body className="antialiased font-montserrat">
         <NextIntlClientProvider messages={messages}>
           <Analytics />

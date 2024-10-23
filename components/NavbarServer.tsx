@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import { useSession, signIn } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
@@ -22,7 +21,7 @@ export const NavBarServer = () => {
   const t = useTranslations("profile");
 
   return (
-    <header className="w-full py-4">
+    <header className="w-full py-4 fixed top-0 left-0 right-0 z-50">
       <nav className="flex justify-between items-center container mx-auto lg:px-0 px-4">
         <Link href={`/${locale}`}>
           <Logo />
@@ -54,7 +53,13 @@ export const NavBarServer = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button onClick={() => signIn("google")}>{t("signIn")}</Button>
+            <Button
+              variant={"outline"}
+              size={"sm"}
+              onClick={() => signIn("google")}
+            >
+              {t("signIn")}
+            </Button>
           )}
         </div>
       </nav>

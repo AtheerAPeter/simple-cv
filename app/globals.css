@@ -1,4 +1,4 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -66,4 +66,169 @@
   body {
     @apply bg-background text-foreground;
   }
+} */
+
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 217 91% 60%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 217 91% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .shadow-float {
+    box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
+  }
+}
+
+.bg-dot-pattern {
+  background-image: radial-gradient(circle, #d1d1d1 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(to right, #1a202c, #4a5568);
+} */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 14% 96%;
+    --foreground: 220 10% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 10% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 10% 10%;
+    --primary: 220 90% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 10% 80%;
+    --secondary-foreground: 220 10% 10%;
+    --muted: 220 10% 90%;
+    --muted-foreground: 220 10% 40%;
+    --accent: 220 10% 90%;
+    --accent-foreground: 220 10% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 220 90% 50%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 220 10% 10%;
+    --foreground: 220 10% 98%;
+    --card: 220 10% 15%;
+    --card-foreground: 220 10% 98%;
+    --popover: 220 10% 15%;
+    --popover-foreground: 220 10% 98%;
+    --primary: 220 90% 50%;
+    --primary-foreground: 220 10% 98%;
+    --secondary: 220 10% 30%;
+    --secondary-foreground: 220 10% 98%;
+    --muted: 220 10% 20%;
+    --muted-foreground: 220 10% 60%;
+    --accent: 220 10% 20%;
+    --accent-foreground: 220 10% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 220 10% 98%;
+    --border: 220 10% 20%;
+    --input: 220 10% 20%;
+    --ring: 220 90% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg;
+  }
+
+  .glass-card {
+    @apply glass border border-white border-opacity-20 shadow-lg;
+  }
+
+  .glass-button {
+    @apply glass px-4 py-2 rounded-full text-white font-semibold hover:bg-opacity-30 transition-all duration-200;
+  }
+}
+
+.avatar-group {
+  @apply flex -space-x-2 overflow-hidden;
+}
+
+.avatar-group img {
+  @apply inline-block h-10 w-10 rounded-full ring-2 ring-white;
+}
+
+.connection-line {
+  @apply border-t border-blue-200 absolute;
 }
