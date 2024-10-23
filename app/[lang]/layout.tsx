@@ -2,7 +2,7 @@ import "../globals.css";
 import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { Analytics } from "@vercel/analytics/react";
-import { ScrollToTopButtonComponent } from "@/components/scroll-to-top-button";
+import { ScrollToTopButtonComponent } from "@/features/LandingPage/components/scroll-to-top-button";
 
 export default async function RootLayout({
   children,

@@ -1,12 +1,12 @@
 import { ArrowLeftIcon, SaveIcon, CircleX } from "lucide-react";
-import { LanguageSwitcherComponent } from "../language-switcher";
-import { Button } from "../ui/button";
+import { LanguageSwitcherComponent } from "../../../components/language-switcher";
+import { Button } from "../../../components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "../ui/tooltip";
+} from "../../../components/ui/tooltip";
 import { useTranslations } from "next-intl";
 
 interface Props {

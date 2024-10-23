@@ -1,10 +1,6 @@
-import { Document, Page, pdfjs } from "react-pdf";
-import ReactPDF, { usePDF } from "@react-pdf/renderer";
-import { Templates, templates } from "@/templates";
+import { pdfjs } from "react-pdf";
 import { useTranslations } from "next-intl";
 import { ICvPdf } from "@/interfaces/ICvPdf";
-import { useEffect } from "react";
-import CoverLetter1 from "@/templates/CoverLetter1";
 import { ICoverLetterPdf } from "@/interfaces/ICoverLetterPdf";
 import ThumbnailTemplate from "@/templates/ThumbnailTemplate";
 import CoverLetterThumbnail from "@/templates/CoverLetterThumbnail";

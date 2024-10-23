@@ -2,9 +2,9 @@ import { Project } from "@/interfaces/IFormTypes";
 import { Label } from "@radix-ui/react-label";
 import { X, PlusCircle } from "lucide-react";
 import dynamic from "next/dynamic";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 import { useTranslations } from "next-intl";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 interface Props {

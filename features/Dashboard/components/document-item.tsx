@@ -1,19 +1,19 @@
 import { Trash2, EllipsisVertical, Copy, Share2, Eye } from "lucide-react";
 import React from "react";
-import { Button } from "../ui/button";
 import { documents } from "@/drizzle/schema";
-import { format, formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import { enUS, de } from "date-fns/locale";
 import Link from "next/link";
-import { Badge } from "../ui/badge";
+import { Badge } from "../../../components/ui/badge";
 import { useTranslations } from "next-intl";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import ThumbnailRenderer from "../ThumbnailRenderer";
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import ThumbnailRenderer from "./ThumbnailRenderer";
 
 interface Props {
   doc: typeof documents.$inferSelect;

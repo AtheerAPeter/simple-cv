@@ -13,7 +13,7 @@ interface Props {
   documentId?: string;
 }
 
-export default function DocumentList(props: Props) {
+export default function FloatingSidebarComponent(props: Props) {
   const { list, listQuery, updateMutation } = useDocument({
     listEnabled: true,
   });
