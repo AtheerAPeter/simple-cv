@@ -1,10 +1,10 @@
 import { Experience, SkillCategory } from "@/interfaces/IFormTypes";
 import { TextareaHTMLAttributes, useState } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../../../components/ui/button";
 import { ICvPdf } from "@/interfaces/ICvPdf";
 import _ from "lodash";
 import useSmartUpdateSkills from "@/hooks/useSmartUpdateSkills";
-import { MagicalTextarea } from "./magical-textarea";
+import { MagicalTextarea } from "../../../components/magical-textarea";
 import { JsonDiffComponentComponent } from "./json-diff-component";
 import { useTranslations } from "next-intl";
 import useUser from "@/hooks/useUser";

@@ -1,12 +1,12 @@
 import useAI from "@/hooks/useAI";
-import { MagicalTextarea } from "../magical-textarea";
 import { useState } from "react";
-import { Button } from "../ui/button";
 import { Experience, SkillCategory } from "@/interfaces/IFormTypes";
 import { useTranslations } from "next-intl";
 import useUser from "@/hooks/useUser";
 import { AxiosError } from "axios";
 import { toast } from "react-toastify";
+import { Button } from "@/components/ui/button";
+import { MagicalTextarea } from "@/components/magical-textarea";
 
 interface Props {
   mockCoverLetter: string;

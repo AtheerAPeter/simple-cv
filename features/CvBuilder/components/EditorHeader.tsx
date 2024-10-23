@@ -1,15 +1,14 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import useTemplateStore from "@/stores/templateStore";
 import { ArrowLeftIcon, CircleX, SaveIcon, Share2 } from "lucide-react";
-import Image from "next/image";
-import { LanguageSwitcherComponent } from "./language-switcher";
-import { GradientPicker } from "./GradientPicker";
-import { motion } from "framer-motion";
-import { Templates, templates } from "@/templates";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
-import { Tooltip, TooltipTrigger, TooltipContent } from "./ui/tooltip";
 import { useTranslations } from "next-intl";
+import { LanguageSwitcherComponent } from "@/components/language-switcher";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface Props {
   onClearAll: () => void;

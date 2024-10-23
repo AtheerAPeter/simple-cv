@@ -1,19 +1,19 @@
 import { ICvPdf } from "@/interfaces/ICvPdf";
-import { Button } from "./ui/button";
 import useAI from "@/hooks/useAI";
 import _ from "lodash";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
+import useUser from "@/hooks/useUser";
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./ui/select";
-import { useTranslations } from "next-intl";
-import useUser from "@/hooks/useUser";
-import { toast } from "react-toastify";
-import { AxiosError } from "axios";
+} from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   cvData: ICvPdf;
