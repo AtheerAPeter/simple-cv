@@ -250,6 +250,7 @@
     "error": "Ein Fehler ist aufgetreten",
     "templates": "Vorlagen",
     "unsavedChanges": "Ungespeicherte Änderungen",
-    "saveChanges": "Änderungen speichern"
+    "saveChanges": "Änderungen speichern",
+    "all": "Alle"
   }
 }

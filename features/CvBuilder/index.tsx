@@ -419,7 +419,7 @@ export default function CVBuilder({ params }: { params: { id: string } }) {
       <AnimatePresence>
         {!isSaved && (
           <motion.div
-            className="fixed left-0 bottom-0 bg-white p-2 z-50 border flex items-start justify-center rounded-md"
+            className="fixed left-0 bottom-0 lg:bottom-4 lg:left-4 w-full lg:w-fit bg-white p-2 z-50 border flex items-start justify-center rounded-md"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}

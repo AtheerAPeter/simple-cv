@@ -11,6 +11,7 @@ import { Inbox, Plus } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import DocumentItem from "./document-item";
 import { motion } from "framer-motion";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface Props {
   onCreateNew: (type: "CV" | "Cover Letter") => void;
@@ -56,24 +57,77 @@ export function DocumentList(props: Props) {
           <Inbox className="h-1/4 w-1/4 text-gray-200" />
         )}
       </div>
-      <div className="grid lg:grid-cols-5 gap-5">
-        {props.documents?.map((doc, index) => (
-          <motion.div
-            key={doc.id}
-            initial={{ opacity: 0, x: -10 * index }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.05 }}
-          >
-            <DocumentItem
-              onCopy={props.onDuplicate}
-              doc={doc}
-              locale={locale}
-              onDelete={props.onDelete}
-              onShare={props.onShare}
-            />
-          </motion.div>
-        ))}
-      </div>
+      <Tabs defaultValue="cv">
+        <TabsList>
+          <TabsTrigger value="all">{t("all")}</TabsTrigger>
+          <TabsTrigger value="cv">{t("cv")}</TabsTrigger>
+          <TabsTrigger value="cl">{t("coverLetter")}</TabsTrigger>
+        </TabsList>
+        <TabsContent value="all">
+          <div className="grid lg:grid-cols-5 gap-5">
+            {props.documents?.map((doc, index) => (
+              <motion.div
+                key={doc.id}
+                initial={{ opacity: 0, x: -10 * index }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.05 }}
+              >
+                <DocumentItem
+                  onCopy={props.onDuplicate}
+                  doc={doc}
+                  locale={locale}
+                  onDelete={props.onDelete}
+                  onShare={props.onShare}
+                />
+              </motion.div>
+            ))}
+          </div>
+        </TabsContent>
+        <TabsContent value="cv">
+          <div className="grid lg:grid-cols-5 gap-5">
+            {props.documents
+              ?.filter((d) => d.type === "cv")
+              ?.map((doc, index) => (
+                <motion.div
+                  key={doc.id}
+                  initial={{ opacity: 0, x: -10 * index }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                >
+                  <DocumentItem
+                    onCopy={props.onDuplicate}
+                    doc={doc}
+                    locale={locale}
+                    onDelete={props.onDelete}
+                    onShare={props.onShare}
+                  />
+                </motion.div>
+              ))}
+          </div>
+        </TabsContent>
+        <TabsContent value="cl">
+          <div className="grid lg:grid-cols-5 gap-5">
+            {props.documents
+              ?.filter((d) => d.type === "cl")
+              ?.map((doc, index) => (
+                <motion.div
+                  key={doc.id}
+                  initial={{ opacity: 0, x: -10 * index }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                >
+                  <DocumentItem
+                    onCopy={props.onDuplicate}
+                    doc={doc}
+                    locale={locale}
+                    onDelete={props.onDelete}
+                    onShare={props.onShare}
+                  />
+                </motion.div>
+              ))}
+          </div>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

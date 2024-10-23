@@ -250,6 +250,7 @@
     "error": "Error occurred",
     "templates": "Templates",
     "unsavedChanges": "Unsaved changes",
-    "saveChanges": "Save changes"
+    "saveChanges": "Save changes",
+    "all": "All"
   }
 }
