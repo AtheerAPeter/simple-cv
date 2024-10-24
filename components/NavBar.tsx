@@ -1,7 +1,6 @@
 "use client";
-
 import Link from "next/link";
-import { useSession, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useLocale, useTranslations } from "next-intl";
 import { LanguageSwitcherComponent } from "./language-switcher";
 import Logo from "./Logo";
@@ -25,8 +24,8 @@ export const NavBar = () => {
   const router = useRouter();
 
   return (
-    <header className="w-full py-4">
-      <nav className="flex justify-between items-center container mx-auto lg:px-0 px-4">
+    <header className="w-full mx-auto fixed top-0 z-20 flex justify-center pt-4 px-4 lg:px-0">
+      <nav className="flex justify-between items-center container mx-auto bg-white shadow-md rounded-xl w-full lg:contain-none lg:w-1/2 px-2 h-12">
         <Link href={`/${locale}`}>
           <Logo />
         </Link>
@@ -58,7 +57,13 @@ export const NavBar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button onClick={() => signIn("google")}>{t("signIn")}</Button>
+            <Button
+              variant={"outline"}
+              size={"sm"}
+              onClick={() => signIn("google")}
+            >
+              {t("signIn")}
+            </Button>
           )}
         </div>
       </nav>

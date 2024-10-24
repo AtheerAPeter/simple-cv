@@ -130,7 +130,7 @@ function DashboardComponent() {
   }
 
   return (
-    <div className="container mx-auto flex-1">
+    <div className="container mx-auto flex-1 pt-28">
       <DocumentList
         onCreateNew={onCreateNew}
         documents={list}

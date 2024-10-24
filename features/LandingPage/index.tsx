@@ -10,6 +10,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import ShowcaseList from "./components/ShowcaseList";
+import ScatteredLandingDocuments from "./components/ScatteredLandingDocuments";
 
 export default async function LandingPage() {
   const t = await getTranslations("home");
@@ -22,10 +23,11 @@ export default async function LandingPage() {
 
   return (
     <main className="flex-1">
-      <section className="w-full container mx-auto h-auto md:px-10">
-        <SessionProvider>
-          <NavBarServer />
-        </SessionProvider>
+      <SessionProvider>
+        <NavBarServer />
+      </SessionProvider>
+      <section className="w-full container mx-auto h-screen md:px-10 relative">
+        <ScatteredLandingDocuments />
         <main className="flex items-center justify-center h-screen">
           <div className="flex flex-col items-center space-y-4 justify-center h-full text-center">
             <div className="space-y-4">

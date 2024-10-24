@@ -39,7 +39,7 @@ export default function ProfilePage() {
     return <LoadingSpinner />;
   }
   return (
-    <div className="container mx-auto h-full flex-1 max-w-xl">
+    <div className="container mx-auto h-full flex-1 max-w-xl pt-28">
       <div className="flex flex-col items-center">
         <Avatar className="w-24 h-24">
           <AvatarImage
