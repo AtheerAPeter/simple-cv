@@ -59,12 +59,12 @@ export default async function LandingPage() {
         </h2>
         <MockSteps />
       </section>
-      <section className="py-16">
+      {/* <section className="py-16">
         <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl text-center mb-12">
           {t("showcaseSection.title")}
         </h2>
         <ShowcaseList />
-      </section>
+      </section> */}
       <section
         id="features"
         className="w-full py-12 md:py-24 lg:py-32 bg-gray-200 dark:bg-gray-800"
