@@ -1,15 +1,12 @@
 import { auth, signIn } from "@/auth";
 import Footer from "@/components/Footer";
-import InteractingCard from "@/features/LandingPage/components/InteractingCard";
 import MockSteps from "@/features/LandingPage/components/MockSteps";
 import { NavBarServer } from "@/components/NavbarServer";
 import { Button } from "@/components/ui/button";
-import { FileText, Zap, Star, Bot, Expand } from "lucide-react";
+import { FileText, Zap, Star, Bot } from "lucide-react";
 import { SessionProvider } from "next-auth/react";
 import { getLocale, getTranslations } from "next-intl/server";
-import Link from "next/link";
 import { redirect } from "next/navigation";
-import ShowcaseList from "./components/ShowcaseList";
 import ScatteredLandingDocuments from "./components/ScatteredLandingDocuments";
 
 export default async function LandingPage() {
@@ -44,7 +41,13 @@ export default async function LandingPage() {
                   await signIn("google");
                 }}
               >
-                <Button className="font-bold" size={"lg"}>
+                <Button
+                  className="font-bold transition-all relative group"
+                  size={"lg"}
+                >
+                  <div className="absolute -z-20 inset-0 bg-primary/50 group-hover:rotate-[5deg] rounded-lg transition-all"></div>
+                  <div className="absolute -z-20 inset-0 bg-primary/50 group-hover:rotate-[-5deg] rounded-lg transition-all"></div>
+
                   {t("button")}
                 </Button>
               </form>

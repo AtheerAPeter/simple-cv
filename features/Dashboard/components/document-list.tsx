@@ -57,7 +57,10 @@ export function DocumentList(props: Props) {
           <Inbox className="h-1/4 w-1/4 text-gray-200" />
         )}
       </div>
-      <Tabs defaultValue="cv">
+      <Tabs
+        defaultValue="cv"
+        className={`${props.documents?.length === 0 ? "hidden" : ""}`}
+      >
         <TabsList>
           <TabsTrigger value="all">{t("all")}</TabsTrigger>
           <TabsTrigger value="cv">{t("cv")}</TabsTrigger>
