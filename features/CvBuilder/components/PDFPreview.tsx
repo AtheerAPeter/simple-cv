@@ -214,7 +214,7 @@ function PDFTemplatesModal() {
         <DialogHeader>
           <DialogTitle>{t("templates")}</DialogTitle>
         </DialogHeader>
-        <main>
+        <main className="max-h-[70vh] overflow-y-auto p-2">
           <div className="flex justify-end mb-4">
             <GradientPicker background={color} setBackground={setColor} />
           </div>

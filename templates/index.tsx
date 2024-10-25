@@ -5,6 +5,7 @@ import Template3 from "./Template3";
 import Template4 from "./Template4";
 import Template5 from "./Template5";
 import Template6 from "./Template6";
+import Template7 from "./Template7";
 
 export const templates = {
   simple: (data: ICvPdf, accentColor: string, titles: ITitles) => (
@@ -24,6 +25,9 @@ export const templates = {
   ),
   "projects up": (data: ICvPdf, accentColor: string, titles: ITitles) => (
     <Template6 data={data} accentColor={accentColor} titles={titles} />
+  ),
+  deutschland: (data: ICvPdf, accentColor: string, titles: ITitles) => (
+    <Template7 data={data} accentColor={accentColor} titles={titles} />
   ),
 };
 

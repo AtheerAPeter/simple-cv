@@ -40,6 +40,7 @@ export function GradientPicker({
     "#E2E2E2", // Light Gray
     "#3b82f6", // Blue
     "#3aacf2", // Light Blue
+    "#0D59F2", // Sky Blue
     "#6366f1", // Indigo
     "#5f3dd6", // Light Indigo
     "#8b5cf6", // Purple
