@@ -3,7 +3,7 @@ import React from "react";
 const ScatteredCvBuilder = () => {
   return (
     <svg
-      className="absolute -bottom-6 left-0 -rotate-[12deg]"
+      className="absolute -bottom-6 -z-50 left-0 -rotate-[12deg]"
       width="379"
       height="379"
       viewBox="0 0 379 379"

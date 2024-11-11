@@ -3,7 +3,7 @@ import React from "react";
 const ScatteredDashboard: React.FC = () => {
   return (
     <svg
-      className="absolute -z-10 -bottom-6 right-0 rotate-[12deg]"
+      className="absolute -z-50 -bottom-6 right-0 rotate-[12deg]"
       width="379"
       height="379"
       viewBox="0 0 379 379"

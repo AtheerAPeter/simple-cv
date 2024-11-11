@@ -72,9 +72,9 @@ export default function Template7({ data, accentColor, titles }: Props) {
       width: 60,
     },
     profileImage: {
-      width: 100,
-      height: 100,
-      borderRadius: 50,
+      width: 150,
+      height: 150,
+      borderRadius: 10000,
       objectFit: "cover",
     },
     section: {
