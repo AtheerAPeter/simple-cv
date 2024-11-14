@@ -1,5 +1,5 @@
 import { Experience, SkillCategory } from "@/interfaces/IFormTypes";
-import { useState, useEffect, useRef } from "react";
+import { useRef, useState } from "react";
 import { Button } from "../../../components/ui/button";
 import { ICvPdf } from "@/interfaces/ICvPdf";
 import _ from "lodash";
@@ -24,22 +24,20 @@ interface Message {
 }
 
 export default function SmartUpdateSkillsSection(props: Props) {
+  const messgaeBoxRef = useRef<HTMLDivElement>(null);
   const t = useTranslations("smartUpdateSkillsSection");
   const t2 = useTranslations("common");
   const { user, userQuery } = useUser();
   const [aiUpdatedData, setAiUpdatedData] = useState();
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      role: "assistant",
+      content:
+        "Hello! I'm here to help you modify and refine your CV. Please provide a message or a job description to get started.",
+    },
+  ]);
   const [currentMessage, setCurrentMessage] = useState("");
   const { smartUpdateSkillsMutation } = useSmartUpdateSkills();
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
 
   const onChangeMessageInput: React.ChangeEventHandler<HTMLInputElement> = (
     event
@@ -53,13 +51,32 @@ export default function SmartUpdateSkillsSection(props: Props) {
         ...prev,
         { role: "user", content: currentMessage },
       ]);
+      messgaeBoxRef.current?.scrollIntoView({ behavior: "smooth" });
 
       const response = await toast.promise(
         smartUpdateSkillsMutation.mutateAsync({
           message:
-            `based on this job description: ${currentMessage} modify my skills and rearrange and slightly modify my experinces points without messing with the dates to fit the job description better and give me back the same json structure with the same html description format also the skills types look like this if no skills were provided so you know the structure: Array<{title: string; skills: string[];}>. my cv json: ${JSON.stringify(
-              _.pick(props.cvData, ["skills", "experiences"])
-            )} try to make it as human as possible`
+            `Please update the provided CV JSON based on the user's message, following these guidelines:
+
+              1. Skills:
+              - Modify and reorganize the skills section
+              - Match skills to any provided job description
+              - Keep the skills structure as Array<{title: string; skills: string[];}>
+
+              2. Experience:
+              - Rephrase and reorder experience bullet points to better match context
+              - Maintain all original dates
+              - Do not reorder the experiences keep them ordered by date, most recent first
+              - Keep HTML formatting in descriptions
+
+              3. Output:
+              - Return updated JSON with same structure
+              - Ensure natural, human-like language
+              - Adapt content based on whether input is a job description or other requests by the user
+
+              CV JSON: ${JSON.stringify(
+                _.pick(props.cvData, ["skills", "experiences"])
+              )}`
               .replace(/(\r\n|\n|\r)/gm, " ")
               .trim(),
           mode: "json",
@@ -91,6 +108,7 @@ export default function SmartUpdateSkillsSection(props: Props) {
         },
       ]);
       setCurrentMessage("");
+      messgaeBoxRef.current?.scrollIntoView({ behavior: "smooth" });
     } catch (error: any) {
       console.log(error);
     }
@@ -99,7 +117,10 @@ export default function SmartUpdateSkillsSection(props: Props) {
   return (
     <div className="flex flex-col">
       {messages.length > 0 && (
-        <div className="h-[300px] overflow-y-auto p-4 space-y-4 bg-gray-50 rounded-lg mb-4">
+        <div
+          className="h-[300px] overflow-y-auto p-4 space-y-4 bg-gray-50 rounded-lg mb-4"
+          ref={messgaeBoxRef}
+        >
           {messages.map((message, index) => (
             <div
               key={index}
@@ -118,7 +139,6 @@ export default function SmartUpdateSkillsSection(props: Props) {
               </div>
             </div>
           ))}
-          <div ref={messagesEndRef} />
         </div>
       )}
 
@@ -133,7 +153,7 @@ export default function SmartUpdateSkillsSection(props: Props) {
           onClick={sendMessage}
           isLoading={smartUpdateSkillsMutation.isPending}
           disabled={
-            currentMessage.trim().length < 20 ||
+            currentMessage.trim().length < 5 ||
             smartUpdateSkillsMutation.isPending
           }
         >
