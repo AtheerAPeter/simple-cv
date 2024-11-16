@@ -8,8 +8,6 @@ import { Input } from "../../../components/ui/input";
 import { JsonDiffComponentComponent } from "./json-diff-component";
 import { useTranslations } from "next-intl";
 import useUser from "@/hooks/useUser";
-import { toast } from "react-toastify";
-import { AxiosError } from "axios";
 
 interface Props {
   skills: SkillCategory[];
@@ -23,11 +21,44 @@ interface Message {
   content: string;
 }
 
+const MODIFICATION_AGGRESSION = {
+  low: {
+    message:
+      "Please be easy and do not modify the CV too much only slight modifications",
+  },
+  medium: {
+    message:
+      "Please be moderate and do not modify the CV too much, you can add new skills and remove some if needed only",
+  },
+  high: {
+    message: "",
+  },
+};
+
 export default function SmartUpdateSkillsSection(props: Props) {
   const messgaeBoxRef = useRef<HTMLDivElement>(null);
   const t = useTranslations("smartUpdateSkillsSection");
   const t2 = useTranslations("common");
+
+  const MODIFICATION_AGGRESSION = {
+    low: {
+      message:
+        "Please be easy and do not modify the CV too much only slight modifications",
+      buttonTitle: t("modificationAggression.low"),
+    },
+    medium: {
+      message:
+        "Please be moderate and do not modify the CV too much, you can add new skills and remove some if needed only",
+      buttonTitle: t("modificationAggression.medium"),
+    },
+    high: {
+      message: "",
+      buttonTitle: t("modificationAggression.high"),
+    },
+  };
   const { user, userQuery } = useUser();
+  const [modificationAggression, setModificationAggression] =
+    useState<keyof typeof MODIFICATION_AGGRESSION>("low");
   const [aiUpdatedData, setAiUpdatedData] = useState();
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -52,11 +83,9 @@ export default function SmartUpdateSkillsSection(props: Props) {
         { role: "user", content: currentMessage },
       ]);
       messgaeBoxRef.current?.scrollIntoView({ behavior: "smooth" });
-
-      const response = await toast.promise(
-        smartUpdateSkillsMutation.mutateAsync({
-          message:
-            `Please update the provided CV JSON based on the user's message, following these guidelines:
+      const response = await smartUpdateSkillsMutation.mutateAsync({
+        message:
+          `Please update the provided CV JSON based on the user's message, following these guidelines:
 
               1. Skills:
               - Modify and reorganize the skills section
@@ -74,27 +103,15 @@ export default function SmartUpdateSkillsSection(props: Props) {
               - Ensure natural, human-like language
               - Adapt content based on whether input is a job description or other requests by the user
 
+              ${MODIFICATION_AGGRESSION[modificationAggression].message}
+
               CV JSON: ${JSON.stringify(
                 _.pick(props.cvData, ["skills", "experiences"])
               )}`
-              .replace(/(\r\n|\n|\r)/gm, " ")
-              .trim(),
-          mode: "json",
-        }),
-        {
-          pending: t2("loading"),
-          success: t2("success"),
-          error: {
-            render({ data }: { data: any | AxiosError }) {
-              if (data?.response) {
-                return data.response.data.error;
-              } else {
-                return t2("error");
-              }
-            },
-          },
-        }
-      );
+            .replace(/(\r\n|\n|\r)/gm, " ")
+            .trim(),
+        mode: "json",
+      });
 
       await userQuery.refetch();
       const result = JSON.parse(response);
@@ -109,8 +126,13 @@ export default function SmartUpdateSkillsSection(props: Props) {
       ]);
       setCurrentMessage("");
       messgaeBoxRef.current?.scrollIntoView({ behavior: "smooth" });
-    } catch (error: any) {
-      console.log(error);
+    } catch (data: any) {
+      console.log(data);
+      if (data?.response) {
+        return data.response.data.error;
+      } else {
+        return t2("error");
+      }
     }
   };
 
@@ -141,24 +163,47 @@ export default function SmartUpdateSkillsSection(props: Props) {
           ))}
         </div>
       )}
-
-      <div className="flex gap-2">
-        <Input
-          value={currentMessage}
-          onChange={onChangeMessageInput}
-          placeholder={t("placeholder")}
-          className="flex-1"
-        />
-        <Button
-          onClick={sendMessage}
-          isLoading={smartUpdateSkillsMutation.isPending}
-          disabled={
-            currentMessage.trim().length < 5 ||
-            smartUpdateSkillsMutation.isPending
-          }
-        >
-          Send
-        </Button>
+      <div>
+        <p className="text-sm text-gray-500">
+          {t("modificationAggression.label")}
+        </p>
+        <div className="bg-white border rounded-lg p-1 mb-2 w-fit">
+          {Object.keys(MODIFICATION_AGGRESSION).map((key) => (
+            <button
+              onClick={() => setModificationAggression(key as any)}
+              className={`px-2 py-1 rounded-md capitalize ${
+                key === modificationAggression
+                  ? "bg-primary text-white"
+                  : "bg-white"
+              }`}
+              key={key}
+            >
+              {
+                MODIFICATION_AGGRESSION[
+                  key as keyof typeof MODIFICATION_AGGRESSION
+                ].buttonTitle
+              }
+            </button>
+          ))}
+        </div>
+        <div className="flex gap-2">
+          <Input
+            value={currentMessage}
+            onChange={onChangeMessageInput}
+            placeholder={t("placeholder")}
+            className="flex-1"
+          />
+          <Button
+            onClick={sendMessage}
+            isLoading={smartUpdateSkillsMutation.isPending}
+            disabled={
+              currentMessage.trim().length < 5 ||
+              smartUpdateSkillsMutation.isPending
+            }
+          >
+            Send
+          </Button>
+        </div>
       </div>
 
       {!!aiUpdatedData && (

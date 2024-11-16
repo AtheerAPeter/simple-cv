@@ -140,6 +140,12 @@
     "updateSuccess": {
       "title": "Skills Updated",
       "description": "Update successful"
+    },
+    "modificationAggression": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "label": "Modification Aggression"
     }
   },
   "projectsSection": {

@@ -140,6 +140,12 @@
     "updateSuccess": {
       "title": "Fähigkeiten aktualisiert",
       "description": "Aktualisierung erfolgreich"
+    },
+    "modificationAggression": {
+      "low": "Leicht",
+      "medium": "Mittel",
+      "high": "Stark",
+      "label": "Modifikations Aggression"
     }
   },
   "projectsSection": {
