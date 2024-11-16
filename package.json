@@ -42,6 +42,7 @@
     "date-fns": "^4.1.0",
     "drizzle-orm": "^0.33.0",
     "framer-motion": "^11.11.0",
+    "generative-ai": "link:@types/@google/generative-ai",
     "html-react-parser": "^5.1.16",
     "i18next": "^23.15.1",
     "i18next-resources-to-backend": "^1.2.1",

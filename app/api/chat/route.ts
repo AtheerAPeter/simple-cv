@@ -4,8 +4,6 @@ import { users } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 
-const USAGE_LIMIT = 5;
-
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const requestSchema = z.object({
@@ -39,7 +37,7 @@ export const POST = auth(async function POST(request) {
     const apiKey = process.env.NEXTGEMINI_API_KEY;
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "gemini-1.5-pro",
     });
     const generationConfig = {
       temperature: 1,
