@@ -1,7 +1,7 @@
 "use client";
 import { NavBar } from "@/components/NavBar";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
-import PDFPreview from "@/features/CvBuilder/components/PDFPreview";
+import PDFPreview from "@/components/PDFPreview";
 import useShadredDocument from "@/hooks/useShadredDocument";
 import { Templates, templates } from "@/templates";
 import { useSearchParams } from "next/navigation";
@@ -18,7 +18,7 @@ export default function SharePage({ params }: { params: { id: string } }) {
   const d = document?.content && JSON.parse(document?.content);
 
   return (
-    <div className="h-screen">
+    <div className="h-screen pt-20">
       <NavBar />
       {documentQuery.isLoading ? (
         <div className="w-full h-full flex justify-center items-center">

@@ -3,14 +3,14 @@
 import { useEffect, useState, useCallback } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
-import EmployerDetailsSection from "@/features/CoverLetterBuilder/components/EmployerDetailsSection";
-import PersonalDetails from "@/features/CoverLetterBuilder/components/PersonalDetailsSection";
-import SmartCoverLetterForm from "@/features/CoverLetterBuilder/components/SmartCoverLetterForm";
+import EmployerDetailsSection from "@/components/EmployerDetailsSection";
+import PersonalDetails from "@/components/PersonalDetailsSection";
+import SmartCoverLetterForm from "@/components/SmartCoverLetterForm";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import useCoverLetterForm from "@/hooks/useCoverLetterForm";
 import "react-quill/dist/quill.snow.css";
-import CoverLetterPageHeader from "@/features/CoverLetterBuilder/components/CoverLetterPageHeader";
+import CoverLetterPageHeader from "@/components/CoverLetterPageHeader";
 import { useRouter } from "next/navigation";
 import PreviewCvModal from "@/components/modals/PreviewCvModal";
 import { Button } from "@/components/ui/button";
@@ -28,7 +28,7 @@ import {
 import { documents } from "@/drizzle/schema";
 import CVIcon from "@/components/icons/CVIcon";
 import { toast } from "react-toastify";
-import CoverLetterPDFPreview from "./components/CoverLetterPDFPreview";
+import CoverLetterPDFPreview from "@/components/CoverLetterPDFPreview";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 

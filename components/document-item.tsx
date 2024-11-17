@@ -4,7 +4,7 @@ import { documents } from "@/drizzle/schema";
 import { formatDistanceToNow } from "date-fns";
 import { enUS, de } from "date-fns/locale";
 import Link from "next/link";
-import { Badge } from "../../../components/ui/badge";
+import { Badge } from "./ui/badge";
 import { useTranslations } from "next-intl";
 import {
   DropdownMenu,

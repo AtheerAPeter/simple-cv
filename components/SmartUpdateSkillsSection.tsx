@@ -1,10 +1,10 @@
 import { Experience, SkillCategory } from "@/interfaces/IFormTypes";
 import { useRef, useState } from "react";
-import { Button } from "../../../components/ui/button";
+import { Button } from "./ui/button";
 import { ICvPdf } from "@/interfaces/ICvPdf";
 import _ from "lodash";
 import useSmartUpdateSkills from "@/hooks/useSmartUpdateSkills";
-import { Input } from "../../../components/ui/input";
+import { Input } from "./ui/input";
 import { JsonDiffComponentComponent } from "./json-diff-component";
 import { useTranslations } from "next-intl";
 import useUser from "@/hooks/useUser";

@@ -12,7 +12,7 @@ import {
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { DocumentList } from "./components/document-list";
+import { DocumentList } from "../../../components/document-list";
 
 function DashboardComponent() {
   const locale = useLocale();

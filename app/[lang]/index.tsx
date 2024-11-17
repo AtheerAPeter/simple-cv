@@ -1,13 +1,13 @@
 import { auth, signIn } from "@/auth";
 import Footer from "@/components/Footer";
-import MockSteps from "@/features/LandingPage/components/MockSteps";
+import MockSteps from "@/components/MockSteps";
 import { NavBarServer } from "@/components/NavbarServer";
+import ScatteredLandingDocuments from "@/components/ScatteredLandingDocuments";
 import { Button } from "@/components/ui/button";
 import { FileText, Zap, Star, Bot } from "lucide-react";
 import { SessionProvider } from "next-auth/react";
 import { getLocale, getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
-import ScatteredLandingDocuments from "./components/ScatteredLandingDocuments";
 
 export default async function LandingPage() {
   const t = await getTranslations("home");

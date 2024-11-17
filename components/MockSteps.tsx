@@ -1,7 +1,7 @@
 "use client";
-import MockCV from "./MockCV";
-import MockJobDescription from "./MockJobDescription";
-import { AiMagicCircle } from "./ai-magic-circle";
+import MockCV from "@/components/MockCV";
+import MockJobDescription from "@/components/MockJobDescription";
+import { AiMagicCircle } from "@/components/ai-magic-circle";
 import { useTranslations } from "next-intl";
 
 const MockSteps = () => {
