@@ -1,25 +1,25 @@
 {
   "home": {
-    "title": "Erstellen Sie einen maßgeschneiderten Lebenslauf für Ihren Traumjob",
-    "paragraph": "Unser KI gesteuerter Lebenslauf Generator hilft Ihnen, einen professionellen Lebenslauf zu erstellen, der hervorsticht und zu Stellenbeschreibungen passt. Starten Sie kostenlos!",
-    "button": "Jetzt beginnen",
+    "title": "Chatten Sie mit Ihrem Lebenslauf mittels KI",
+    "paragraph": "Verwandeln Sie Ihren Lebenslauf in einen intelligenten Chatbot. Erhalten Sie sofortige Einblicke, Verbesserungen und Job-Matching-Vorschläge durch natürliche Gespräche.",
+    "button": "Chat starten",
     "features": {
       "title": "Funktionen",
       "easyToUse": {
-        "title": "Einfach zu bedienen",
-        "description": "Intuitive Benutzeroberfläche, die Sie Schritt für Schritt durch den Erstellungsprozess des Lebenslaufs führt."
+        "title": "Interaktiver Chat",
+        "description": "Führen Sie natürliche Gespräche mit einer KI, die Ihren beruflichen Hintergrund und Ihre Karriereziele versteht."
       },
       "professionalTemplates": {
-        "title": "Professionelle Vorlagen",
-        "description": "Wählen Sie aus einer Vielzahl professionell gestalteter Vorlagen, um Ihren Lebenslauf hervorzuheben."
+        "title": "Intelligente Analyse",
+        "description": "Erhalten Sie sofortiges Feedback zu den Stärken Ihres Lebenslaufs und Verbesserungsmöglichkeiten durch intelligenten Dialog."
       },
       "atsFriendly": {
-        "title": "ATS freundlich",
-        "description": "Unsere Lebensläufe sind für Bewerbermanagementsysteme optimiert, um Ihre Chancen auf ein Vorstellungsgespräch zu erhöhen."
+        "title": "Job-Matching",
+        "description": "Chatten Sie über spezifische Jobmöglichkeiten und erhalten Sie maßgeschneiderte Vorschläge zur Abstimmung Ihres Lebenslaufs."
       },
       "aiPoweredCustomization": {
-        "title": "KI gesteuerte Anpassung",
-        "description": "Unsere KI passt Ihren Lebenslauf an spezifische Stellenbeschreibungen an und verbessert Ihre Chancen auf Vorstellungsgespräche."
+        "title": "24/7 Karriere-Assistent",
+        "description": "Ihr persönlicher KI-Karriereberater, der immer bereit ist, Ihren Lebenslauf zu optimieren und Ihre Fragen zu beantworten."
       }
     },
     "mock": {

@@ -21,20 +21,6 @@ interface Message {
   content: string;
 }
 
-const MODIFICATION_AGGRESSION = {
-  low: {
-    message:
-      "Please be easy and do not modify the CV too much only slight modifications",
-  },
-  medium: {
-    message:
-      "Please be moderate and do not modify the CV too much, you can add new skills and remove some if needed only",
-  },
-  high: {
-    message: "",
-  },
-};
-
 export default function SmartUpdateSkillsSection(props: Props) {
   const messgaeBoxRef = useRef<HTMLDivElement>(null);
   const t = useTranslations("smartUpdateSkillsSection");
@@ -56,7 +42,7 @@ export default function SmartUpdateSkillsSection(props: Props) {
       buttonTitle: t("modificationAggression.high"),
     },
   };
-  const { user, userQuery } = useUser();
+  const { userQuery } = useUser();
   const [modificationAggression, setModificationAggression] =
     useState<keyof typeof MODIFICATION_AGGRESSION>("low");
   const [aiUpdatedData, setAiUpdatedData] = useState();
@@ -167,11 +153,11 @@ export default function SmartUpdateSkillsSection(props: Props) {
         <p className="text-sm text-gray-500">
           {t("modificationAggression.label")}
         </p>
-        <div className="bg-white border rounded-lg p-1 mb-2 w-fit">
+        <div className="bg-white border rounded-full p-1 mb-2 w-fit">
           {Object.keys(MODIFICATION_AGGRESSION).map((key) => (
             <button
               onClick={() => setModificationAggression(key as any)}
-              className={`px-2 py-1 rounded-md capitalize ${
+              className={`px-2 py-1 rounded-full capitalize text-xs ${
                 key === modificationAggression
                   ? "bg-primary text-white"
                   : "bg-white"

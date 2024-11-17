@@ -1,25 +1,25 @@
 {
   "home": {
-    "title": "Create a CV Tailored to Your Dream Job",
-    "paragraph": "Our AI powered CV maker helps you build a professional CV that stands out and matches job descriptions. Get started for free!",
-    "button": "Get Started",
+    "title": "Chat with Your CV Using AI",
+    "paragraph": "Transform your CV into an intelligent chatbot. Get instant insights, improvements, and job-matching suggestions through natural conversations.",
+    "button": "Start Chatting",
     "features": {
       "title": "Features",
       "easyToUse": {
-        "title": "Easy to Use",
-        "description": "Intuitive interface that guides you through the CV creation process step by step."
+        "title": "Interactive Chat",
+        "description": "Have natural conversations with an AI that understands your professional background and career goals."
       },
       "professionalTemplates": {
-        "title": "Professional Templates",
-        "description": "Choose from a variety of professionally designed templates to make your CV stand out."
+        "title": "Smart Analysis",
+        "description": "Get instant feedback on your CV's strengths and areas for improvement through intelligent dialogue."
       },
       "atsFriendly": {
-        "title": "ATS Friendly",
-        "description": "Our CVs are optimized for Applicant Tracking Systems to increase your chances of getting an interview."
+        "title": "Job Matching",
+        "description": "Chat about specific job opportunities and receive tailored suggestions to align your CV with requirements."
       },
       "aiPoweredCustomization": {
-        "title": "AI Powered Customization",
-        "description": "Our AI tailors your CV to match specific job descriptions, improving your chances of landing interviews."
+        "title": "24/7 Career Assistant",
+        "description": "Your personal AI career advisor, always ready to help optimize your CV and answer your questions."
       }
     },
     "mock": {
