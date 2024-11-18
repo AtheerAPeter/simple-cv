@@ -86,6 +86,7 @@ export default function SmartUpdateSkillsSection(props: Props) {
               - Keep the skills structure as Array<{title: string; skills: string[];}>
               ${MODIFICATION_AGGRESSION[modificationAggression].message}
 
+              User message: ${currentMessage}
 
               CV JSON: ${JSON.stringify(
                 _.pick(props.cvData, ["skills", "experiences"])

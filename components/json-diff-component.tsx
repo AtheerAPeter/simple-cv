@@ -53,16 +53,12 @@ export function JsonDiffComponentComponent({
 
   const [differences, setDifferences] = useState<Difference[]>([]);
   const [selectedDiffs, setSelectedDiffs] = useState<Set<string>>(new Set());
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   useEffect(() => {
-    if (isInitialLoad) {
-      const diffs = findDifferences(oldData, newData);
-      setDifferences(diffs);
-      setSelectedDiffs(new Set(diffs.map((diff) => diff.path.join("."))));
-      setIsInitialLoad(false);
-    }
-  }, [oldData, newData, isInitialLoad]);
+    const diffs = findDifferences(oldData, newData);
+    setDifferences(diffs);
+    setSelectedDiffs(new Set(diffs.map((diff) => diff.path.join("."))));
+  }, [oldData, newData]);
 
   const findDifferences = (
     oldObj: any,
@@ -160,6 +156,8 @@ export function JsonDiffComponentComponent({
       }
     });
     onSubmit(removeUndefined(updatedJson));
+    setDifferences([]);
+    setSelectedDiffs(new Set());
   };
 
   const renderValue = (value: any) => {
