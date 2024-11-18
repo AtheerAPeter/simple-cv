@@ -28,17 +28,25 @@ export default function SmartUpdateSkillsSection(props: Props) {
 
   const MODIFICATION_AGGRESSION = {
     low: {
-      message:
-        "Please be easy and do not modify the CV too much only slight modifications",
+      message: `- Make minimal adjustments to skills section
+- Keep experience descriptions mostly unchanged if mpossibly only rearrange them 
+- Only add highly relevant skills from job description
+- Maintain original tone and style`,
       buttonTitle: t("modificationAggression.low"),
     },
     medium: {
-      message:
-        "Please be moderate and do not modify the CV too much, you can add new skills and remove some if needed only",
+      message: `- Reorganize skills to better match job requirements
+- Rephrase some experience points to highlight relevant achievements
+- Add relevant skills and technologies mentioned in job description
+- Adjust language to match job posting where appropriate`,
       buttonTitle: t("modificationAggression.medium"),
     },
     high: {
-      message: "",
+      message: `- Comprehensively align skills with job requirements
+- Significantly rephrase experiences to emphasize relevant accomplishments
+- Add all matching skills from job description
+- Optimize language and terminology to closely match posting
+- Highlight transferable skills and experiences`,
       buttonTitle: t("modificationAggression.high"),
     },
   };
@@ -62,6 +70,19 @@ export default function SmartUpdateSkillsSection(props: Props) {
 
   const sendMessage = async () => {
     if (currentMessage.trim().length < 20) return;
+    console.log(`Please update the provided CV JSON based on the user's message, following these guidelines:
+
+              - Return updated JSON with same structure
+              - Keep the description in HTML format as provided
+              - Keep the skills structure as Array<{title: string; skills: string[];}>
+              ${MODIFICATION_AGGRESSION[modificationAggression].message}
+
+
+              CV JSON: ${JSON.stringify(
+                _.pick(props.cvData, ["skills", "experiences"])
+              )}`);
+
+    return;
 
     try {
       setMessages((prev) => [
