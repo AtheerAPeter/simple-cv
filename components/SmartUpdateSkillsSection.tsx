@@ -70,19 +70,6 @@ export default function SmartUpdateSkillsSection(props: Props) {
 
   const sendMessage = async () => {
     if (currentMessage.trim().length < 20) return;
-    console.log(`Please update the provided CV JSON based on the user's message, following these guidelines:
-
-              - Return updated JSON with same structure
-              - Keep the description in HTML format as provided
-              - Keep the skills structure as Array<{title: string; skills: string[];}>
-              ${MODIFICATION_AGGRESSION[modificationAggression].message}
-
-
-              CV JSON: ${JSON.stringify(
-                _.pick(props.cvData, ["skills", "experiences"])
-              )}`);
-
-    return;
 
     try {
       setMessages((prev) => [
@@ -94,23 +81,11 @@ export default function SmartUpdateSkillsSection(props: Props) {
         message:
           `Please update the provided CV JSON based on the user's message, following these guidelines:
 
-              1. Skills:
-              - Modify and reorganize the skills section
-              - Match skills to any provided job description
-              - Keep the skills structure as Array<{title: string; skills: string[];}>
-
-              2. Experience:
-              - Rephrase and reorder experience bullet points to better match context
-              - Maintain all original dates
-              - Do not reorder the experiences keep them ordered by date, most recent first
-              - Keep HTML formatting in descriptions
-
-              3. Output:
               - Return updated JSON with same structure
-              - Ensure natural, human-like language
-              - Adapt content based on whether input is a job description or other requests by the user
-
+              - Keep the description in HTML format as provided
+              - Keep the skills structure as Array<{title: string; skills: string[];}>
               ${MODIFICATION_AGGRESSION[modificationAggression].message}
+
 
               CV JSON: ${JSON.stringify(
                 _.pick(props.cvData, ["skills", "experiences"])
