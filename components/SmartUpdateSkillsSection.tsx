@@ -14,6 +14,7 @@ interface Props {
   setSkills: React.Dispatch<React.SetStateAction<SkillCategory[]>>;
   setExperiences: React.Dispatch<React.SetStateAction<Experience[]>>;
   cvData: ICvPdf;
+  onBuyMore: () => void;
 }
 
 interface Message {
@@ -46,7 +47,7 @@ export default function SmartUpdateSkillsSection(props: Props) {
       temperature: 1,
     },
   };
-  const { userQuery } = useUser();
+  const { user, userQuery } = useUser();
   const [modificationAggression, setModificationAggression] =
     useState<keyof typeof MODIFICATION_AGGRESSION>("low");
   const [aiUpdatedData, setAiUpdatedData] = useState();
@@ -184,6 +185,12 @@ export default function SmartUpdateSkillsSection(props: Props) {
             }
           >
             Send
+          </Button>
+        </div>
+        <div className="flex items-center gap-2 mt-2">
+          <p>{user?.usage}</p>
+          <Button onClick={props.onBuyMore} variant="outline">
+            Buy more
           </Button>
         </div>
       </div>
