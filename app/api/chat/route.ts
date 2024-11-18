@@ -9,6 +9,7 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 const requestSchema = z.object({
   message: z.string(),
   mode: z.enum(["text", "json"]),
+  temperature: z.number().optional(),
 });
 
 export const POST = auth(async function POST(request) {
@@ -38,11 +39,11 @@ export const POST = auth(async function POST(request) {
     const genAI = new GoogleGenerativeAI(apiKey);
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash-001",
+      model: "gemini-1.5-flash-002",
     });
 
     const generationConfig = {
-      temperature: 1,
+      temperature: validationResult.data.temperature || 1,
       topP: 0.95,
       topK: 40,
       maxOutputTokens: 8192,

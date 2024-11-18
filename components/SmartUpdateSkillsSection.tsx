@@ -28,26 +28,22 @@ export default function SmartUpdateSkillsSection(props: Props) {
 
   const MODIFICATION_AGGRESSION = {
     low: {
-      message: `- Make minimal adjustments to skills section
-- Keep experience descriptions mostly unchanged if mpossibly only rearrange them 
-- Only add highly relevant skills from job description
-- Maintain original tone and style`,
+      message:
+        "slightly modify my experinces points without messing with the dates to fit the job description better",
       buttonTitle: t("modificationAggression.low"),
+      temperature: 0.8,
     },
     medium: {
-      message: `- Reorganize skills to better match job requirements
-- Rephrase some experience points to highlight relevant achievements
-- Add relevant skills and technologies mentioned in job description
-- Adjust language to match job posting where appropriate`,
+      message:
+        "modify my experinces points without messing with the dates to fit the job description better",
       buttonTitle: t("modificationAggression.medium"),
+      temperature: 0.9,
     },
     high: {
-      message: `- Comprehensively align skills with job requirements
-- Significantly rephrase experiences to emphasize relevant accomplishments
-- Add all matching skills from job description
-- Optimize language and terminology to closely match posting
-- Highlight transferable skills and experiences`,
+      message:
+        "make comprehensive modifications to the CV without messing with the dates to fit the job description better",
       buttonTitle: t("modificationAggression.high"),
+      temperature: 1,
     },
   };
   const { userQuery } = useUser();
@@ -79,21 +75,16 @@ export default function SmartUpdateSkillsSection(props: Props) {
       messgaeBoxRef.current?.scrollIntoView({ behavior: "smooth" });
       const response = await smartUpdateSkillsMutation.mutateAsync({
         message:
-          `Please update the provided CV JSON based on the user's message, following these guidelines:
-
-              - Return updated JSON with same structure
-              - Keep the description in HTML format as provided
-              - Keep the skills structure as Array<{title: string; skills: string[];}>
-              ${MODIFICATION_AGGRESSION[modificationAggression].message}
-
-              User message: ${currentMessage}
-
-              CV JSON: ${JSON.stringify(
-                _.pick(props.cvData, ["skills", "experiences"])
-              )}`
+          `based on this job description or message: ${currentMessage}, modify my skills, rearrange the experinces points but do not rearrange the experiences themselves and ${
+            MODIFICATION_AGGRESSION[modificationAggression].message
+          } and give me back the same json structure with the same html description format also the skills types look like this if no skills were provided so you know the structure: Array<{title: string; skills: string[];}>. my cv json: ${JSON.stringify(
+            _.pick(props.cvData, ["skills", "experiences"])
+          )} try to make it as human as possible`
             .replace(/(\r\n|\n|\r)/gm, " ")
             .trim(),
         mode: "json",
+        temperature:
+          MODIFICATION_AGGRESSION[modificationAggression].temperature,
       });
 
       await userQuery.refetch();
