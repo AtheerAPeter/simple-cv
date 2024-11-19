@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { usePayment } from "@/hooks/usePayment";
 import convertToSubCurrency from "@/lib/convertToSubCurrency";
 import LoadingSpinner from "./ui/LoadingSpinner";
+import useUser from "@/hooks/useUser";
 
 interface Props {
   amount: number;
@@ -17,6 +18,7 @@ interface Props {
 export default function CheckoutForm(props: Props) {
   const stripe = useStripe();
   const elements = useElements();
+  const { user } = useUser();
 
   const { intentMutation } = usePayment();
   const [clientSecret, setClientSecret] = useState("");
@@ -26,15 +28,17 @@ export default function CheckoutForm(props: Props) {
   const [loading, setLoading] = useState(false);
 
   const createPaymentIntent = async () => {
+    if (!user?.id) return;
     const response = await intentMutation.mutateAsync({
       amount: convertToSubCurrency(props.amount),
+      userId: user.id,
     });
     setClientSecret(response.clientSecret);
   };
 
   useEffect(() => {
     createPaymentIntent();
-  }, [props.amount]);
+  }, [props.amount, user?.id]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

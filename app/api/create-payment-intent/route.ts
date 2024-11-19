@@ -10,9 +10,13 @@ export const POST = auth(async function POST(request) {
 
   try {
     const { amount } = await request.json();
+
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
       currency: "eur",
+      metadata: {
+        userId: request.auth.user.id,
+      },
       automatic_payment_methods: {
         enabled: true,
       },

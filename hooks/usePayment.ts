@@ -1,13 +1,11 @@
+import { client } from "@/Httpclient";
 import { useMutation } from "@tanstack/react-query";
 
 export const usePayment = () => {
   const intentMutation = useMutation({
-    mutationFn: async (inputs: { amount: number }) => {
-      const response = await fetch("/api/create-payment-intent", {
-        method: "POST",
-        body: JSON.stringify(inputs),
-      });
-      return response.json();
+    mutationFn: async (inputs: { amount: number; userId: string }) => {
+      const response = await client.post("/create-payment-intent", inputs);
+      return response.data;
     },
   });
 
