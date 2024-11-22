@@ -180,118 +180,22 @@ export default function SmartUpdateSkillsSection(props: Props) {
         </div>
       </div>
 
-      <div className="mt-4">
-        <JsonDiffComponentComponent
-          oldData={_.pick(props.cvData, ["skills", "experiences"])}
-          newData={{
-            skills: [
-              {
-                title: "Frontend",
-                skills: [
-                  "React.js",
-                  "Next.js",
-                  "React Native",
-                  "TypeScript",
-                  "Prisma",
-                  "JavaScript (ES6)",
-                  "Redux",
-                  "Zustand",
-                  "Testing",
-                  "D3.js",
-                ],
-              },
-              {
-                title: "Backend",
-                skills: [
-                  "Node.js",
-                  "Express.js",
-                  "Hono",
-                  "REST API",
-                  "Prisma",
-                  "PostgreSQL",
-                  "Kotlin",
-                  "Java",
-                  "Docker",
-                  "AWS",
-                  "GraphQL",
-                ],
-              },
-              {
-                title: "Data Analysis & Machine Learning",
-                skills: [
-                  "Python",
-                  "scikit-learn",
-                  "Tensorflow",
-                  "SQL",
-                  "Jupyter Notebook",
-                  "Data Processing",
-                ],
-              },
-              {
-                title: "Cloud & DevOps",
-                skills: [
-                  "AWS",
-                  "Docker",
-                  "Kubernetes",
-                  "CI/CD Pipelines",
-                  "Vercel",
-                  "Cloud Deployments",
-                ],
-              },
-            ],
-            experiences: [
-              {
-                title: "Software Developer",
-                employer: "United Nations Development Programme",
-                startDate: "04/2023",
-                endDate: "08/2024",
-                description:
-                  "<ul><li>Developed and maintained a scalable management platform using Next.js, Node.js, Prisma, and PostgreSQL to manage fund distributions.  Contributed to system scalability and performance.</li><li>Developed and delivered web solutions and tools (React.js, Next.js, Node.js) for project teams and other UNDP teams, improving team efficiency and collaboration.</li><li>Built a Next.js verification portal with integrated machine learning models (Python, scikit-learn) for fraud prevention and data validation, significantly enhancing security and data integrity.</li><li>Conducted extensive data analysis using Python, SQL, PostgreSQL, and scikit-learn, providing valuable insights for decision-making.</li><li>Provided technical solutions and creative ideas to overcome project challenges, demonstrating problem-solving skills and initiative.</li></ul>",
-              },
-              {
-                title: "Senior Frontend Developer",
-                employer: "ClubFeast",
-                startDate: "06/2021",
-                endDate: "04/2023",
-                description:
-                  "<ul><li>Developed high-performance mobile apps (React Native, TypeScript), B2B management systems (React.js, Node.js), and websites (Next.js) (https://app.clubfeast.com), showcasing expertise in multiple frontend technologies.</li><li>Managed app publishing on the App Store and Google Play, utilizing CI/CD pipelines to streamline deployment processes.</li><li>Wrote efficient, well-tested code with end-to-end and automated testing for web and mobile applications, ensuring high-quality deliverables.</li><li>Leveraged GraphQL to connect frontend and backend, and integrated third-party APIs seamlessly, demonstrating strong integration capabilities.</li><li>Collaborated effectively with an international team using Agile scrum with GitFlow, Jira, and Confluence, exhibiting team-oriented collaboration skills.</li><li>Conducted thorough code reviews, implemented robust security measures, and continuously stayed abreast of emerging technological trends, indicating a proactive approach to development.</li></ul>",
-              },
-              {
-                title: "Software Tutor",
-                employer: "FikraSpace",
-                startDate: "03/2021",
-                endDate: "06/2021",
-                description:
-                  "<ul><li>Led the frontend curriculum of a coding bootcamp (Next.js, React.js, and other frontend tools) in collaboration with GIZ and Expertise France, demonstrating strong teaching and mentoring abilities.</li></ul>",
-              },
-              {
-                title: "Full Stack Developer",
-                employer: "SOLO Creative Studio",
-                startDate: "11/2020",
-                endDate: "06/2021",
-                description:
-                  "<ul><li>Developed comprehensive systems (websites, dashboards, mobile apps) using React.js, Node.js, and React Native, delivering complete end-to-end solutions.</li><li>Focused on creating reusable components and enhancing UIs with design systems, improving code maintainability and efficiency.</li><li>Collaborated effectively with designers and backend developers using Agile Scrum, Git, Adobe XD, Figma, and Linear, highlighting strong teamwork and communication skills.</li><li>Successfully engaged with clients to understand requirements and deliver customized software solutions, demonstrating client management skills.</li></ul>",
-              },
-              {
-                title: "Full Stack Web and Mobile Apps Developer",
-                employer: "Freelancer",
-                startDate: "04/2018",
-                endDate: "11/2020",
-                description:
-                  "<ul><li>Independently managed and completed numerous freelance projects using React.js, Node.js, and React Native, demonstrating strong problem-solving and independent working capabilities.</li><li>Successfully delivered diverse projects including e-commerce platforms, POS systems, and video conferencing platforms, showcasing versatility across various project types.</li></ul>",
-              },
-            ],
-          }}
-          onSubmit={(newData) => {
-            if (newData.skills) {
-              props.setSkills(newData.skills);
-            }
-            if (newData.experiences) {
-              props.setExperiences(newData.experiences);
-            }
-          }}
-        />
-      </div>
+      {!!aiUpdatedData && (
+        <div className="mt-4">
+          <JsonDiffComponentComponent
+            oldData={_.pick(props.cvData, ["skills", "experiences"])}
+            newData={aiUpdatedData}
+            onSubmit={(newData) => {
+              if (newData.skills) {
+                props.setSkills(newData.skills);
+              }
+              if (newData.experiences) {
+                props.setExperiences(newData.experiences);
+              }
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }
