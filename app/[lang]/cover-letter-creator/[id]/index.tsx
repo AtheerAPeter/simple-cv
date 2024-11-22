@@ -197,6 +197,47 @@ export default function CoverLetterBuilder({
           onClearAll={clearAll}
           isSaving={updateMutation.isPending}
         />
+
+        <section>
+          <div className="flex items-start gap-2 mb-3 mt-10">
+            <h2 className="text-xl font-semibold">
+              {t("aiGeneratedCoverLetter")}
+            </h2>
+            <p className="text-gray-400 text-xs">Beta</p>
+          </div>
+          {!!document && !!list && (
+            <div>
+              <Select onValueChange={onSelectCv} value={selectedCv?.id}>
+                <SelectTrigger className="w-full mb-2">
+                  <SelectValue placeholder={t("selectCV")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    {list
+                      .filter((d) => d.type === "cv")
+                      .map((doc) => (
+                        <SelectItem key={doc.id} value={doc.id}>
+                          <div className="flex items-center gap-1">
+                            <CVIcon className="mr-2 h-4 w-4" />
+                            {doc.title}
+                          </div>
+                        </SelectItem>
+                      ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+              <SmartCoverLetterForm
+                disabled={!selectedCv}
+                mockCoverLetter={description}
+                experience={
+                  JSON.parse(selectedCv?.content || "[]")?.experiences
+                }
+                skills={JSON.parse(selectedCv?.content || "[]")?.skills}
+                onGenerate={setDescription}
+              />
+            </div>
+          )}
+        </section>
         <section>
           <h2 className="text-xl font-semibold mb-3 mt-10">
             {t("personalDetails")}
@@ -258,46 +299,6 @@ export default function CoverLetterBuilder({
               />
             </div>
           </div>
-        </section>
-        <section>
-          <div className="flex items-start gap-2 mb-3 mt-10">
-            <h2 className="text-xl font-semibold">
-              {t("aiGeneratedCoverLetter")}
-            </h2>
-            <p className="text-gray-400 text-xs">Beta</p>
-          </div>
-          {!!document && !!list && (
-            <div>
-              <Select onValueChange={onSelectCv} value={selectedCv?.id}>
-                <SelectTrigger className="w-full mb-2">
-                  <SelectValue placeholder={t("selectCV")} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    {list
-                      .filter((d) => d.type === "cv")
-                      .map((doc) => (
-                        <SelectItem key={doc.id} value={doc.id}>
-                          <div className="flex items-center gap-1">
-                            <CVIcon className="mr-2 h-4 w-4" />
-                            {doc.title}
-                          </div>
-                        </SelectItem>
-                      ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-              <SmartCoverLetterForm
-                disabled={!selectedCv}
-                mockCoverLetter={description}
-                experience={
-                  JSON.parse(selectedCv?.content || "[]")?.experiences
-                }
-                skills={JSON.parse(selectedCv?.content || "[]")?.skills}
-                onGenerate={setDescription}
-              />
-            </div>
-          )}
         </section>
       </div>
 

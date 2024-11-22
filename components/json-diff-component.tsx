@@ -190,11 +190,11 @@ export function JsonDiffComponentComponent({
   const getChangeColor = (type: "added" | "removed" | "changed") => {
     switch (type) {
       case "added":
-        return "text-green-600";
+        return "text-green-500";
       case "removed":
-        return "text-red-600";
+        return "text-red-500";
       case "changed":
-        return "text-yellow-600";
+        return "text-yellow-500";
     }
   };
 

@@ -1,5 +1,5 @@
 import { Experience, SkillCategory } from "@/interfaces/IFormTypes";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "./ui/button";
 import { ICvPdf } from "@/interfaces/ICvPdf";
 import _ from "lodash";
@@ -22,7 +22,7 @@ interface Message {
 }
 
 export default function SmartUpdateSkillsSection(props: Props) {
-  const messgaeBoxRef = useRef<HTMLDivElement>(null);
+  const messageBoxRef = useRef<HTMLDivElement>(null);
   const t = useTranslations("smartUpdateSkillsSection");
   const t2 = useTranslations("common");
 
@@ -64,6 +64,13 @@ export default function SmartUpdateSkillsSection(props: Props) {
     event
   ) => setCurrentMessage(event.target.value);
 
+  useEffect(() => {
+    messageBoxRef.current?.scrollTo({
+      top: messageBoxRef.current?.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [messages]);
+
   const sendMessage = async () => {
     if (currentMessage.trim().length < 20) return;
 
@@ -72,7 +79,7 @@ export default function SmartUpdateSkillsSection(props: Props) {
         ...prev,
         { role: "user", content: currentMessage },
       ]);
-      messgaeBoxRef.current?.scrollIntoView({ behavior: "smooth" });
+
       const response = await smartUpdateSkillsMutation.mutateAsync({
         message:
           `based on this job description or message: ${currentMessage}, modify my skills, rearrange the experinces points but do not rearrange the experiences themselves and ${
@@ -99,7 +106,7 @@ export default function SmartUpdateSkillsSection(props: Props) {
         },
       ]);
       setCurrentMessage("");
-      messgaeBoxRef.current?.scrollIntoView({ behavior: "smooth" });
+      messageBoxRef.current?.scrollIntoView({ behavior: "smooth" });
     } catch (data: any) {
       console.log(data);
       if (data?.response) {
@@ -115,7 +122,7 @@ export default function SmartUpdateSkillsSection(props: Props) {
       {messages.length > 0 && (
         <div
           className="h-[300px] overflow-y-auto p-4 space-y-4 bg-gray-50 rounded-lg mb-4"
-          ref={messgaeBoxRef}
+          ref={messageBoxRef}
         >
           {messages.map((message, index) => (
             <div
@@ -137,6 +144,7 @@ export default function SmartUpdateSkillsSection(props: Props) {
           ))}
         </div>
       )}
+
       <div>
         <p className="text-sm text-gray-500">
           {t("modificationAggression.label")}
