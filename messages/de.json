@@ -220,7 +220,7 @@
   },
   "jsonDiff": {
     "plsSelect": "Bitte wählen Sie unten die Änderungen aus, die Sie auf Ihren Lebenslauf anwenden möchten",
-    "disselectAll": "Alle abwählen",
+    "selectAll": "Alle auswählen",
     "submitChanges": "Änderungen übernehmen",
     "jsonDiffViewer": "Unterschiedsanzeige"
   },

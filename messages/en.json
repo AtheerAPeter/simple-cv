@@ -220,7 +220,7 @@
   },
   "jsonDiff": {
     "plsSelect": "Please select the changes you want to apply to your CV below",
-    "disselectAll": "Deselect All",
+    "selectAll": "Select All",
     "submitChanges": "Submit Changes",
     "jsonDiffViewer": "Difference Viewer"
   },

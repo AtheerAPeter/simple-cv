@@ -5,13 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Plus, Minus, Edit } from "lucide-react";
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import parse from "html-react-parser";
 import { removeUndefined } from "@/lib/utils";
 import { useTranslations } from "next-intl";
@@ -57,7 +56,6 @@ export function JsonDiffComponentComponent({
   useEffect(() => {
     const diffs = findDifferences(oldData, newData);
     setDifferences(diffs);
-    setSelectedDiffs(new Set(diffs.map((diff) => diff.path.join("."))));
   }, [oldData, newData]);
 
   const findDifferences = (
@@ -120,7 +118,10 @@ export function JsonDiffComponentComponent({
       const expTitle =
         oldData.experiences[expIndex]?.title ||
         newData.experiences[expIndex]?.title;
-      displayPath = `Experience - ${expTitle} - ${path[2]}`;
+      const employer =
+        oldData.experiences[expIndex]?.employer ||
+        newData.experiences[expIndex]?.employer;
+      displayPath = `${expTitle} at ${employer}`;
     }
     return { path, oldValue, newValue, displayPath, type };
   };
@@ -137,8 +138,13 @@ export function JsonDiffComponentComponent({
     });
   };
 
-  const handleDeselectAll = () => {
-    setSelectedDiffs(new Set());
+  const handleSelectAll = () => {
+    const allPaths = differences.map((diff) => diff.path.join("."));
+    if (selectedDiffs.size === differences.length) {
+      setSelectedDiffs(new Set());
+    } else {
+      setSelectedDiffs(new Set(allPaths));
+    }
   };
 
   const handleSubmit = () => {
@@ -181,14 +187,14 @@ export function JsonDiffComponentComponent({
 
   const groupedDifferences = groupDifferencesByCategory();
 
-  const getIcon = (type: "added" | "removed" | "changed") => {
+  const getChangeColor = (type: "added" | "removed" | "changed") => {
     switch (type) {
       case "added":
-        return <Plus className="w-4 h-4" />;
+        return "text-green-600";
       case "removed":
-        return <Minus className="w-4 h-4" />;
+        return "text-red-600";
       case "changed":
-        return <Edit className="w-4 h-4" />;
+        return "text-yellow-600";
     }
   };
 
@@ -197,76 +203,69 @@ export function JsonDiffComponentComponent({
   }
 
   return (
-    <Card className="w-full max-w-4xl mx-auto mt-6">
-      <CardHeader className="border-b">
-        <CardTitle>{t("jsonDiffViewer")}</CardTitle>
-      </CardHeader>
-      <CardContent className="p-6">
-        <p className="mb-6 text-muted-foreground">{t("plsSelect")}</p>
-        <div className="flex justify-between mb-6">
-          <Button onClick={handleDeselectAll} variant="outline">
-            {t("disselectAll")}
-          </Button>
-          <Button onClick={handleSubmit}>{t("submitChanges")}</Button>
+    <Card className="w-full max-w-2xl">
+      <CardHeader>
+        <div>
+          <CardTitle>{t("jsonDiffViewer")}</CardTitle>
+          <CardDescription>{t("plsSelect")}</CardDescription>
         </div>
-        <ScrollArea className="h-[600px] w-full">
-          <Accordion
-            type="multiple"
-            defaultValue={Object.keys(groupedDifferences)}
-            className="w-full"
+        <div className="flex justify-between items-center">
+          <Button
+            variant="outline"
+            onClick={handleSelectAll}
+            title={t("selectAll")}
           >
-            {Object.entries(groupedDifferences).map(
-              ([category, diffs], index) => (
-                <AccordionItem
-                  value={category}
-                  key={index}
-                  className="border-b"
-                >
-                  <AccordionTrigger className="text-lg font-semibold py-4">
-                    {category.charAt(0).toUpperCase() + category.slice(1)}
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    {diffs.map((diff, diffIndex) => (
-                      <div key={diffIndex} className="mb-4 p-4 border">
-                        <div className="flex items-start space-x-4">
-                          <Checkbox
-                            id={`diff-${category}-${diffIndex}`}
-                            checked={selectedDiffs.has(diff.path.join("."))}
-                            onCheckedChange={() =>
-                              handleCheckboxChange(diff.path.join("."))
-                            }
-                            className="mt-1 flex-shrink-0"
-                          />
-                          <div className="flex-grow min-w-0">
-                            <div className="flex items-center gap-2 mb-2">
-                              {getIcon(diff.type)}
-                              <p className="font-semibold truncate">
-                                {diff.displayPath}
-                              </p>
-                            </div>
-                            {diff.type !== "added" && (
-                              <div className="bg-red-100 p-3 mt-2 overflow-x-auto rounded-lg">
-                                <pre className="whitespace-pre-wrap break-words">
-                                  {renderValue(diff.oldValue)}
-                                </pre>
-                              </div>
-                            )}
-                            {diff.type !== "removed" && (
-                              <div className="bg-green-100 p-3 mt-2 overflow-x-auto rounded-lg">
-                                <pre className="whitespace-pre-wrap break-words">
-                                  {renderValue(diff.newValue)}
-                                </pre>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </AccordionContent>
-                </AccordionItem>
-              )
-            )}
-          </Accordion>
+            {t("selectAll")}
+          </Button>
+
+          <Button onClick={handleSubmit} title={t("submitChanges")}>
+            {t("submitChanges")}
+          </Button>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <ScrollArea className="w-full rounded-md border p-4">
+          {Object.entries(groupedDifferences).map(
+            ([category, diffs], index) => (
+              <div key={index} className="mb-6">
+                <h3 className="text-lg font-semibold mb-2">
+                  {category.charAt(0).toUpperCase() + category.slice(1)}
+                </h3>
+                {diffs.map((diff, diffIndex) => (
+                  <div
+                    key={diffIndex}
+                    className="flex items-start space-x-2 mb-2"
+                  >
+                    <Checkbox
+                      id={`diff-${category}-${diffIndex}`}
+                      checked={selectedDiffs.has(diff.path.join("."))}
+                      onCheckedChange={() =>
+                        handleCheckboxChange(diff.path.join("."))
+                      }
+                    />
+                    <label
+                      htmlFor={`diff-${category}-${diffIndex}`}
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      <span className="font-semibold">{diff.displayPath}</span>
+                      <br />
+                      {diff.type !== "added" && (
+                        <span className={getChangeColor("removed")}>
+                          {renderValue(diff.oldValue)}
+                        </span>
+                      )}
+                      {diff.type === "changed" && <br />}
+                      {diff.type !== "removed" && (
+                        <span className={getChangeColor("added")}>
+                          {renderValue(diff.newValue)}
+                        </span>
+                      )}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            )
+          )}
         </ScrollArea>
       </CardContent>
     </Card>
