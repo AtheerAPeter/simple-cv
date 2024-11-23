@@ -96,7 +96,9 @@
       "uploadingImage": "Uploading image...",
       "imageUploaded": "Image uploaded successfully",
       "imageUploadError": "Error uploading image"
-    }
+    },
+    "chat": "AI Chat",
+    "form": "Form"
   },
   "personalDetailsSection": {
     "name": "Name",

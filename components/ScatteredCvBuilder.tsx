@@ -20,8 +20,8 @@ const ScatteredCvBuilder = () => {
         <rect x="270" y="105" width="75" height="26" rx="7" fill="#2B68F2" />
       </g>
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M305.875 112.375C305.875 111.911 306.059 111.466 306.388 111.138C306.716 110.809 307.161 110.625 307.625 110.625H309.375C309.839 110.625 310.284 110.809 310.612 111.138C310.941 111.466 311.125 111.911 311.125 112.375V115.875H314.625C315.089 115.875 315.534 116.059 315.862 116.388C316.191 116.716 316.375 117.161 316.375 117.625V119.375C316.375 119.839 316.191 120.284 315.862 120.612C315.534 120.941 315.089 121.125 314.625 121.125H311.125V124.625C311.125 125.089 310.941 125.534 310.612 125.862C310.284 126.191 309.839 126.375 309.375 126.375H307.625C307.161 126.375 306.716 126.191 306.388 125.862C306.059 125.534 305.875 125.089 305.875 124.625V121.125H302.375C301.911 121.125 301.466 120.941 301.138 120.612C300.809 120.284 300.625 119.839 300.625 119.375V117.625C300.625 117.161 300.809 116.716 301.138 116.388C301.466 116.059 301.911 115.875 302.375 115.875H305.875V112.375Z"
         fill="white"
       />
@@ -79,9 +79,9 @@ const ScatteredCvBuilder = () => {
           width="378.2"
           height="378.2"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -114,9 +114,9 @@ const ScatteredCvBuilder = () => {
           width="109"
           height="60"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -155,9 +155,9 @@ const ScatteredCvBuilder = () => {
           width="117.6"
           height="140.6"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -196,9 +196,9 @@ const ScatteredCvBuilder = () => {
           width="117.6"
           height="140.6"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -237,9 +237,9 @@ const ScatteredCvBuilder = () => {
           width="117.6"
           height="140.6"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -278,9 +278,9 @@ const ScatteredCvBuilder = () => {
           width="355"
           height="355"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -312,9 +312,9 @@ const ScatteredCvBuilder = () => {
           width="169.6"
           height="223.6"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -353,9 +353,9 @@ const ScatteredCvBuilder = () => {
           width="169.6"
           height="55.6"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -394,9 +394,9 @@ const ScatteredCvBuilder = () => {
           width="169.6"
           height="55.6"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -435,9 +435,9 @@ const ScatteredCvBuilder = () => {
           width="84.6"
           height="55.6"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -476,9 +476,9 @@ const ScatteredCvBuilder = () => {
           width="84.6"
           height="55.6"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -517,9 +517,9 @@ const ScatteredCvBuilder = () => {
           width="69.6"
           height="55.6"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -558,9 +558,9 @@ const ScatteredCvBuilder = () => {
           width="169.6"
           height="55.6"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -599,9 +599,9 @@ const ScatteredCvBuilder = () => {
           width="169.6"
           height="55.6"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -640,9 +640,9 @@ const ScatteredCvBuilder = () => {
           width="73.6"
           height="55.6"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"

@@ -96,7 +96,9 @@
       "uploadingImage": "Bild wird hochgeladen...",
       "imageUploaded": "Bild erfolgreich hochgeladen",
       "imageUploadError": "Fehler beim Hochladen des Bildes"
-    }
+    },
+    "chat": "KI Chat",
+    "form": "Formular"
   },
   "personalDetailsSection": {
     "name": "Name",

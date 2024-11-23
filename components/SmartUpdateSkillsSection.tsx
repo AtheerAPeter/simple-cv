@@ -118,10 +118,10 @@ export default function SmartUpdateSkillsSection(props: Props) {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-full">
       {messages.length > 0 && (
         <div
-          className="h-[300px] overflow-y-auto p-4 space-y-4 bg-gray-50 rounded-lg mb-4"
+          className="overflow-y-auto p-4 space-y-4 bg-gray-50 rounded-lg mb-4"
           ref={messageBoxRef}
         >
           {messages.map((message, index) => (
