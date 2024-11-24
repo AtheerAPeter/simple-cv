@@ -22,7 +22,7 @@ interface Message {
 }
 
 export default function SmartUpdateSkillsSection(props: Props) {
-  const messageBoxRef = useRef<HTMLDivElement>(null);
+  const messgaeBoxRef = useRef<HTMLDivElement>(null);
   const t = useTranslations("smartUpdateSkillsSection");
   const t2 = useTranslations("common");
 
@@ -56,6 +56,11 @@ export default function SmartUpdateSkillsSection(props: Props) {
       content:
         "Hello! I'm here to help you modify and refine your CV. Please provide a message or a job description to get started.",
     },
+    {
+      role: "user",
+      content:
+        "About the job\nWe are seeking a talented Senior Frontend Developer to join our dynamic team and contribute to the development of innovative user interfaces for our core products, for example IQVIA's Health Data Research Platform (part of the Connected Health Platform*).\n\nKey Responsibilities:\n\nMaintain and enhance existing user interfaces for our core products\nDesign, develop, test, validate, and debug new user interfaces\nDevelop the transfer layer from UI to the backend\nPlan and design new user interfaces using wireframes\nConduct code reviews for other UI developers\nWrite unit and integration tests using JUnit and Mockito\nSupport the development of user acceptance tests using Selenium WebDriver and the Concordion framework\n\nPrimary Skills:\n\nProficient in Vaadin\nStrong Java coding skills\nExperience with Spring framework (dependency injection, transaction management)\nProficient in JUnit and Mockito\nSolid SQL skills\nExperience with IntelliJ\nProficient in Git (Bitbucket/GitHub/GitLab)\nExperience with Maven\nKnowledge of HTTP and REST",
+    },
   ]);
   const [currentMessage, setCurrentMessage] = useState("");
   const { smartUpdateSkillsMutation } = useSmartUpdateSkills();
@@ -65,8 +70,8 @@ export default function SmartUpdateSkillsSection(props: Props) {
   ) => setCurrentMessage(event.target.value);
 
   useEffect(() => {
-    messageBoxRef.current?.scrollTo({
-      top: messageBoxRef.current?.scrollHeight,
+    messgaeBoxRef.current?.scrollTo({
+      top: messgaeBoxRef.current?.scrollHeight,
       behavior: "smooth",
     });
   }, [messages]);
@@ -79,7 +84,7 @@ export default function SmartUpdateSkillsSection(props: Props) {
         ...prev,
         { role: "user", content: currentMessage },
       ]);
-
+      return;
       const response = await smartUpdateSkillsMutation.mutateAsync({
         message:
           `based on this job description or message: ${currentMessage}, modify my skills, rearrange the experinces points but do not rearrange the experiences themselves and ${
@@ -106,7 +111,7 @@ export default function SmartUpdateSkillsSection(props: Props) {
         },
       ]);
       setCurrentMessage("");
-      messageBoxRef.current?.scrollIntoView({ behavior: "smooth" });
+      messgaeBoxRef.current?.scrollIntoView({ behavior: "smooth" });
     } catch (data: any) {
       console.log(data);
       if (data?.response) {
@@ -118,11 +123,11 @@ export default function SmartUpdateSkillsSection(props: Props) {
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col">
       {messages.length > 0 && (
         <div
-          className="overflow-y-auto p-4 space-y-4 bg-gray-50 rounded-lg mb-4"
-          ref={messageBoxRef}
+          className="h-[300px] overflow-y-auto p-4 space-y-4 bg-gray-50 rounded-lg mb-4"
+          ref={messgaeBoxRef}
         >
           {messages.map((message, index) => (
             <div

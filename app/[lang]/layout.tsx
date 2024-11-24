@@ -1,8 +1,8 @@
 import "../globals.css";
 import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
-import { Analytics } from "@vercel/analytics/react";
 import { ScrollToTopButtonComponent } from "@/components/scroll-to-top-button";
+import { Providers } from "../providers";
 
 export default async function RootLayout({
   children,
@@ -22,11 +22,12 @@ export default async function RootLayout({
         />
       </head>
       <body className="antialiased font-montserrat">
-        <NextIntlClientProvider messages={messages}>
-          <Analytics />
-          {children}
-          <ScrollToTopButtonComponent />
-        </NextIntlClientProvider>
+        <Providers>
+          <NextIntlClientProvider messages={messages}>
+            {children}
+            <ScrollToTopButtonComponent />
+          </NextIntlClientProvider>
+        </Providers>
       </body>
     </html>
   );
