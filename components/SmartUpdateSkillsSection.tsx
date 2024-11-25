@@ -56,11 +56,6 @@ export default function SmartUpdateSkillsSection(props: Props) {
       content:
         "Hello! I'm here to help you modify and refine your CV. Please provide a message or a job description to get started.",
     },
-    {
-      role: "user",
-      content:
-        "About the job\nWe are seeking a talented Senior Frontend Developer to join our dynamic team and contribute to the development of innovative user interfaces for our core products, for example IQVIA's Health Data Research Platform (part of the Connected Health Platform*).\n\nKey Responsibilities:\n\nMaintain and enhance existing user interfaces for our core products\nDesign, develop, test, validate, and debug new user interfaces\nDevelop the transfer layer from UI to the backend\nPlan and design new user interfaces using wireframes\nConduct code reviews for other UI developers\nWrite unit and integration tests using JUnit and Mockito\nSupport the development of user acceptance tests using Selenium WebDriver and the Concordion framework\n\nPrimary Skills:\n\nProficient in Vaadin\nStrong Java coding skills\nExperience with Spring framework (dependency injection, transaction management)\nProficient in JUnit and Mockito\nSolid SQL skills\nExperience with IntelliJ\nProficient in Git (Bitbucket/GitHub/GitLab)\nExperience with Maven\nKnowledge of HTTP and REST",
-    },
   ]);
   const [currentMessage, setCurrentMessage] = useState("");
   const { smartUpdateSkillsMutation } = useSmartUpdateSkills();
@@ -84,7 +79,6 @@ export default function SmartUpdateSkillsSection(props: Props) {
         ...prev,
         { role: "user", content: currentMessage },
       ]);
-      return;
       const response = await smartUpdateSkillsMutation.mutateAsync({
         message:
           `based on this job description or message: ${currentMessage}, modify my skills, rearrange the experinces points but do not rearrange the experiences themselves and ${
@@ -123,10 +117,10 @@ export default function SmartUpdateSkillsSection(props: Props) {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-4">
       {messages.length > 0 && (
         <div
-          className="h-[300px] overflow-y-auto p-4 space-y-4 bg-gray-50 rounded-lg mb-4"
+          className="h-48 overflow-y-auto bg-gray-50 rounded-lg p-3 space-y-2"
           ref={messgaeBoxRef}
         >
           {messages.map((message, index) => (
@@ -137,7 +131,7 @@ export default function SmartUpdateSkillsSection(props: Props) {
               }`}
             >
               <div
-                className={`max-w-[80%] p-3 rounded-lg ${
+                className={`max-w-[80%] p-2 rounded-md text-sm ${
                   message.role === "user"
                     ? "bg-primary text-white"
                     : "bg-white border"
@@ -150,29 +144,30 @@ export default function SmartUpdateSkillsSection(props: Props) {
         </div>
       )}
 
-      <div>
-        <p className="text-sm text-gray-500">
-          {t("modificationAggression.label")}
-        </p>
-        <div className="bg-white border rounded-full p-1 mb-2 w-fit">
-          {Object.keys(MODIFICATION_AGGRESSION).map((key) => (
-            <button
-              onClick={() => setModificationAggression(key as any)}
-              className={`px-2 py-1 rounded-full capitalize text-xs ${
-                key === modificationAggression
-                  ? "bg-primary text-white"
-                  : "bg-white"
-              }`}
-              key={key}
-            >
-              {
-                MODIFICATION_AGGRESSION[
-                  key as keyof typeof MODIFICATION_AGGRESSION
-                ].buttonTitle
-              }
-            </button>
-          ))}
+      <div className="space-y-2">
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-gray-500">
+            {t("modificationAggression.label")}
+          </span>
+          <div className="bg-white border rounded-full p-0.5 flex">
+            {Object.keys(MODIFICATION_AGGRESSION).map((key) => (
+              <button
+                onClick={() => setModificationAggression(key as any)}
+                className={`px-2 py-0.5 rounded-full capitalize text-xs ${
+                  key === modificationAggression ? "bg-primary text-white" : ""
+                }`}
+                key={key}
+              >
+                {
+                  MODIFICATION_AGGRESSION[
+                    key as keyof typeof MODIFICATION_AGGRESSION
+                  ].buttonTitle
+                }
+              </button>
+            ))}
+          </div>
         </div>
+
         <div className="flex gap-2">
           <Input
             value={currentMessage}
@@ -194,20 +189,18 @@ export default function SmartUpdateSkillsSection(props: Props) {
       </div>
 
       {!!aiUpdatedData && (
-        <div className="mt-4">
-          <JsonDiffComponentComponent
-            oldData={_.pick(props.cvData, ["skills", "experiences"])}
-            newData={aiUpdatedData}
-            onSubmit={(newData) => {
-              if (newData.skills) {
-                props.setSkills(newData.skills);
-              }
-              if (newData.experiences) {
-                props.setExperiences(newData.experiences);
-              }
-            }}
-          />
-        </div>
+        <JsonDiffComponentComponent
+          oldData={_.pick(props.cvData, ["skills", "experiences"])}
+          newData={aiUpdatedData}
+          onSubmit={(newData) => {
+            if (newData.skills) {
+              props.setSkills(newData.skills);
+            }
+            if (newData.experiences) {
+              props.setExperiences(newData.experiences);
+            }
+          }}
+        />
       )}
     </div>
   );

@@ -100,10 +100,10 @@ const SmartCoverLetterForm = (props: Props) => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-4">
       {messages.length > 0 && (
         <div
-          className="h-[300px] overflow-y-auto p-4 space-y-4 bg-gray-50 rounded-lg mb-4"
+          className="h-48 overflow-y-auto bg-gray-50 rounded-lg p-3 space-y-2"
           ref={messageBoxRef}
         >
           {messages.map((message, index) => (
@@ -114,7 +114,7 @@ const SmartCoverLetterForm = (props: Props) => {
               }`}
             >
               <div
-                className={`max-w-[80%] p-3 rounded-lg ${
+                className={`max-w-[80%] p-2 rounded-md text-sm ${
                   message.role === "user"
                     ? "bg-primary text-white"
                     : "bg-white border"
@@ -126,6 +126,7 @@ const SmartCoverLetterForm = (props: Props) => {
           ))}
         </div>
       )}
+
       <div className="flex gap-2">
         <Input
           value={currentMessage}
