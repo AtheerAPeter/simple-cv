@@ -4,6 +4,9 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export const POST = async (request: NextRequest) => {
+
+
+  
   const body = await request.text();
   const sig = request.headers.get("stripe-signature")!;
 
@@ -16,6 +19,7 @@ export const POST = async (request: NextRequest) => {
       process.env.STRIPE_WEBHOOK_SECRET!
     );
   } catch (err: any) {
+    console.log(err);
     return NextResponse.json(
       { error: `Webhook Error: ${err.message}` },
       { status: 400 }
