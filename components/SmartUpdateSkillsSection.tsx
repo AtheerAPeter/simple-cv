@@ -8,12 +8,14 @@ import { Input } from "./ui/input";
 import { JsonDiffComponentComponent } from "./json-diff-component";
 import { useTranslations } from "next-intl";
 import useUser from "@/hooks/useUser";
+import { PlusIcon } from "lucide-react";
 
 interface Props {
   skills: SkillCategory[];
   setSkills: React.Dispatch<React.SetStateAction<SkillCategory[]>>;
   setExperiences: React.Dispatch<React.SetStateAction<Experience[]>>;
   cvData: ICvPdf;
+  onBuyMore: () => void;
 }
 
 interface Message {
@@ -46,7 +48,7 @@ export default function SmartUpdateSkillsSection(props: Props) {
       temperature: 1,
     },
   };
-  const { userQuery } = useUser();
+  const { user, userQuery } = useUser();
   const [modificationAggression, setModificationAggression] =
     useState<keyof typeof MODIFICATION_AGGRESSION>("low");
   const [aiUpdatedData, setAiUpdatedData] = useState();
@@ -185,6 +187,19 @@ export default function SmartUpdateSkillsSection(props: Props) {
           >
             Send
           </Button>
+        </div>
+        <div className="flex items-center justify-between gap-4 mt-4 p-3 bg-gray-50 rounded-lg">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-gray-600">Usage tokens:</span>
+              <span className="font-medium text-sm font-bold">
+                {user?.usage?.toLocaleString()}
+              </span>
+            </div>
+            <Button onClick={props.onBuyMore} variant="outline" size="icon">
+              <PlusIcon className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
       </div>
 

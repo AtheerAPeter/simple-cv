@@ -460,6 +460,7 @@ export default function Page({ params }: { params: { id: string } }) {
         <div className="space-y-6">
           <section>
             <SmartUpdateSkillsSection
+              onBuyMore={() => router.push(`/${locale}/purchase`)}
               cvData={data}
               skills={skills}
               setSkills={setSkills}
