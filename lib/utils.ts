@@ -18,25 +18,31 @@ export const removeUndefined = (obj: any): any => {
   return obj;
 };
 
-
 type Change = {
-  type: 'add' | 'delete' | 'modify';
+  type: "add" | "delete" | "modify";
   path: string[];
   oldValue?: any;
   newValue?: any;
 };
 
 export function formatPath(path: string[]): string {
-  return path.map((segment, index) => {
-    if (!isNaN(Number(segment))) {
-      const prevSegment = path[index - 1];
-      return prevSegment ? `${prevSegment} #${Number(segment) + 1}` : segment;
-    }
-    return segment.replace(/([A-Z])/g, ' $1').toLowerCase();
-  }).join(' > ').replace(' > description', '');
+  return path
+    .map((segment, index) => {
+      if (!isNaN(Number(segment))) {
+        const prevSegment = path[index - 1];
+        return prevSegment ? `${prevSegment} #${Number(segment) + 1}` : segment;
+      }
+      return segment.replace(/([A-Z])/g, " $1").toLowerCase();
+    })
+    .join(" > ")
+    .replace(" > description", "");
 }
 
-export function compareObjects(oldObj: any, newObj: any, path: string[] = []): Change[] {
+export function compareObjects(
+  oldObj: any,
+  newObj: any,
+  path: string[] = []
+): Change[] {
   const changes: Change[] = [];
 
   const compareValues = (oldVal: any, newVal: any, currentPath: string[]) => {
@@ -45,13 +51,22 @@ export function compareObjects(oldObj: any, newObj: any, path: string[] = []): C
         compareValues(item, newVal[index], [...currentPath, index.toString()]);
       });
       newVal.slice(oldVal.length).forEach((item, index) => {
-        changes.push({ type: 'add', path: [...currentPath, (oldVal.length + index).toString()], newValue: item });
+        changes.push({
+          type: "add",
+          path: [...currentPath, (oldVal.length + index).toString()],
+          newValue: item,
+        });
       });
-    } else if (typeof oldVal === 'object' && oldVal !== null && typeof newVal === 'object' && newVal !== null) {
+    } else if (
+      typeof oldVal === "object" &&
+      oldVal !== null &&
+      typeof newVal === "object" &&
+      newVal !== null
+    ) {
       changes.push(...compareObjects(oldVal, newVal, currentPath));
     } else if (oldVal !== newVal) {
       changes.push({
-        type: 'modify',
+        type: "modify",
         path: currentPath,
         oldValue: oldVal,
         newValue: newVal,
@@ -63,7 +78,7 @@ export function compareObjects(oldObj: any, newObj: any, path: string[] = []): C
   for (const key in oldObj) {
     const newPath = [...path, key];
     if (!(key in newObj)) {
-      changes.push({ type: 'delete', path: newPath, oldValue: oldObj[key] });
+      changes.push({ type: "delete", path: newPath, oldValue: oldObj[key] });
     } else {
       compareValues(oldObj[key], newObj[key], newPath);
     }
@@ -73,12 +88,16 @@ export function compareObjects(oldObj: any, newObj: any, path: string[] = []): C
   for (const key in newObj) {
     const newPath = [...path, key];
     if (!(key in oldObj)) {
-      changes.push({ type: 'add', path: newPath, newValue: newObj[key] });
+      changes.push({ type: "add", path: newPath, newValue: newObj[key] });
     }
   }
 
   return changes;
 }
 
-
-
+export function numberWithCommas(x: number) {
+  return x
+    .toFixed(2)
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

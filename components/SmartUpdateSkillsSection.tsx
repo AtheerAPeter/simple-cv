@@ -191,13 +191,15 @@ export default function SmartUpdateSkillsSection(props: Props) {
         <div className="flex items-center justify-between gap-4 mt-4 p-3 bg-gray-50 rounded-lg">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-600">Usage tokens:</span>
-              <span className="font-medium text-sm font-bold">
+              <span className="text-sm text-gray-600">
+                {t2("usageTokens")}:
+              </span>
+              <span className="text-sm font-bold">
                 {user?.usage?.toLocaleString()}
               </span>
             </div>
-            <Button onClick={props.onBuyMore} variant="outline" size="icon">
-              <PlusIcon className="w-4 h-4" />
+            <Button size={"sm"} onClick={props.onBuyMore} variant="outline">
+              {t2("buyMore")}
             </Button>
           </div>
         </div>

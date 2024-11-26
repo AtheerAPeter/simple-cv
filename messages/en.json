@@ -259,6 +259,8 @@
     "templates": "Templates",
     "unsavedChanges": "Unsaved changes",
     "saveChanges": "Save changes",
-    "all": "All"
+    "all": "All",
+    "usageTokens": "Usage Tokens",
+    "buyMore": "Buy More"
   }
 }

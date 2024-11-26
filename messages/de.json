@@ -259,6 +259,8 @@
     "templates": "Vorlagen",
     "unsavedChanges": "Ungespeicherte Änderungen",
     "saveChanges": "Änderungen speichern",
-    "all": "Alle"
+    "all": "Alle",
+    "usageTokens": "Nutzungstoken",
+    "buyMore": "Mehr kaufen"
   }
 }

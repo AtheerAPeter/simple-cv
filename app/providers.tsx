@@ -13,9 +13,9 @@ import { SessionProvider } from "next-auth/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const localStoragePersister = createSyncStoragePersister({
-  storage: window.localStorage,
-});
+// const localStoragePersister = createSyncStoragePersister({
+//   storage: window.localStorage,
+// });
 
 function makeQueryClient() {
   return new QueryClient({
@@ -41,10 +41,10 @@ function getQueryClient() {
 export function Providers(props: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
 
-  persistQueryClient({
-    queryClient: queryClient,
-    persister: localStoragePersister,
-  });
+  // persistQueryClient({
+  //   queryClient: queryClient,
+  //   persister: localStoragePersister,
+  // });
 
   return (
     <SessionProvider>
