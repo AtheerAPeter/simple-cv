@@ -11,13 +11,6 @@ import { redirect } from "next/navigation";
 
 export default async function LandingPage() {
   const t = await getTranslations("home");
-  const locale = await getLocale();
-  const session = await auth();
-
-  if (session?.user) {
-    return redirect(`/${locale}/dashboard`);
-  }
-
   return (
     <main className="flex-1">
       <SessionProvider>

@@ -10,11 +10,12 @@ import {
   placeholderDataCoverLetterDE,
 } from "@/lib/placeholderData";
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { DocumentList } from "../../../components/document-list";
 
 function DashboardComponent() {
+  return redirect("/");
   const locale = useLocale();
   const { session, sessionQuery } = useCachedSession();
   const router = useRouter();
